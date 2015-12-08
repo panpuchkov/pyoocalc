@@ -1,6 +1,12 @@
 #!/usr/bin/python 
 # -*- coding: utf-8 -*- 
 
+"""
+Author: Yurii Puchkov
+E-mail: panpuchkov@gmail.com
+Web: http://arilot.com/ 
+"""
+
 import uno
 
 ################################################################################
