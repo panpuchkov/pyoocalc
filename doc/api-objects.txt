@@ -64,7 +64,6 @@ src.pylibratm.ArilotTemplate.m_oContext	src.pylibratm.ArilotTemplate-class.html#
 src.pylibratm.ArilotTemplate.openDocument	src.pylibratm.ArilotTemplate-class.html#openDocument
 src.pylibratm.ArilotTemplateManager	src.pylibratm.ArilotTemplateManager-class.html
 src.pylibratm.ArilotTemplateManager.m_oTemplate	src.pylibratm.ArilotTemplateManager-class.html#m_oTemplate
-src.pylibratm.ArilotTemplateManager.GUI	src.pylibratm.ArilotTemplateManager-class.html#GUI
 src.pylibratm.ArilotTemplateManager.Template	src.pylibratm.ArilotTemplateManager-class.html#Template
 src.pylibratm.ArilotTemplateManager.__init__	src.pylibratm.ArilotTemplateManager-class.html#__init__
 src.pylibratm.ArilotTemplateManager.templateManagerName	src.pylibratm.ArilotTemplateManager-class.html#templateManagerName

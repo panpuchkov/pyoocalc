@@ -148,9 +148,11 @@ class ArilotField:
 		return bResult
 
 	def remove(self):
+		# FIXME, Not implemented yet.
 		return None
 
 	def release(self):
+		# FIXME, Not implemented yet.
 		return None
 
 ################################################################################
@@ -194,10 +196,12 @@ class ArilotFields:
 
 	def insertSpreadsheet(self, strName, nIndex):
 		bResult = False
+		# FIXME, Not implemented yet.
 		return bResult
 
 	def add(self, strName):
 		bResult = False
+		# FIXME, Not implemented yet.
 		return bResult
 
 	def attachTemplate(self, oTemplate):
@@ -205,9 +209,11 @@ class ArilotFields:
 
 	def count(self):
 		nCount = -1;
+		# FIXME, Not implemented yet.
 		return nCount
 
 	def release(self):
+		# FIXME, Not implemented yet.
 		return None
 
 ################################################################################
@@ -243,6 +249,7 @@ class ArilotTemplate:
 
 	def closeDocument(self):
 		bResult = False
+		# FIXME, Not implemented yet.
 		return bResult
 
 	def saveDocument(self, strDocname = ""):
@@ -268,9 +275,11 @@ class ArilotTemplate:
 
 	def newDocument(self, strDocname):
 		bResult = False
+		# FIXME, Not implemented yet.
 		return bResult
 
 	def release(self):
+		# FIXME, Not implemented yet.
 		return None
 
 ################################################################################
@@ -284,9 +293,6 @@ class ArilotTemplateManager:
 
 	def Template(self):
 		return self.m_oTemplate
-
-	def GUI(self):
-		return None
 
 	def templateManagerName(self):
 		return "pylibratm"
