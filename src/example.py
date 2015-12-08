@@ -1,7 +1,7 @@
 #!/usr/bin/python 
 # -*- coding: utf-8 -*- 
 
-from  temanli import *
+from  pylibratm import *
 
 ################################################################################
 # example
