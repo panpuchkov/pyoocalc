@@ -2,9 +2,10 @@
 # -*- coding: utf-8 -*- 
 
 """
-Author: Yurii Puchkov
-E-mail: panpuchkov@gmail.com
-Web: http://arilot.com/ 
+@author: Yurii Puchkov
+@organization: http://arilot.com/
+@license: GPL v3.0
+@contact: panpuchkov@gmail.com
 """
 
 import uno
