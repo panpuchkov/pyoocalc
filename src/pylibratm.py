@@ -289,5 +289,5 @@ class ArilotTemplateManager:
 		return None
 
 	def templateManagerName(self):
-		return "temanli.py"
+		return "pylibratm"
 
