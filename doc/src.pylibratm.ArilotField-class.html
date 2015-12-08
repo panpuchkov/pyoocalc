@@ -3,7 +3,7 @@
           "DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 <head>
-  <title>src.temanli.ArilotFields</title>
+  <title>src.pylibratm.ArilotField</title>
   <link rel="stylesheet" href="epydoc.css" type="text/css" />
   <script type="text/javascript" src="epydoc.js"></script>
 </head>
@@ -38,8 +38,8 @@
     <td width="100%">
       <span class="breadcrumbs">
         <a href="src-module.html">Package&nbsp;src</a> ::
-        <a href="src.temanli-module.html">Module&nbsp;temanli</a> ::
-        Class&nbsp;ArilotFields
+        <a href="src.pylibratm-module.html">Module&nbsp;pylibratm</a> ::
+        Class&nbsp;ArilotField
       </span>
     </td>
     <td>
@@ -49,15 +49,16 @@
     onclick="toggle_private();">hide&nbsp;private</a>]</span></td></tr>
         <tr><td align="right"><span class="options"
             >[<a href="frames.html" target="_top">frames</a
-            >]&nbsp;|&nbsp;<a href="src.temanli.ArilotFields-class.html"
+            >]&nbsp;|&nbsp;<a href="src.pylibratm.ArilotField-class.html"
             target="_top">no&nbsp;frames</a>]</span></td></tr>
       </table>
     </td>
   </tr>
 </table>
 <!-- ==================== CLASS DESCRIPTION ==================== -->
-<h1 class="epydoc">Class ArilotFields</h1><p class="nomargin-top"><span class="codelink"><a href="src.temanli-pysrc.html#ArilotFields">source&nbsp;code</a></span></p>
-<p>Document fields. Search and manage fields.</p>
+<h1 class="epydoc">Class ArilotField</h1><p class="nomargin-top"><span class="codelink"><a href="src.pylibratm-pysrc.html#ArilotField">source&nbsp;code</a></span></p>
+<p>Document field.</p>
+  <p>Operations on the existing field.</p>
 
 <!-- ==================== INSTANCE METHODS ==================== -->
 <a name="section-InstanceMethods"></a>
@@ -83,9 +84,10 @@
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
           <td><span class="summary-sig"><a name="__init__"></a><span class="summary-sig-name">__init__</span>(<span class="summary-sig-arg">self</span>,
-        <span class="summary-sig-arg">oTemplate</span>)</span></td>
+        <span class="summary-sig-arg">oFields</span>,
+        <span class="summary-sig-arg">strName</span>)</span></td>
           <td align="right" valign="top">
-            <span class="codelink"><a href="src.temanli-pysrc.html#ArilotFields.__init__">source&nbsp;code</a></span>
+            <span class="codelink"><a href="src.pylibratm-pysrc.html#ArilotField.__init__">source&nbsp;code</a></span>
             
           </td>
         </tr>
@@ -101,25 +103,7 @@
         <tr>
           <td><span class="summary-sig"><a name="__del__"></a><span class="summary-sig-name">__del__</span>(<span class="summary-sig-arg">self</span>)</span></td>
           <td align="right" valign="top">
-            <span class="codelink"><a href="src.temanli-pysrc.html#ArilotFields.__del__">source&nbsp;code</a></span>
-            
-          </td>
-        </tr>
-      </table>
-      
-    </td>
-  </tr>
-<tr>
-    <td width="15%" align="right" valign="top" class="summary">
-      <span class="summary-type">Field object</span>
-    </td><td class="summary">
-      <table width="100%" cellpadding="0" cellspacing="0" border="0">
-        <tr>
-          <td><span class="summary-sig"><a href="src.temanli.ArilotFields-class.html#field" class="summary-sig-name">field</a>(<span class="summary-sig-arg">self</span>,
-        <span class="summary-sig-arg">strName</span>)</span><br />
-      Get document field by name</td>
-          <td align="right" valign="top">
-            <span class="codelink"><a href="src.temanli-pysrc.html#ArilotFields.field">source&nbsp;code</a></span>
+            <span class="codelink"><a href="src.pylibratm-pysrc.html#ArilotField.__del__">source&nbsp;code</a></span>
             
           </td>
         </tr>
@@ -133,11 +117,70 @@
     </td><td class="summary">
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
-          <td><span class="summary-sig"><a name="insertSpreadsheet"></a><span class="summary-sig-name">insertSpreadsheet</span>(<span class="summary-sig-arg">self</span>,
-        <span class="summary-sig-arg">strName</span>,
-        <span class="summary-sig-arg">nIndex</span>)</span></td>
+          <td><span class="summary-sig"><a name="isNull"></a><span class="summary-sig-name">isNull</span>(<span class="summary-sig-arg">self</span>)</span><br />
+      Checking if a field is null.</td>
           <td align="right" valign="top">
-            <span class="codelink"><a href="src.temanli-pysrc.html#ArilotFields.insertSpreadsheet">source&nbsp;code</a></span>
+            <span class="codelink"><a href="src.pylibratm-pysrc.html#ArilotField.isNull">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">boolean</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="src.pylibratm.ArilotField-class.html#setValue" class="summary-sig-name">setValue</a>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">strValue</span>,
+        <span class="summary-sig-arg">nColumn</span>=<span class="summary-sig-default">0</span>,
+        <span class="summary-sig-arg">nRow</span>=<span class="summary-sig-default">0</span>)</span><br />
+      Set filed value at position Column/Row</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="src.pylibratm-pysrc.html#ArilotField.setValue">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">string</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="src.pylibratm.ArilotField-class.html#value" class="summary-sig-name">value</a>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">nColumn</span>=<span class="summary-sig-default">0</span>,
+        <span class="summary-sig-arg">nRow</span>=<span class="summary-sig-default">0</span>)</span><br />
+      Get filed value at position Column/Row</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="src.pylibratm-pysrc.html#ArilotField.value">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">boolean</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a href="src.pylibratm.ArilotField-class.html#insertRow" class="summary-sig-name">insertRow</a>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">nRow</span>,
+        <span class="summary-sig-arg">nStep</span>=<span class="summary-sig-default">1</span>,
+        <span class="summary-sig-arg">nNumColumns</span>=<span class="summary-sig-default">1</span>,
+        <span class="summary-sig-arg">nOffset</span>=<span class="summary-sig-default">0</span>)</span><br />
+      Insert rows</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="src.pylibratm-pysrc.html#ArilotField.insertRow">source&nbsp;code</a></span>
             
           </td>
         </tr>
@@ -151,10 +194,13 @@
     </td><td class="summary">
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
-          <td><span class="summary-sig"><a name="add"></a><span class="summary-sig-name">add</span>(<span class="summary-sig-arg">self</span>,
-        <span class="summary-sig-arg">strName</span>)</span></td>
+          <td><span class="summary-sig"><a name="insertColumn"></a><span class="summary-sig-name">insertColumn</span>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">nColumn</span>,
+        <span class="summary-sig-arg">nStep</span>=<span class="summary-sig-default">1</span>,
+        <span class="summary-sig-arg">nNumRows</span>=<span class="summary-sig-default">1</span>,
+        <span class="summary-sig-arg">nOffset</span>=<span class="summary-sig-default">0</span>)</span></td>
           <td align="right" valign="top">
-            <span class="codelink"><a href="src.temanli-pysrc.html#ArilotFields.add">source&nbsp;code</a></span>
+            <span class="codelink"><a href="src.pylibratm-pysrc.html#ArilotField.insertColumn">source&nbsp;code</a></span>
             
           </td>
         </tr>
@@ -168,26 +214,9 @@
     </td><td class="summary">
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
-          <td><span class="summary-sig"><a name="attachTemplate"></a><span class="summary-sig-name">attachTemplate</span>(<span class="summary-sig-arg">self</span>,
-        <span class="summary-sig-arg">oTemplate</span>)</span></td>
+          <td><span class="summary-sig"><a name="remove"></a><span class="summary-sig-name">remove</span>(<span class="summary-sig-arg">self</span>)</span></td>
           <td align="right" valign="top">
-            <span class="codelink"><a href="src.temanli-pysrc.html#ArilotFields.attachTemplate">source&nbsp;code</a></span>
-            
-          </td>
-        </tr>
-      </table>
-      
-    </td>
-  </tr>
-<tr>
-    <td width="15%" align="right" valign="top" class="summary">
-      <span class="summary-type">&nbsp;</span>
-    </td><td class="summary">
-      <table width="100%" cellpadding="0" cellspacing="0" border="0">
-        <tr>
-          <td><span class="summary-sig"><a name="count"></a><span class="summary-sig-name">count</span>(<span class="summary-sig-arg">self</span>)</span></td>
-          <td align="right" valign="top">
-            <span class="codelink"><a href="src.temanli-pysrc.html#ArilotFields.count">source&nbsp;code</a></span>
+            <span class="codelink"><a href="src.pylibratm-pysrc.html#ArilotField.remove">source&nbsp;code</a></span>
             
           </td>
         </tr>
@@ -203,7 +232,7 @@
         <tr>
           <td><span class="summary-sig"><a name="release"></a><span class="summary-sig-name">release</span>(<span class="summary-sig-arg">self</span>)</span></td>
           <td align="right" valign="top">
-            <span class="codelink"><a href="src.temanli-pysrc.html#ArilotFields.release">source&nbsp;code</a></span>
+            <span class="codelink"><a href="src.pylibratm-pysrc.html#ArilotField.release">source&nbsp;code</a></span>
             
           </td>
         </tr>
@@ -233,6 +262,20 @@
     <td width="15%" align="right" valign="top" class="summary">
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
+        <a name="m_bIsNull"></a><span class="summary-name">m_bIsNull</span> = <code title="True">True</code>
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a name="m_oFields"></a><span class="summary-name">m_oFields</span> = <code title="None">None</code>
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
         <a name="m_oField"></a><span class="summary-name">m_oField</span> = <code title="None">None</code>
     </td>
   </tr>
@@ -240,14 +283,7 @@
     <td width="15%" align="right" valign="top" class="summary">
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
-        <a name="m_oTemplate"></a><span class="summary-name">m_oTemplate</span> = <code title="None">None</code>
-    </td>
-  </tr>
-<tr>
-    <td width="15%" align="right" valign="top" class="summary">
-      <span class="summary-type">&nbsp;</span>
-    </td><td class="summary">
-        <a name="m_oSheets"></a><span class="summary-name">m_oSheets</span> = <code title="None">None</code>
+        <a name="m_oSheet"></a><span class="summary-name">m_oSheet</span> = <code title="None">None</code>
     </td>
   </tr>
 <tr>
@@ -255,6 +291,27 @@
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
         <a name="m_oNamedRanges"></a><span class="summary-name">m_oNamedRanges</span> = <code title="None">None</code>
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a name="m_oRange"></a><span class="summary-name">m_oRange</span> = <code title="None">None</code>
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a name="m_oCell"></a><span class="summary-name">m_oCell</span> = <code title="None">None</code>
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+        <a name="m_oCellAddress"></a><span class="summary-name">m_oCellAddress</span> = <code title="None">None</code>
     </td>
   </tr>
 </table>
@@ -276,29 +333,97 @@
   </td>
 </tr>
 </table>
-<a name="field"></a>
+<a name="setValue"></a>
 <div>
 <table class="details" border="1" cellpadding="3"
        cellspacing="0" width="100%" bgcolor="white">
 <tr><td>
   <table width="100%" cellpadding="0" cellspacing="0" border="0">
   <tr valign="top"><td>
-  <h3 class="epydoc"><span class="sig"><span class="sig-name">field</span>(<span class="sig-arg">self</span>,
-        <span class="sig-arg">strName</span>)</span>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">setValue</span>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">strValue</span>,
+        <span class="sig-arg">nColumn</span>=<span class="sig-default">0</span>,
+        <span class="sig-arg">nRow</span>=<span class="sig-default">0</span>)</span>
   </h3>
   </td><td align="right" valign="top"
-    ><span class="codelink"><a href="src.temanli-pysrc.html#ArilotFields.field">source&nbsp;code</a></span>&nbsp;
+    ><span class="codelink"><a href="src.pylibratm-pysrc.html#ArilotField.setValue">source&nbsp;code</a></span>&nbsp;
     </td>
   </tr></table>
   
-  <p>Get document field by name</p>
+  <p>Set filed value at position Column/Row</p>
   <dl class="fields">
     <dt>Parameters:</dt>
     <dd><ul class="nomargin-top">
-        <li><strong class="pname"><code>strName</code></strong> (string) - Field name</li>
+        <li><strong class="pname"><code>strValue</code></strong> (string) - Cell value</li>
+        <li><strong class="pname"><code>nColumn</code></strong> (integer) - column index</li>
+        <li><strong class="pname"><code>nRow</code></strong> (integer) - row index</li>
     </ul></dd>
-    <dt>Returns: Field object</dt>
-        <dd>Field object</dd>
+    <dt>Returns: boolean</dt>
+        <dd>Value insertion result</dd>
+  </dl>
+</td></tr></table>
+</div>
+<a name="value"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">value</span>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">nColumn</span>=<span class="sig-default">0</span>,
+        <span class="sig-arg">nRow</span>=<span class="sig-default">0</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="src.pylibratm-pysrc.html#ArilotField.value">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>Get filed value at position Column/Row</p>
+  <dl class="fields">
+    <dt>Parameters:</dt>
+    <dd><ul class="nomargin-top">
+        <li><strong class="pname"><code>nColumn</code></strong> (integer) - column index</li>
+        <li><strong class="pname"><code>nRow</code></strong> (integer) - row index</li>
+    </ul></dd>
+    <dt>Returns: string</dt>
+        <dd>Document cell value in string format. Regardless of document cell
+          type.</dd>
+  </dl>
+</td></tr></table>
+</div>
+<a name="insertRow"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">insertRow</span>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">nRow</span>,
+        <span class="sig-arg">nStep</span>=<span class="sig-default">1</span>,
+        <span class="sig-arg">nNumColumns</span>=<span class="sig-default">1</span>,
+        <span class="sig-arg">nOffset</span>=<span class="sig-default">0</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="src.pylibratm-pysrc.html#ArilotField.insertRow">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>Insert rows</p>
+  <p>Insert new rows at the specified position relatively to cell. After 
+  the new row insertion the content of the current rows is copied to the 
+  new rows.</p>
+  <dl class="fields">
+    <dt>Parameters:</dt>
+    <dd><ul class="nomargin-top">
+        <li><strong class="pname"><code>nRow</code></strong> (integer) - row index</li>
+        <li><strong class="pname"><code>nStep</code></strong> (integer) - Default value = 1.        // FIXME</li>
+        <li><strong class="pname"><code>nNumColumns</code></strong> (integer) - Number of columns to copy. Default value = 1</li>
+        <li><strong class="pname"><code>nOffset</code></strong> (integer) - Rows offset. Relatively to current field. Default value = 0</li>
+    </ul></dd>
+    <dt>Returns: boolean</dt>
+        <dd>Operation result</dd>
   </dl>
 </td></tr></table>
 </div>
@@ -330,7 +455,7 @@
   <tr>
     <td align="left" class="footer">
     Generated by Epydoc 3.0.1
-    on Tue Dec  8 20:50:25 2015
+    on Tue Dec  8 21:20:20 2015
     </td>
     <td align="right" class="footer">
       <a target="mainFrame" href="http://epydoc.sourceforge.net"
