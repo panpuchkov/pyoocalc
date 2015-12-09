@@ -1,6 +1,11 @@
 #!/usr/bin/python3 
 # -*- coding: utf-8 -*- 
 
+##
+# sudo apt-get install python-uno
+# sudo apt-get install libreoffice-script-provider-python
+# 
+
 # common modules
 import sys, os
 sys.path.append('./../')
@@ -31,3 +36,7 @@ oField = oFields.field("FIELD_1")
 oField.insertRow(nRow = 1, nStep = 1, nNumColumns = 1, nOffset = 0)
 oField.setValue("F1.1", 0, 1)
 oField.setValue("F1.2", 0, 2)
+
+
+# oField = oFields.field("G1")
+# oField.setValue("G1")
