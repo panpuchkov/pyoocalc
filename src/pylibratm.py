@@ -8,6 +8,7 @@
 @contact: panpuchkov@gmail.com
 """
 
+
 import uno
 
 ################################################################################
@@ -17,35 +18,36 @@ import uno
 ################################################################################
 ################################################################################
 ################################################################################
-class ArilotField:
+class Field:
 	"""
 	Document field.
 
 	Operations on the existing field.
 	"""
-	m_bIsNull = True
-	m_oFields = None
 	m_oField = None
+	m_oFields = None
 
-	m_oSheet = None
-	m_oNamedRanges = None
-	m_oRange = None
-	m_oCell = None
-	m_oCellAddress = None
+	_bIsNull = True
+
+	_oSheet = None
+	_oNamedRanges = None
+	_oRange = None
+	_oCell = None
+	_oCellAddress = None
 
 	def __init__(self, oFields, strName):
 		self.m_oFields = oFields
 		
 		if self.m_oFields:
-			if self.m_oFields.m_oNamedRanges.hasByName(strName):
-				self.m_oRange = self.m_oFields.m_oNamedRanges.getByName(strName)
-				self.m_oCellAddress = self.m_oRange.getReferencePosition()
+			if self.m_oFields._oNamedRanges.hasByName(strName):
+				self._oRange = self.m_oFields._oNamedRanges.getByName(strName)
+				self._oCellAddress = self._oRange.getReferencePosition()
 				oSheets = self.m_oFields.m_oTemplate.m_oDocument.getSheets()
-				self.m_oSheet = oSheets.getByIndex(self.m_oCellAddress.Sheet)
-				self.m_bIsNull = False
+				self._oSheet = oSheets.getByIndex(self._oCellAddress.Sheet)
+				self._bIsNull = False
 			else:
-				self.m_oRange = None
-				self.m_bIsNull = True
+				self._oRange = None
+				self._bIsNull = True
 
 	def __del__(self):
 		self.release()
@@ -54,7 +56,7 @@ class ArilotField:
 		"""
 		Checking if a field is null.
 		"""
-		return self.m_bIsNull
+		return self._bIsNull
 
 	def setValue(self, strValue, nColumn = 0, nRow = 0):
 		"""
@@ -73,10 +75,10 @@ class ArilotField:
 		@return:  Value insertion result
 		"""
 		bResult = True
-		if self.m_oRange:
-			self.m_oCell = self.m_oSheet.getCellByPosition(self.m_oCellAddress.Column + nColumn, self.m_oCellAddress.Row + nRow)
-			if self.m_oCell:
-				self.m_oCell.setString(strValue)
+		if self._oRange:
+			self._oCell = self._oSheet.getCellByPosition(self._oCellAddress.Column + nColumn, self._oCellAddress.Row + nRow)
+			if self._oCell:
+				self._oCell.setString(strValue)
 		else:
 			bResult = False
 		return bResult
@@ -95,10 +97,10 @@ class ArilotField:
 		@return:  Document cell value in string format. Regardless of document cell type.
 		"""
 		strValue = ""
-		if self.m_oRange:
-			self.m_oCell = self.m_oSheet.getCellByPosition(self.m_oCellAddress.Column + nColumn, self.m_oCellAddress.Row + nRow)
-			if self.m_oCell:
-				strValue = self.m_oCell.getString()
+		if self._oRange:
+			self._oCell = self._oSheet.getCellByPosition(self._oCellAddress.Column + nColumn, self._oCellAddress.Row + nRow)
+			if self._oCell:
+				strValue = self._oCell.getString()
 		return strValue
 
 	def insertRow(self, nRow, nStep = 1, nNumColumns = 1, nOffset = 0):
@@ -125,24 +127,24 @@ class ArilotField:
 		@return:  Operation result
 		"""
 		bResult = True
-		if self.m_oCell and self.m_oFields:
-			#oCellAddress = self.m_oCell.CellAddress
+		if self._oCell and self.m_oFields:
+			#oCellAddress = self._oCell.CellAddress
 			#oSheets = self.m_oFields.m_oTemplate.m_oDocument.getSheets()
 			#oSheet = oSheets.getByIndex(oCellAddress.Sheet)
-			if self.m_oSheet:
-				self.m_oSheet.Rows.insertByIndex(self.m_oCellAddress.Row + nOffset, nNumColumns) 
+			if self._oSheet:
+				self._oSheet.Rows.insertByIndex(self._oCellAddress.Row + nOffset, nNumColumns) 
 		else:
 			bResult = False
 		return bResult
 
 	def insertColumn(self, nColumn, nStep = 1, nNumRows = 1, nOffset = 0):
 		bResult = True
-		if self.m_oCell and self.m_oFields:
-			#oCellAddress = self.m_oCell.CellAddress
+		if self._oCell and self.m_oFields:
+			#oCellAddress = self._oCell.CellAddress
 			#oSheets = self.m_oFields.m_oTemplate.m_oDocument.getSheets()
 			#oSheet = oSheets.getByIndex(oCellAddress.Sheet)
-			if self.m_oSheet:
-				self.m_oSheet.Columns.insertByIndex(self.m_oCellAddress.Column + nOffset, nNumRows) 
+			if self._oSheet:
+				self._oSheet.Columns.insertByIndex(self._oCellAddress.Column + nOffset, nNumRows) 
 		else:
 			bResult = False
 		return bResult
@@ -158,7 +160,7 @@ class ArilotField:
 ################################################################################
 ################################################################################
 ################################################################################
-class ArilotFields:
+class Fields:
 	"""
 	Document fields.
 	Search and manage fields.
@@ -166,14 +168,14 @@ class ArilotFields:
 	m_oField = None
 	m_oTemplate = None
 
-	m_oSheets = None
-	m_oNamedRanges = None
+	_oSheets = None
+	_oNamedRanges = None
 
 	def __init__(self, oTemplate):
 		self.m_oTemplate = None
 		self.attachTemplate(oTemplate)
 		if self.m_oTemplate:
-			self.m_oNamedRanges = self.m_oTemplate.m_oDocument.NamedRanges
+			self._oNamedRanges = self.m_oTemplate.m_oDocument.NamedRanges
 
 	def __del__(self):
 		self.release()
@@ -189,7 +191,7 @@ class ArilotFields:
 		@return:  Field object
 
 		"""
-		self.m_oField = ArilotField(self, strName)
+		self.m_oField = Field(self, strName)
 		if None == self.m_oField.isNull():
 			self.m_oField = None
 		return self.m_oField
@@ -219,7 +221,7 @@ class ArilotFields:
 ################################################################################
 ################################################################################
 ################################################################################
-class ArilotTemplate:
+class Template:
 	m_oFields = None
 
 	m_oLocal = None
@@ -241,7 +243,7 @@ class ArilotTemplate:
 		self.release()
 
 	def fields(self):
-		self.m_oFields = ArilotFields(self)
+		self.m_oFields = Fields(self)
 		return self.m_oFields
 
 	def version(self):
@@ -285,11 +287,11 @@ class ArilotTemplate:
 ################################################################################
 ################################################################################
 ################################################################################
-class ArilotTemplateManager:
+class TemplateManager:
 	m_oTemplate = None
 
 	def __init__(self):
-		self.m_oTemplate = ArilotTemplate()
+		self.m_oTemplate = Template()
 
 	def Template(self):
 		return self.m_oTemplate

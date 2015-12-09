@@ -14,7 +14,7 @@ from  pylibratm import *
 # import subprocess
 # subprocess.Popen(["/usr/bin/libreoffice", '-accept="socket,host=localhost,port=2002;urp;StarOffice.ServiceManager'], shell = False)
 
-#oTemplate = ArilotTemplateManager().Template()
+#oTemplate = TemplateManager().Template()
 
 #oTemplate.openDocument("/home/pub/test.ods")
 #oFields = oTemplate.fields()
@@ -66,7 +66,7 @@ def template(strDocname):
     g_oField = None
     g_oFieldDict.clear()
     
-    g_oTemplate = ArilotTemplateManager().Template()
+    g_oTemplate = TemplateManager().Template()
     if g_oTemplate:
         g_oTemplate.openDocument(strDocname)
         g_oFields = g_oTemplate.fields()
@@ -101,7 +101,7 @@ g_oFieldDict = dictFields()
 ################################################################################
 # example
 # open document
-oTemplate = ArilotTemplateManager().Template()
+oTemplate = TemplateManager().Template()
 if oTemplate:
     oTemplate.openDocument("/home/pub/test.ods")
 
