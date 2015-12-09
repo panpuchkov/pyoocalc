@@ -39,15 +39,15 @@ class Field:
     """
 
     def __init__(self, fields, name):
-        self._fields = None
+        self._fields = fields
         self._is_null = True
+
+#         LibreOffice variables.
         self._oSheet = None
         self._oNamedRanges = None
         self._oRange = None
         self._oCell = None
         self._oCellAddress = None
-
-        self._fields = fields
 
         if self._fields:
             if self._fields._oNamedRanges.hasByName(name):
@@ -63,12 +63,18 @@ class Field:
     def fields(self):
         """
         Get fields object.
+
+        @rtype:   Fields
+        @return:  Fields object
         """
         return self._fields
 
     def is_null(self):
         """
         Checking if a field is null.
+
+        @rtype:   boolean
+        @return:  Value insertion result
         """
         return self._is_null
 
@@ -159,6 +165,29 @@ class Field:
         return result
 
     def insert_column(self, column, step=1, num_rows=1, offset=0):
+        """
+        Insert rows
+
+        Insert new column at the specified position relatively to cell.
+        After the new column insertion the content of the current columns is
+        copied to the new columns.
+
+        @type  column: integer
+        @param column: Row index. Default value=1.
+
+        @type  step: integer
+        @param step: Default value = 1.    // FIXME
+
+        @type  num_rows: integer
+        @param num_rows: Number of columns to copy. Default value=1
+
+        @type  offset: integer
+        @param offset: Rows offset. Relatively to current field.
+                        Default value=0
+
+        @rtype:   boolean
+        @return:  Operation result
+        """
         result = True
         if self._oCell and self._fields:
             # oCellAddress = self._oCell.CellAddress
@@ -193,18 +222,23 @@ class Fields:
     """
 
     def __init__(self, template):
+        self._template = template
         self._field = None
-        self._template = None
 
+#         LibreOffice variables.
         self._oSheets = None
         self._oNamedRanges = None
 
-        self._template = None
-        self.attach_template(template)
         if self._template:
             self._oNamedRanges = self._template.document().NamedRanges
 
     def template(self):
+        """
+        Get template object.
+
+        @rtype:   Template
+        @return:  Template object
+        """
         return self._template
 
     def field(self, name):
@@ -223,22 +257,30 @@ class Fields:
         return self._field
 
     def insert_spreadsheet(self, name, index):
+        """
+        Insert spreadsheet.
+
+        Not implemented yet.
+        """
         result = False
-        # FIXME, Not implemented yet.
         return result
 
     def add(self, name):
-        result = False
-        # FIXME, Not implemented yet.
-        return result
+        """
+        Get field.
 
-    def attach_template(self, oTemplate):
-        self._template = oTemplate
+        Not implemented yet.
+        """
+        return None
 
     def count(self):
-        nCount = -1
-        # FIXME, Not implemented yet.
-        return nCount
+        """
+        Get fields count.
+
+        Not implemented yet.
+        """
+        count = -1
+        return count
 
 ###############################################################################
 ###############################################################################
@@ -251,13 +293,13 @@ class Template:
 uno:socket,host=localhost,port=2002;urp;StarOffice.ComponentContext"):
         self._fields = None
 
-        self._oLocal = None
+#         LibreOffice variables.
         self._oResolver = None
         self._oContext = None
         self._oDesktop = None
         self._oDocument = None
-
         self._oLocal = uno.getComponentContext()
+
         if self._oLocal:
             self._oResolver = \
                 self._oLocal.ServiceManager.createInstanceWithContext(
@@ -270,16 +312,30 @@ uno:socket,host=localhost,port=2002;urp;StarOffice.ComponentContext"):
                             "com.sun.star.frame.Desktop", self._oContext)
 
     def document(self):
+        """
+        LibreOffice/OpenOffice Calc document object.
+
+        Required for Fileds and Field classes. Do not use it directly.
+        """
         return self._oDocument
 
     def fields(self):
         """
         Get fields document's object.
+
+        @rtype:   Fields
+        @return:  Fields object
         """
         self._fields = Fields(self)
         return self._fields
 
     def version(self):
+        """
+        Get library version.
+        
+        @rtype:   string
+        @return:  PyLibra version
+        """
         return "0.0.1"
 
     def close_document(self):
@@ -293,6 +349,16 @@ uno:socket,host=localhost,port=2002;urp;StarOffice.ComponentContext"):
         return result
 
     def save_document(self, doc_name=""):
+        """
+        Save document.
+
+        @type  doc_name: string
+        @param doc_name: Document name. If no document name defined the current
+                        name is used.
+
+        @rtype:   boolean
+        @return:  Operation result
+        """
         result = True
         if self._oDocument:
             if 0 == len(doc_name):
@@ -305,6 +371,15 @@ uno:socket,host=localhost,port=2002;urp;StarOffice.ComponentContext"):
         return result
 
     def open_document(self, doc_name):
+        """
+        Open document.
+
+        @type  doc_name: string
+        @param doc_name: Document name.
+
+        @rtype:   boolean
+        @return:  Operation result
+        """
         result = True
         if len(doc_name) > 0 and self._oDesktop:
             strFullFileName = "file://" + doc_name
