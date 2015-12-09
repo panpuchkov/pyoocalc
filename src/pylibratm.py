@@ -35,16 +35,16 @@ class Field:
 
     Operations on the existing field.
     """
-    _fields = None
-    _is_null = True
-
-    _oSheet = None
-    _oNamedRanges = None
-    _oRange = None
-    _oCell = None
-    _oCellAddress = None
 
     def __init__(self, fields, name):
+        self._fields = None
+        self._is_null = True
+        self._oSheet = None
+        self._oNamedRanges = None
+        self._oRange = None
+        self._oCell = None
+        self._oCellAddress = None
+
         self._fields = fields
 
         if self._fields:
@@ -57,9 +57,6 @@ class Field:
             else:
                 self._oRange = None
                 self._is_null = True
-
-    def __del__(self):
-        pass
 
     def fields(self):
         """
@@ -175,7 +172,7 @@ class Field:
     def remove(self):
         """
         Remove field name.
-        
+
         Remove field name from the document.
         Not implemented yet.
         """
@@ -192,20 +189,18 @@ class Fields:
     Document fields.
     Search and manage fields.
     """
-    _field = None
-    _template = None
-
-    _oSheets = None
-    _oNamedRanges = None
 
     def __init__(self, template):
+        self._field = None
+        self._template = None
+
+        self._oSheets = None
+        self._oNamedRanges = None
+
         self._template = None
         self.attach_template(template)
         if self._template:
             self._oNamedRanges = self._template.document().NamedRanges
-
-    def __del__(self):
-        pass
 
     def template(self):
         return self._template
@@ -249,28 +244,28 @@ class Fields:
 
 
 class Template:
-    _fields = None
-
-    _oLocal = None
-    _oResolver = None
-    _oContext = None
-    _oDesktop = None
-    _oDocument = None
 
     def __init__(self, connection_string="\
 uno:socket,host=localhost,port=2002;urp;StarOffice.ComponentContext"):
+        self._fields = None
+
+        self._oLocal = None
+        self._oResolver = None
+        self._oContext = None
+        self._oDesktop = None
+        self._oDocument = None
+
         self._oLocal = uno.getComponentContext()
         if self._oLocal:
-            self._oResolver = self._oLocal.ServiceManager.createInstanceWithContext("\
-com.sun.star.bridge.UnoUrlResolver", self._oLocal)
+            self._oResolver = \
+                self._oLocal.ServiceManager.createInstanceWithContext(
+                    "com.sun.star.bridge.UnoUrlResolver", self._oLocal)
             if self._oResolver:
                 self._oContext = self._oResolver.resolve(connection_string)
                 if self._oContext:
-                    self._oDesktop = self._oContext.ServiceManager.createInstanceWithContext("\
-com.sun.star.frame.Desktop", self._oContext)
-
-    def __del__(self):
-        pass
+                    self._oDesktop = self\
+                        ._oContext.ServiceManager.createInstanceWithContext(
+                            "com.sun.star.frame.Desktop", self._oContext)
 
     def document(self):
         return self._oDocument
@@ -326,4 +321,3 @@ com.sun.star.frame.Desktop", self._oContext)
         """
         result = False
         return result
-
