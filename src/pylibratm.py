@@ -2,25 +2,20 @@
 # -*- coding: utf-8 -*-
 
 """
-@author: Yurii Puchkov
-@organization: http://arilot.com/
-@license: GPL v3.0
-@contact: panpuchkov@gmail.com
-
-
-
 Python library for operating with LibreOffice/OpenOffice.org Calc.
 
-
-
 Requirements for Ubuntu users:
-
 
 sudo apt-get install python-uno
 
 Optional requirements:
 
 sudo apt-get install libreoffice-script-provider-python
+
+@author: Yurii Puchkov
+@organization: http://arilot.com/
+@license: GPL v3.0
+@contact: panpuchkov@gmail.com
 """
 
 import uno
