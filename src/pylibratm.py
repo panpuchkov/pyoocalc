@@ -7,6 +7,8 @@
 @license: GPL v3.0
 @contact: panpuchkov@gmail.com
 
+Python library for operating with LibreOffice/OpenOffice.org Calc
+
 Requirements for Ubuntu users:
 sudo apt-get install python-uno
 
