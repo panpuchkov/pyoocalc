@@ -81,7 +81,7 @@
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
           <td><span class="summary-sig"><a name="__init__"></a><span class="summary-sig-name">__init__</span>(<span class="summary-sig-arg">self</span>,
-        <span class="summary-sig-arg">strConnectionString</span>=<span class="summary-sig-default"><code class="variable-ellipsis">...</code></span>)</span></td>
+        <span class="summary-sig-arg">connection_string</span>=<span class="summary-sig-default"><code class="variable-ellipsis">...</code></span>)</span></td>
           <td align="right" valign="top">
             <span class="codelink"><a href="src.pylibratm-pysrc.html#Template.__init__">source&nbsp;code</a></span>
             
@@ -113,7 +113,24 @@
     </td><td class="summary">
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
-          <td><span class="summary-sig"><a name="fields"></a><span class="summary-sig-name">fields</span>(<span class="summary-sig-arg">self</span>)</span></td>
+          <td><span class="summary-sig"><a name="document"></a><span class="summary-sig-name">document</span>(<span class="summary-sig-arg">self</span>)</span></td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="src.pylibratm-pysrc.html#Template.document">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="fields"></a><span class="summary-sig-name">fields</span>(<span class="summary-sig-arg">self</span>)</span><br />
+      Get fields document's object.</td>
           <td align="right" valign="top">
             <span class="codelink"><a href="src.pylibratm-pysrc.html#Template.fields">source&nbsp;code</a></span>
             
@@ -145,9 +162,10 @@
     </td><td class="summary">
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
-          <td><span class="summary-sig"><a name="closeDocument"></a><span class="summary-sig-name">closeDocument</span>(<span class="summary-sig-arg">self</span>)</span></td>
+          <td><span class="summary-sig"><a href="src.pylibratm.Template-class.html#close_document" class="summary-sig-name">close_document</a>(<span class="summary-sig-arg">self</span>)</span><br />
+      Close document.</td>
           <td align="right" valign="top">
-            <span class="codelink"><a href="src.pylibratm-pysrc.html#Template.closeDocument">source&nbsp;code</a></span>
+            <span class="codelink"><a href="src.pylibratm-pysrc.html#Template.close_document">source&nbsp;code</a></span>
             
           </td>
         </tr>
@@ -161,10 +179,10 @@
     </td><td class="summary">
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
-          <td><span class="summary-sig"><a name="saveDocument"></a><span class="summary-sig-name">saveDocument</span>(<span class="summary-sig-arg">self</span>,
-        <span class="summary-sig-arg">strDocname</span>=<span class="summary-sig-default">&quot;&quot;</span>)</span></td>
+          <td><span class="summary-sig"><a name="save_document"></a><span class="summary-sig-name">save_document</span>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">doc_name</span>=<span class="summary-sig-default">&quot;&quot;</span>)</span></td>
           <td align="right" valign="top">
-            <span class="codelink"><a href="src.pylibratm-pysrc.html#Template.saveDocument">source&nbsp;code</a></span>
+            <span class="codelink"><a href="src.pylibratm-pysrc.html#Template.save_document">source&nbsp;code</a></span>
             
           </td>
         </tr>
@@ -178,10 +196,10 @@
     </td><td class="summary">
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
-          <td><span class="summary-sig"><a name="openDocument"></a><span class="summary-sig-name">openDocument</span>(<span class="summary-sig-arg">self</span>,
-        <span class="summary-sig-arg">strDocname</span>)</span></td>
+          <td><span class="summary-sig"><a name="open_document"></a><span class="summary-sig-name">open_document</span>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">doc_name</span>)</span></td>
           <td align="right" valign="top">
-            <span class="codelink"><a href="src.pylibratm-pysrc.html#Template.openDocument">source&nbsp;code</a></span>
+            <span class="codelink"><a href="src.pylibratm-pysrc.html#Template.open_document">source&nbsp;code</a></span>
             
           </td>
         </tr>
@@ -195,26 +213,11 @@
     </td><td class="summary">
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
-          <td><span class="summary-sig"><a name="newDocument"></a><span class="summary-sig-name">newDocument</span>(<span class="summary-sig-arg">self</span>,
-        <span class="summary-sig-arg">strDocname</span>)</span></td>
+          <td><span class="summary-sig"><a href="src.pylibratm.Template-class.html#new_document" class="summary-sig-name">new_document</a>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">doc_name</span>)</span><br />
+      Create new document.</td>
           <td align="right" valign="top">
-            <span class="codelink"><a href="src.pylibratm-pysrc.html#Template.newDocument">source&nbsp;code</a></span>
-            
-          </td>
-        </tr>
-      </table>
-      
-    </td>
-  </tr>
-<tr>
-    <td width="15%" align="right" valign="top" class="summary">
-      <span class="summary-type">&nbsp;</span>
-    </td><td class="summary">
-      <table width="100%" cellpadding="0" cellspacing="0" border="0">
-        <tr>
-          <td><span class="summary-sig"><a name="release"></a><span class="summary-sig-name">release</span>(<span class="summary-sig-arg">self</span>)</span></td>
-          <td align="right" valign="top">
-            <span class="codelink"><a href="src.pylibratm-pysrc.html#Template.release">source&nbsp;code</a></span>
+            <span class="codelink"><a href="src.pylibratm-pysrc.html#Template.new_document">source&nbsp;code</a></span>
             
           </td>
         </tr>
@@ -240,49 +243,109 @@
     </table>
   </td>
 </tr>
-<tr>
+<tr class="private">
     <td width="15%" align="right" valign="top" class="summary">
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
-        <a name="m_oFields"></a><span class="summary-name">m_oFields</span> = <code title="None">None</code>
+        <a name="_fields"></a><span class="summary-name">_fields</span> = <code title="None">None</code>
     </td>
   </tr>
-<tr>
+<tr class="private">
     <td width="15%" align="right" valign="top" class="summary">
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
-        <a name="m_oLocal"></a><span class="summary-name">m_oLocal</span> = <code title="None">None</code>
+        <a name="_oLocal"></a><span class="summary-name">_oLocal</span> = <code title="None">None</code>
     </td>
   </tr>
-<tr>
+<tr class="private">
     <td width="15%" align="right" valign="top" class="summary">
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
-        <a name="m_oResolver"></a><span class="summary-name">m_oResolver</span> = <code title="None">None</code>
+        <a name="_oResolver"></a><span class="summary-name">_oResolver</span> = <code title="None">None</code>
     </td>
   </tr>
-<tr>
+<tr class="private">
     <td width="15%" align="right" valign="top" class="summary">
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
-        <a name="m_oContext"></a><span class="summary-name">m_oContext</span> = <code title="None">None</code>
+        <a name="_oContext"></a><span class="summary-name">_oContext</span> = <code title="None">None</code>
     </td>
   </tr>
-<tr>
+<tr class="private">
     <td width="15%" align="right" valign="top" class="summary">
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
-        <a name="m_oDesktop"></a><span class="summary-name">m_oDesktop</span> = <code title="None">None</code>
+        <a name="_oDesktop"></a><span class="summary-name">_oDesktop</span> = <code title="None">None</code>
     </td>
   </tr>
-<tr>
+<tr class="private">
     <td width="15%" align="right" valign="top" class="summary">
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
-        <a name="m_oDocument"></a><span class="summary-name">m_oDocument</span> = <code title="None">None</code>
+        <a name="_oDocument"></a><span class="summary-name">_oDocument</span> = <code title="None">None</code>
     </td>
   </tr>
 </table>
+<!-- ==================== METHOD DETAILS ==================== -->
+<a name="section-MethodDetails"></a>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr bgcolor="#70b0f0" class="table-header">
+  <td colspan="2" class="table-header">
+    <table border="0" cellpadding="0" cellspacing="0" width="100%">
+      <tr valign="top">
+        <td align="left"><span class="table-header">Method Details</span></td>
+        <td align="right" valign="top"
+         ><span class="options">[<a href="#section-MethodDetails"
+         class="privatelink" onclick="toggle_private();"
+         >hide private</a>]</span></td>
+      </tr>
+    </table>
+  </td>
+</tr>
+</table>
+<a name="close_document"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">close_document</span>(<span class="sig-arg">self</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="src.pylibratm-pysrc.html#Template.close_document">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>Close document.</p>
+  <p>Close current document. Not implemented yet.</p>
+  <dl class="fields">
+  </dl>
+</td></tr></table>
+</div>
+<a name="new_document"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">new_document</span>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">doc_name</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="src.pylibratm-pysrc.html#Template.new_document">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>Create new document.</p>
+  <p>Create new document. Not implemented yet.</p>
+  <dl class="fields">
+  </dl>
+</td></tr></table>
+</div>
+<br />
 <!-- ==================== NAVIGATION BAR ==================== -->
 <table class="navbar" border="0" width="100%" cellpadding="0"
        bgcolor="#a0c0ff" cellspacing="0">
@@ -310,7 +373,7 @@
   <tr>
     <td align="left" class="footer">
     Generated by Epydoc 3.0.1
-    on Wed Dec  9 16:11:33 2015
+    on Wed Dec  9 18:25:35 2015
     </td>
     <td align="right" class="footer">
       <a target="mainFrame" href="http://epydoc.sourceforge.net"

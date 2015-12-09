@@ -84,8 +84,8 @@
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
           <td><span class="summary-sig"><a name="__init__"></a><span class="summary-sig-name">__init__</span>(<span class="summary-sig-arg">self</span>,
-        <span class="summary-sig-arg">oFields</span>,
-        <span class="summary-sig-arg">strName</span>)</span></td>
+        <span class="summary-sig-arg">fields</span>,
+        <span class="summary-sig-arg">name</span>)</span></td>
           <td align="right" valign="top">
             <span class="codelink"><a href="src.pylibratm-pysrc.html#Field.__init__">source&nbsp;code</a></span>
             
@@ -117,10 +117,27 @@
     </td><td class="summary">
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
-          <td><span class="summary-sig"><a name="isNull"></a><span class="summary-sig-name">isNull</span>(<span class="summary-sig-arg">self</span>)</span><br />
+          <td><span class="summary-sig"><a name="fields"></a><span class="summary-sig-name">fields</span>(<span class="summary-sig-arg">self</span>)</span><br />
+      Get fields object.</td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="src.pylibratm-pysrc.html#Field.fields">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="is_null"></a><span class="summary-sig-name">is_null</span>(<span class="summary-sig-arg">self</span>)</span><br />
       Checking if a field is null.</td>
           <td align="right" valign="top">
-            <span class="codelink"><a href="src.pylibratm-pysrc.html#Field.isNull">source&nbsp;code</a></span>
+            <span class="codelink"><a href="src.pylibratm-pysrc.html#Field.is_null">source&nbsp;code</a></span>
             
           </td>
         </tr>
@@ -134,13 +151,13 @@
     </td><td class="summary">
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
-          <td><span class="summary-sig"><a href="src.pylibratm.Field-class.html#setValue" class="summary-sig-name">setValue</a>(<span class="summary-sig-arg">self</span>,
-        <span class="summary-sig-arg">strValue</span>,
-        <span class="summary-sig-arg">nColumn</span>=<span class="summary-sig-default">0</span>,
-        <span class="summary-sig-arg">nRow</span>=<span class="summary-sig-default">0</span>)</span><br />
+          <td><span class="summary-sig"><a href="src.pylibratm.Field-class.html#set_value" class="summary-sig-name">set_value</a>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">value</span>,
+        <span class="summary-sig-arg">column</span>=<span class="summary-sig-default">0</span>,
+        <span class="summary-sig-arg">row</span>=<span class="summary-sig-default">0</span>)</span><br />
       Set filed value at position Column/Row</td>
           <td align="right" valign="top">
-            <span class="codelink"><a href="src.pylibratm-pysrc.html#Field.setValue">source&nbsp;code</a></span>
+            <span class="codelink"><a href="src.pylibratm-pysrc.html#Field.set_value">source&nbsp;code</a></span>
             
           </td>
         </tr>
@@ -155,8 +172,8 @@
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
           <td><span class="summary-sig"><a href="src.pylibratm.Field-class.html#value" class="summary-sig-name">value</a>(<span class="summary-sig-arg">self</span>,
-        <span class="summary-sig-arg">nColumn</span>=<span class="summary-sig-default">0</span>,
-        <span class="summary-sig-arg">nRow</span>=<span class="summary-sig-default">0</span>)</span><br />
+        <span class="summary-sig-arg">column</span>=<span class="summary-sig-default">0</span>,
+        <span class="summary-sig-arg">row</span>=<span class="summary-sig-default">0</span>)</span><br />
       Get filed value at position Column/Row</td>
           <td align="right" valign="top">
             <span class="codelink"><a href="src.pylibratm-pysrc.html#Field.value">source&nbsp;code</a></span>
@@ -173,14 +190,14 @@
     </td><td class="summary">
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
-          <td><span class="summary-sig"><a href="src.pylibratm.Field-class.html#insertRow" class="summary-sig-name">insertRow</a>(<span class="summary-sig-arg">self</span>,
-        <span class="summary-sig-arg">nRow</span>=<span class="summary-sig-default">1</span>,
-        <span class="summary-sig-arg">nStep</span>=<span class="summary-sig-default">1</span>,
-        <span class="summary-sig-arg">nNumColumns</span>=<span class="summary-sig-default">1</span>,
-        <span class="summary-sig-arg">nOffset</span>=<span class="summary-sig-default">0</span>)</span><br />
+          <td><span class="summary-sig"><a href="src.pylibratm.Field-class.html#insert_row" class="summary-sig-name">insert_row</a>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">row</span>=<span class="summary-sig-default">1</span>,
+        <span class="summary-sig-arg">step</span>=<span class="summary-sig-default">1</span>,
+        <span class="summary-sig-arg">num_columns</span>=<span class="summary-sig-default">1</span>,
+        <span class="summary-sig-arg">offset</span>=<span class="summary-sig-default">0</span>)</span><br />
       Insert rows</td>
           <td align="right" valign="top">
-            <span class="codelink"><a href="src.pylibratm-pysrc.html#Field.insertRow">source&nbsp;code</a></span>
+            <span class="codelink"><a href="src.pylibratm-pysrc.html#Field.insert_row">source&nbsp;code</a></span>
             
           </td>
         </tr>
@@ -194,13 +211,13 @@
     </td><td class="summary">
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
-          <td><span class="summary-sig"><a name="insertColumn"></a><span class="summary-sig-name">insertColumn</span>(<span class="summary-sig-arg">self</span>,
-        <span class="summary-sig-arg">nColumn</span>,
-        <span class="summary-sig-arg">nStep</span>=<span class="summary-sig-default">1</span>,
-        <span class="summary-sig-arg">nNumRows</span>=<span class="summary-sig-default">1</span>,
-        <span class="summary-sig-arg">nOffset</span>=<span class="summary-sig-default">0</span>)</span></td>
+          <td><span class="summary-sig"><a name="insert_column"></a><span class="summary-sig-name">insert_column</span>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">column</span>,
+        <span class="summary-sig-arg">step</span>=<span class="summary-sig-default">1</span>,
+        <span class="summary-sig-arg">num_rows</span>=<span class="summary-sig-default">1</span>,
+        <span class="summary-sig-arg">offset</span>=<span class="summary-sig-default">0</span>)</span></td>
           <td align="right" valign="top">
-            <span class="codelink"><a href="src.pylibratm-pysrc.html#Field.insertColumn">source&nbsp;code</a></span>
+            <span class="codelink"><a href="src.pylibratm-pysrc.html#Field.insert_column">source&nbsp;code</a></span>
             
           </td>
         </tr>
@@ -214,25 +231,10 @@
     </td><td class="summary">
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
-          <td><span class="summary-sig"><a name="remove"></a><span class="summary-sig-name">remove</span>(<span class="summary-sig-arg">self</span>)</span></td>
+          <td><span class="summary-sig"><a href="src.pylibratm.Field-class.html#remove" class="summary-sig-name">remove</a>(<span class="summary-sig-arg">self</span>)</span><br />
+      Remove field name.</td>
           <td align="right" valign="top">
             <span class="codelink"><a href="src.pylibratm-pysrc.html#Field.remove">source&nbsp;code</a></span>
-            
-          </td>
-        </tr>
-      </table>
-      
-    </td>
-  </tr>
-<tr>
-    <td width="15%" align="right" valign="top" class="summary">
-      <span class="summary-type">&nbsp;</span>
-    </td><td class="summary">
-      <table width="100%" cellpadding="0" cellspacing="0" border="0">
-        <tr>
-          <td><span class="summary-sig"><a name="release"></a><span class="summary-sig-name">release</span>(<span class="summary-sig-arg">self</span>)</span></td>
-          <td align="right" valign="top">
-            <span class="codelink"><a href="src.pylibratm-pysrc.html#Field.release">source&nbsp;code</a></span>
             
           </td>
         </tr>
@@ -258,25 +260,18 @@
     </table>
   </td>
 </tr>
-<tr>
+<tr class="private">
     <td width="15%" align="right" valign="top" class="summary">
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
-        <a name="m_oField"></a><span class="summary-name">m_oField</span> = <code title="None">None</code>
-    </td>
-  </tr>
-<tr>
-    <td width="15%" align="right" valign="top" class="summary">
-      <span class="summary-type">&nbsp;</span>
-    </td><td class="summary">
-        <a name="m_oFields"></a><span class="summary-name">m_oFields</span> = <code title="None">None</code>
+        <a name="_fields"></a><span class="summary-name">_fields</span> = <code title="None">None</code>
     </td>
   </tr>
 <tr class="private">
     <td width="15%" align="right" valign="top" class="summary">
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
-        <a name="_bIsNull"></a><span class="summary-name">_bIsNull</span> = <code title="True">True</code>
+        <a name="_is_null"></a><span class="summary-name">_is_null</span> = <code title="True">True</code>
     </td>
   </tr>
 <tr class="private">
@@ -333,20 +328,20 @@
   </td>
 </tr>
 </table>
-<a name="setValue"></a>
+<a name="set_value"></a>
 <div>
 <table class="details" border="1" cellpadding="3"
        cellspacing="0" width="100%" bgcolor="white">
 <tr><td>
   <table width="100%" cellpadding="0" cellspacing="0" border="0">
   <tr valign="top"><td>
-  <h3 class="epydoc"><span class="sig"><span class="sig-name">setValue</span>(<span class="sig-arg">self</span>,
-        <span class="sig-arg">strValue</span>,
-        <span class="sig-arg">nColumn</span>=<span class="sig-default">0</span>,
-        <span class="sig-arg">nRow</span>=<span class="sig-default">0</span>)</span>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">set_value</span>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">value</span>,
+        <span class="sig-arg">column</span>=<span class="sig-default">0</span>,
+        <span class="sig-arg">row</span>=<span class="sig-default">0</span>)</span>
   </h3>
   </td><td align="right" valign="top"
-    ><span class="codelink"><a href="src.pylibratm-pysrc.html#Field.setValue">source&nbsp;code</a></span>&nbsp;
+    ><span class="codelink"><a href="src.pylibratm-pysrc.html#Field.set_value">source&nbsp;code</a></span>&nbsp;
     </td>
   </tr></table>
   
@@ -354,9 +349,9 @@
   <dl class="fields">
     <dt>Parameters:</dt>
     <dd><ul class="nomargin-top">
-        <li><strong class="pname"><code>strValue</code></strong> (string) - Cell value</li>
-        <li><strong class="pname"><code>nColumn</code></strong> (integer) - column index</li>
-        <li><strong class="pname"><code>nRow</code></strong> (integer) - row index</li>
+        <li><strong class="pname"><code>value</code></strong> (string) - Cell value</li>
+        <li><strong class="pname"><code>column</code></strong> (integer) - column index</li>
+        <li><strong class="pname"><code>row</code></strong> (integer) - row index</li>
     </ul></dd>
     <dt>Returns: boolean</dt>
         <dd>Value insertion result</dd>
@@ -371,8 +366,8 @@
   <table width="100%" cellpadding="0" cellspacing="0" border="0">
   <tr valign="top"><td>
   <h3 class="epydoc"><span class="sig"><span class="sig-name">value</span>(<span class="sig-arg">self</span>,
-        <span class="sig-arg">nColumn</span>=<span class="sig-default">0</span>,
-        <span class="sig-arg">nRow</span>=<span class="sig-default">0</span>)</span>
+        <span class="sig-arg">column</span>=<span class="sig-default">0</span>,
+        <span class="sig-arg">row</span>=<span class="sig-default">0</span>)</span>
   </h3>
   </td><td align="right" valign="top"
     ><span class="codelink"><a href="src.pylibratm-pysrc.html#Field.value">source&nbsp;code</a></span>&nbsp;
@@ -383,8 +378,8 @@
   <dl class="fields">
     <dt>Parameters:</dt>
     <dd><ul class="nomargin-top">
-        <li><strong class="pname"><code>nColumn</code></strong> (integer) - column index</li>
-        <li><strong class="pname"><code>nRow</code></strong> (integer) - row index</li>
+        <li><strong class="pname"><code>column</code></strong> (integer) - column index</li>
+        <li><strong class="pname"><code>row</code></strong> (integer) - row index</li>
     </ul></dd>
     <dt>Returns: string</dt>
         <dd>Document cell value in string format. Regardless of document
@@ -392,21 +387,21 @@
   </dl>
 </td></tr></table>
 </div>
-<a name="insertRow"></a>
+<a name="insert_row"></a>
 <div>
 <table class="details" border="1" cellpadding="3"
        cellspacing="0" width="100%" bgcolor="white">
 <tr><td>
   <table width="100%" cellpadding="0" cellspacing="0" border="0">
   <tr valign="top"><td>
-  <h3 class="epydoc"><span class="sig"><span class="sig-name">insertRow</span>(<span class="sig-arg">self</span>,
-        <span class="sig-arg">nRow</span>=<span class="sig-default">1</span>,
-        <span class="sig-arg">nStep</span>=<span class="sig-default">1</span>,
-        <span class="sig-arg">nNumColumns</span>=<span class="sig-default">1</span>,
-        <span class="sig-arg">nOffset</span>=<span class="sig-default">0</span>)</span>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">insert_row</span>(<span class="sig-arg">self</span>,
+        <span class="sig-arg">row</span>=<span class="sig-default">1</span>,
+        <span class="sig-arg">step</span>=<span class="sig-default">1</span>,
+        <span class="sig-arg">num_columns</span>=<span class="sig-default">1</span>,
+        <span class="sig-arg">offset</span>=<span class="sig-default">0</span>)</span>
   </h3>
   </td><td align="right" valign="top"
-    ><span class="codelink"><a href="src.pylibratm-pysrc.html#Field.insertRow">source&nbsp;code</a></span>&nbsp;
+    ><span class="codelink"><a href="src.pylibratm-pysrc.html#Field.insert_row">source&nbsp;code</a></span>&nbsp;
     </td>
   </tr></table>
   
@@ -417,13 +412,33 @@
   <dl class="fields">
     <dt>Parameters:</dt>
     <dd><ul class="nomargin-top">
-        <li><strong class="pname"><code>nRow</code></strong> (integer) - Row index. Default value=1.</li>
-        <li><strong class="pname"><code>nStep</code></strong> (integer) - Default value = 1.    // FIXME</li>
-        <li><strong class="pname"><code>nNumColumns</code></strong> (integer) - Number of columns to copy. Default value=1</li>
-        <li><strong class="pname"><code>nOffset</code></strong> (integer) - Rows offset. Relatively to current field. Default value=0</li>
+        <li><strong class="pname"><code>row</code></strong> (integer) - Row index. Default value=1.</li>
+        <li><strong class="pname"><code>step</code></strong> (integer) - Default value = 1.    // FIXME</li>
+        <li><strong class="pname"><code>num_columns</code></strong> (integer) - Number of columns to copy. Default value=1</li>
+        <li><strong class="pname"><code>offset</code></strong> (integer) - Rows offset. Relatively to current field. Default value=0</li>
     </ul></dd>
     <dt>Returns: boolean</dt>
         <dd>Operation result</dd>
+  </dl>
+</td></tr></table>
+</div>
+<a name="remove"></a>
+<div>
+<table class="details" border="1" cellpadding="3"
+       cellspacing="0" width="100%" bgcolor="white">
+<tr><td>
+  <table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr valign="top"><td>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">remove</span>(<span class="sig-arg">self</span>)</span>
+  </h3>
+  </td><td align="right" valign="top"
+    ><span class="codelink"><a href="src.pylibratm-pysrc.html#Field.remove">source&nbsp;code</a></span>&nbsp;
+    </td>
+  </tr></table>
+  
+  <p>Remove field name.</p>
+  <p>Remove field name from the document. Not implemented yet.</p>
+  <dl class="fields">
   </dl>
 </td></tr></table>
 </div>
@@ -455,7 +470,7 @@
   <tr>
     <td align="left" class="footer">
     Generated by Epydoc 3.0.1
-    on Wed Dec  9 16:11:33 2015
+    on Wed Dec  9 18:25:35 2015
     </td>
     <td align="right" class="footer">
       <a target="mainFrame" href="http://epydoc.sourceforge.net"

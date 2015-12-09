@@ -83,7 +83,7 @@
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
           <td><span class="summary-sig"><a name="__init__"></a><span class="summary-sig-name">__init__</span>(<span class="summary-sig-arg">self</span>,
-        <span class="summary-sig-arg">oTemplate</span>)</span></td>
+        <span class="summary-sig-arg">template</span>)</span></td>
           <td align="right" valign="top">
             <span class="codelink"><a href="src.pylibratm-pysrc.html#Fields.__init__">source&nbsp;code</a></span>
             
@@ -111,12 +111,28 @@
   </tr>
 <tr>
     <td width="15%" align="right" valign="top" class="summary">
+      <span class="summary-type">&nbsp;</span>
+    </td><td class="summary">
+      <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+          <td><span class="summary-sig"><a name="template"></a><span class="summary-sig-name">template</span>(<span class="summary-sig-arg">self</span>)</span></td>
+          <td align="right" valign="top">
+            <span class="codelink"><a href="src.pylibratm-pysrc.html#Fields.template">source&nbsp;code</a></span>
+            
+          </td>
+        </tr>
+      </table>
+      
+    </td>
+  </tr>
+<tr>
+    <td width="15%" align="right" valign="top" class="summary">
       <span class="summary-type">Field object</span>
     </td><td class="summary">
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
           <td><span class="summary-sig"><a href="src.pylibratm.Fields-class.html#field" class="summary-sig-name">field</a>(<span class="summary-sig-arg">self</span>,
-        <span class="summary-sig-arg">strName</span>)</span><br />
+        <span class="summary-sig-arg">name</span>)</span><br />
       Get document field by name</td>
           <td align="right" valign="top">
             <span class="codelink"><a href="src.pylibratm-pysrc.html#Fields.field">source&nbsp;code</a></span>
@@ -133,11 +149,11 @@
     </td><td class="summary">
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
-          <td><span class="summary-sig"><a name="insertSpreadsheet"></a><span class="summary-sig-name">insertSpreadsheet</span>(<span class="summary-sig-arg">self</span>,
-        <span class="summary-sig-arg">strName</span>,
-        <span class="summary-sig-arg">nIndex</span>)</span></td>
+          <td><span class="summary-sig"><a name="insert_spreadsheet"></a><span class="summary-sig-name">insert_spreadsheet</span>(<span class="summary-sig-arg">self</span>,
+        <span class="summary-sig-arg">name</span>,
+        <span class="summary-sig-arg">index</span>)</span></td>
           <td align="right" valign="top">
-            <span class="codelink"><a href="src.pylibratm-pysrc.html#Fields.insertSpreadsheet">source&nbsp;code</a></span>
+            <span class="codelink"><a href="src.pylibratm-pysrc.html#Fields.insert_spreadsheet">source&nbsp;code</a></span>
             
           </td>
         </tr>
@@ -152,7 +168,7 @@
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
           <td><span class="summary-sig"><a name="add"></a><span class="summary-sig-name">add</span>(<span class="summary-sig-arg">self</span>,
-        <span class="summary-sig-arg">strName</span>)</span></td>
+        <span class="summary-sig-arg">name</span>)</span></td>
           <td align="right" valign="top">
             <span class="codelink"><a href="src.pylibratm-pysrc.html#Fields.add">source&nbsp;code</a></span>
             
@@ -168,10 +184,10 @@
     </td><td class="summary">
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
-          <td><span class="summary-sig"><a name="attachTemplate"></a><span class="summary-sig-name">attachTemplate</span>(<span class="summary-sig-arg">self</span>,
+          <td><span class="summary-sig"><a name="attach_template"></a><span class="summary-sig-name">attach_template</span>(<span class="summary-sig-arg">self</span>,
         <span class="summary-sig-arg">oTemplate</span>)</span></td>
           <td align="right" valign="top">
-            <span class="codelink"><a href="src.pylibratm-pysrc.html#Fields.attachTemplate">source&nbsp;code</a></span>
+            <span class="codelink"><a href="src.pylibratm-pysrc.html#Fields.attach_template">source&nbsp;code</a></span>
             
           </td>
         </tr>
@@ -188,22 +204,6 @@
           <td><span class="summary-sig"><a name="count"></a><span class="summary-sig-name">count</span>(<span class="summary-sig-arg">self</span>)</span></td>
           <td align="right" valign="top">
             <span class="codelink"><a href="src.pylibratm-pysrc.html#Fields.count">source&nbsp;code</a></span>
-            
-          </td>
-        </tr>
-      </table>
-      
-    </td>
-  </tr>
-<tr>
-    <td width="15%" align="right" valign="top" class="summary">
-      <span class="summary-type">&nbsp;</span>
-    </td><td class="summary">
-      <table width="100%" cellpadding="0" cellspacing="0" border="0">
-        <tr>
-          <td><span class="summary-sig"><a name="release"></a><span class="summary-sig-name">release</span>(<span class="summary-sig-arg">self</span>)</span></td>
-          <td align="right" valign="top">
-            <span class="codelink"><a href="src.pylibratm-pysrc.html#Fields.release">source&nbsp;code</a></span>
             
           </td>
         </tr>
@@ -229,18 +229,18 @@
     </table>
   </td>
 </tr>
-<tr>
+<tr class="private">
     <td width="15%" align="right" valign="top" class="summary">
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
-        <a name="m_oField"></a><span class="summary-name">m_oField</span> = <code title="None">None</code>
+        <a name="_field"></a><span class="summary-name">_field</span> = <code title="None">None</code>
     </td>
   </tr>
-<tr>
+<tr class="private">
     <td width="15%" align="right" valign="top" class="summary">
       <span class="summary-type">&nbsp;</span>
     </td><td class="summary">
-        <a name="m_oTemplate"></a><span class="summary-name">m_oTemplate</span> = <code title="None">None</code>
+        <a name="_template"></a><span class="summary-name">_template</span> = <code title="None">None</code>
     </td>
   </tr>
 <tr class="private">
@@ -284,7 +284,7 @@
   <table width="100%" cellpadding="0" cellspacing="0" border="0">
   <tr valign="top"><td>
   <h3 class="epydoc"><span class="sig"><span class="sig-name">field</span>(<span class="sig-arg">self</span>,
-        <span class="sig-arg">strName</span>)</span>
+        <span class="sig-arg">name</span>)</span>
   </h3>
   </td><td align="right" valign="top"
     ><span class="codelink"><a href="src.pylibratm-pysrc.html#Fields.field">source&nbsp;code</a></span>&nbsp;
@@ -295,7 +295,7 @@
   <dl class="fields">
     <dt>Parameters:</dt>
     <dd><ul class="nomargin-top">
-        <li><strong class="pname"><code>strName</code></strong> (string) - Field name</li>
+        <li><strong class="pname"><code>name</code></strong> (string) - Field name</li>
     </ul></dd>
     <dt>Returns: Field object</dt>
         <dd>Field object</dd>
@@ -330,7 +330,7 @@
   <tr>
     <td align="left" class="footer">
     Generated by Epydoc 3.0.1
-    on Wed Dec  9 16:11:33 2015
+    on Wed Dec  9 18:25:35 2015
     </td>
     <td align="right" class="footer">
       <a target="mainFrame" href="http://epydoc.sourceforge.net"

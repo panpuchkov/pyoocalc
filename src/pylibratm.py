@@ -33,10 +33,8 @@ class Field:
 
     Operations on the existing field.
     """
-    m_oField = None
-    m_oFields = None
-
-    _bIsNull = True
+    _fields = None
+    _is_null = True
 
     _oSheet = None
     _oNamedRanges = None
@@ -44,80 +42,86 @@ class Field:
     _oCell = None
     _oCellAddress = None
 
-    def __init__(self, oFields, strName):
-        self.m_oFields = oFields
+    def __init__(self, fields, name):
+        self._fields = fields
 
-        if self.m_oFields:
-            if self.m_oFields._oNamedRanges.hasByName(strName):
-                self._oRange = self.m_oFields._oNamedRanges.getByName(strName)
+        if self._fields:
+            if self._fields._oNamedRanges.hasByName(name):
+                self._oRange = self._fields._oNamedRanges.getByName(name)
                 self._oCellAddress = self._oRange.getReferencePosition()
-                oSheets = self.m_oFields.m_oTemplate.m_oDocument.getSheets()
+                oSheets = self._fields.template().document().getSheets()
                 self._oSheet = oSheets.getByIndex(self._oCellAddress.Sheet)
-                self._bIsNull = False
+                self._is_null = False
             else:
                 self._oRange = None
-                self._bIsNull = True
+                self._is_null = True
 
     def __del__(self):
-        self.release()
+        pass
 
-    def isNull(self):
+    def fields(self):
+        """
+        Get fields object.
+        """
+        return self._fields
+
+    def is_null(self):
         """
         Checking if a field is null.
         """
-        return self._bIsNull
+        return self._is_null
 
-    def setValue(self, strValue, nColumn=0, nRow=0):
+    def set_value(self, value, column=0, row=0):
         """
         Set filed value at position Column/Row
 
-        @type  strValue: string
-        @param strValue: Cell value
+        @type  value: string
+        @param value: Cell value
 
-        @type  nColumn: integer
-        @param nColumn: column index
+        @type  column: integer
+        @param column: column index
 
-        @type  nRow: integer
-        @param nRow: row index
+        @type  row: integer
+        @param row: row index
 
         @rtype:   boolean
         @return:  Value insertion result
         """
-        bResult = True
+        result = True
         if self._oRange:
             self._oCell = self._oSheet.getCellByPosition(
-                self._oCellAddress.Column + nColumn,
-                self._oCellAddress.Row + nRow)
+                self._oCellAddress.Column + column,
+                self._oCellAddress.Row + row)
             if self._oCell:
-                self._oCell.setString(strValue)
+                self._oCell.setString(value)
         else:
-            bResult = False
-        return bResult
+            result = False
+        return result
 
-    def value(self, nColumn=0, nRow=0):
+    def value(self, column=0, row=0):
         """
         Get filed value at position Column/Row
 
-        @type  nColumn: integer
-        @param nColumn: column index
+        @type  column: integer
+        @param column: column index
 
-        @type  nRow: integer
-        @param nRow: row index
+        @type  row: integer
+        @param row: row index
 
         @rtype:   string
         @return: Document cell value in string format. Regardless of document\
                     cell type.
         """
-        strValue = ""
+        value = ""
         if self._oRange:
             self._oCell = self._oSheet.getCellByPosition(
-                self._oCellAddress.Column + nColumn,
-                self._oCellAddress.Row + nRow)
+                self._oCellAddress.Column + column,
+                self._oCellAddress.Row + row)
             if self._oCell:
-                strValue = self._oCell.getString()
-        return strValue
+                value = self._oCell.getString()
+        return value
 
-    def insertRow(self, nRow=1, nStep=1, nNumColumns=1, nOffset=0):
+    def insert_row(self, row=1, step=1, num_columns=1, offset=0):
         """
         Insert rows
 
@@ -125,53 +129,54 @@ class Field:
         After the new row insertion the content of the current rows is copied
         to the new rows.
 
-        @type  nRow: integer
-        @param nRow: Row index. Default value=1.
+        @type  row: integer
+        @param row: Row index. Default value=1.
 
-        @type  nStep: integer
-        @param nStep: Default value = 1.    // FIXME
+        @type  step: integer
+        @param step: Default value = 1.    // FIXME
 
-        @type  nNumColumns: integer
-        @param nNumColumns: Number of columns to copy. Default value=1
+        @type  num_columns: integer
+        @param num_columns: Number of columns to copy. Default value=1
 
-        @type  nOffset: integer
-        @param nOffset: Rows offset. Relatively to current field.
+        @type  offset: integer
+        @param offset: Rows offset. Relatively to current field.
                         Default value=0
 
         @rtype:   boolean
         @return:  Operation result
         """
-        bResult = True
-        if self._oCell and self.m_oFields:
+        result = True
+        if self._oCell and self._fields:
             # oCellAddress = self._oCell.CellAddress
-            # oSheets = self.m_oFields.m_oTemplate.m_oDocument.getSheets()
+            # oSheets = self._fields.template().document().getSheets()
             # oSheet = oSheets.getByIndex(oCellAddress.Sheet)
             if self._oSheet:
                 self._oSheet.Rows.insertByIndex(
-                    self._oCellAddress.Row + nOffset, nNumColumns)
+                    self._oCellAddress.Row + offset, num_columns)
         else:
-            bResult = False
-        return bResult
+            result = False
+        return result
 
-    def insertColumn(self, nColumn, nStep=1, nNumRows=1, nOffset=0):
-        bResult = True
-        if self._oCell and self.m_oFields:
+    def insert_column(self, column, step=1, num_rows=1, offset=0):
+        result = True
+        if self._oCell and self._fields:
             # oCellAddress = self._oCell.CellAddress
-            # oSheets = self.m_oFields.m_oTemplate.m_oDocument.getSheets()
+            # oSheets = self._fields.template().document().getSheets()
             # oSheet = oSheets.getByIndex(oCellAddress.Sheet)
             if self._oSheet:
                 self._oSheet.Columns.insertByIndex(
-                    self._oCellAddress.Column + nOffset, nNumRows)
+                    self._oCellAddress.Column + offset, num_rows)
         else:
-            bResult = False
-        return bResult
+            result = False
+        return result
 
     def remove(self):
-        # FIXME, Not implemented yet.
-        return None
-
-    def release(self):
-        # FIXME, Not implemented yet.
+        """
+        Remove field name.
+        
+        Remove field name from the document.
+        Not implemented yet.
+        """
         return None
 
 ###############################################################################
@@ -185,57 +190,56 @@ class Fields:
     Document fields.
     Search and manage fields.
     """
-    m_oField = None
-    m_oTemplate = None
+    _field = None
+    _template = None
 
     _oSheets = None
     _oNamedRanges = None
 
-    def __init__(self, oTemplate):
-        self.m_oTemplate = None
-        self.attachTemplate(oTemplate)
-        if self.m_oTemplate:
-            self._oNamedRanges = self.m_oTemplate.m_oDocument.NamedRanges
+    def __init__(self, template):
+        self._template = None
+        self.attach_template(template)
+        if self._template:
+            self._oNamedRanges = self._template.document().NamedRanges
 
     def __del__(self):
-        self.release()
+        pass
 
-    def field(self, strName):
+    def template(self):
+        return self._template
+
+    def field(self, name):
         """
         Get document field by name
 
-        @type  strName: string
-        @param strName: Field name
+        @type  name: string
+        @param name: Field name
 
         @rtype:   Field object
         @return:  Field object
         """
-        self.m_oField = Field(self, strName)
-        if self.m_oField.isNull() is None:
-            self.m_oField = None
-        return self.m_oField
+        self._field = Field(self, name)
+        if self._field.is_null() is None:
+            self._field = None
+        return self._field
 
-    def insertSpreadsheet(self, strName, nIndex):
-        bResult = False
+    def insert_spreadsheet(self, name, index):
+        result = False
         # FIXME, Not implemented yet.
-        return bResult
+        return result
 
-    def add(self, strName):
-        bResult = False
+    def add(self, name):
+        result = False
         # FIXME, Not implemented yet.
-        return bResult
+        return result
 
-    def attachTemplate(self, oTemplate):
-        self.m_oTemplate = oTemplate
+    def attach_template(self, oTemplate):
+        self._template = oTemplate
 
     def count(self):
         nCount = -1
         # FIXME, Not implemented yet.
         return nCount
-
-    def release(self):
-        # FIXME, Not implemented yet.
-        return None
 
 ###############################################################################
 ###############################################################################
@@ -243,85 +247,81 @@ class Fields:
 
 
 class Template:
-    m_oFields = None
+    _fields = None
 
-    m_oLocal = None
-    m_oResolver = None
-    m_oContext = None
-    m_oDesktop = None
-    m_oDocument = None
+    _oLocal = None
+    _oResolver = None
+    _oContext = None
+    _oDesktop = None
+    _oDocument = None
 
-    def __init__(self, strConnectionString="\
+    def __init__(self, connection_string="\
 uno:socket,host=localhost,port=2002;urp;StarOffice.ComponentContext"):
-        self.m_oLocal = uno.getComponentContext()
-        if self.m_oLocal:
-            self.m_oResolver = self.m_oLocal.ServiceManager.createInstanceWithContext("\
-com.sun.star.bridge.UnoUrlResolver", self.m_oLocal)
-            if self.m_oResolver:
-                self.m_oContext = self.m_oResolver.resolve(strConnectionString)
-                if self.m_oContext:
-                    self.m_oDesktop = self.m_oContext.ServiceManager.createInstanceWithContext("\
-com.sun.star.frame.Desktop", self.m_oContext)
+        self._oLocal = uno.getComponentContext()
+        if self._oLocal:
+            self._oResolver = self._oLocal.ServiceManager.createInstanceWithContext("\
+com.sun.star.bridge.UnoUrlResolver", self._oLocal)
+            if self._oResolver:
+                self._oContext = self._oResolver.resolve(connection_string)
+                if self._oContext:
+                    self._oDesktop = self._oContext.ServiceManager.createInstanceWithContext("\
+com.sun.star.frame.Desktop", self._oContext)
 
     def __del__(self):
-        self.release()
+        pass
+
+    def document(self):
+        return self._oDocument
 
     def fields(self):
-        self.m_oFields = Fields(self)
-        return self.m_oFields
+        """
+        Get fields document's object.
+        """
+        self._fields = Fields(self)
+        return self._fields
 
     def version(self):
         return "0.0.1"
 
-    def closeDocument(self):
-        bResult = False
-        # FIXME, Not implemented yet.
-        return bResult
+    def close_document(self):
+        """
+        Close document.
 
-    def saveDocument(self, strDocname=""):
-        bResult = True
-        if self.m_oDocument:
-            if 0 == len(strDocname):
-                self.m_oDocument.store()
+        Close current document.
+        Not implemented yet.
+        """
+        result = False
+        return result
+
+    def save_document(self, doc_name=""):
+        result = True
+        if self._oDocument:
+            if 0 == len(doc_name):
+                self._oDocument.store()
             else:
-                strFullFileName = "file://" + strDocname
-                self.m_oDocument.storeToURL(strFullFileName)
+                strFullFileName = "file://" + doc_name
+                self._oDocument.storeToURL(strFullFileName)
         else:
-            bResult = False
-        return bResult
+            result = False
+        return result
 
-    def openDocument(self, strDocname):
-        bResult = True
-        if len(strDocname) > 0 and self.m_oDesktop:
-            strFullFileName = "file://" + strDocname
-            self.m_oDocument = self.m_oDesktop.loadComponentFromURL(
+    def open_document(self, doc_name):
+        result = True
+        if len(doc_name) > 0 and self._oDesktop:
+            strFullFileName = "file://" + doc_name
+            self._oDocument = self._oDesktop.loadComponentFromURL(
                 strFullFileName, "_blank", 0, ())
         else:
-            bResult = False
-        return bResult
+            result = False
+        return result
 
-    def newDocument(self, strDocname):
-        bResult = False
-        # FIXME, Not implemented yet.
-        return bResult
+    def new_document(self, doc_name):
+        """
+        Create new document.
 
-    def release(self):
-        # FIXME, Not implemented yet.
-        return None
+        Create new document.
+        Not implemented yet.
+        """
+        result = False
+        return result
 
-###############################################################################
-###############################################################################
-###############################################################################
-
-
-class TemplateManager:
-    m_oTemplate = None
-
-    def __init__(self):
-        self.m_oTemplate = Template()
-
-    def Template(self):
-        return self.m_oTemplate
-
-    def templateManagerName(self):
-        return "pylibratm"
