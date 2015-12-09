@@ -19,9 +19,15 @@ oFields = oTemplate.fields()
 
 # Get field "HEADER"
 oField = oFields.field("HEADER")
-print ( "Documetn header is: " + str(oField.isNull()) )
+print ( "Document header is: " + str(oField.isNull()) )
 
 # Set values
 oField = oFields.field("TABLE_NAME")
 oField.setValue("Test table name")
 print ("New table name is: " + oField.value())
+
+# Insert rows
+oField = oFields.field("FIELD_1")
+oField.insertRow(nRow = 1, nStep = 1, nNumColumns = 1, nOffset = 0)
+oField.setValue("F1.1", 0, 1)
+oField.setValue("F1.2", 0, 2)
