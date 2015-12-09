@@ -18,6 +18,10 @@ sudo apt-get install libreoffice-script-provider-python
 @contact: panpuchkov@gmail.com
 """
 
+__version__ = "$Revision$"
+# $Source$
+
+###############################################################################
 import uno
 
 ###############################################################################
