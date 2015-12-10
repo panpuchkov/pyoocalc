@@ -19,6 +19,7 @@ src.pylibratm.Fields.template	src.pylibratm.Fields-class.html#template
 src.pylibratm.Fields.__init__	src.pylibratm.Fields-class.html#__init__
 src.pylibratm.Template	src.pylibratm.Template-class.html
 src.pylibratm.Template.open_document	src.pylibratm.Template-class.html#open_document
+src.pylibratm.Template._toProperties	src.pylibratm.Template-class.html#_toProperties
 src.pylibratm.Template.fields	src.pylibratm.Template-class.html#fields
 src.pylibratm.Template.version	src.pylibratm.Template-class.html#version
 src.pylibratm.Template.save_document	src.pylibratm.Template-class.html#save_document

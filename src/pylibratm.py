@@ -26,13 +26,15 @@ from com.sun.star.uno import RuntimeException
 from com.sun.star.lang import IllegalArgumentException
 from com.sun.star.connection import NoConnectException
 
+from com.sun.star.beans import PropertyValue
+
 ###############################################################################
 
 __version__ = "$Revision$"
 # $Source$
 
 ###############################################################################
-# example
+# Start LibreOffice/OpenOffice Calc in listening mode:
 # /usr/bin/libreoffice \
 # -accept="socket,host=localhost,port=2002;urp;StarOffice.ServiceManager"
 
@@ -179,7 +181,7 @@ class Field:
                 print (self._oCellAddress.Column)
                 print (self._oCellAddress.Row)
 
-                oCellAddress_src = CellRangeAddress()
+#                 oCellAddress_src = CellRangeAddress()
 #                 oCellAddress_Source = self._oCellAddress.Sheet()
 
 #                 self._oSheet.copyRange(self._oCellAddress,
@@ -346,14 +348,33 @@ uno:socket,host=localhost,port=2002;urp;StarOffice.ComponentContext"):
                                             "com.sun.star.frame.Desktop",
                                             self._oContext)
             except NoConnectException as e:
-                print ("The OpenOffice.org process is not started or does not\
-listen on the resource (" + e.Message + ")")
+                print ('Start LibreOffice/OpenOffice in listening mode, \
+example:\n\n\
+libreoffice \
+-accept="socket,host=localhost,port=2002;urp;StarOffice.ServiceManager\n')
+                print ("Error: The OpenOffice.org process is not started or \
+does not listen on the resource (" + e.Message + ")")
             except IllegalArgumentException as e:
                 print ("The url is invalid ( " + e.Message + ")")
             except RuntimeException as e:
                 print ("An unknown error occurred: " + e.Message)
             except:
                 print ("Unknown exception")
+
+    def _toProperties(self, **args):
+        """
+        Converts '**args' arguments to the tuple of 'PropertyValue's
+
+        @rtype:   tuple
+        @return:  Fields object
+        """
+        props = []
+        for key in args:
+            prop = PropertyValue()
+            prop.Name = key
+            prop.Value = args[key]
+            props.append(prop)
+        return tuple(props)
 
     def document(self):
         """
@@ -395,18 +416,27 @@ listen on the resource (" + e.Message + ")")
         try:
             if self._oDocument:
                 self._oDocument.close(True)
+                self._oDocument = None
                 result = True
         except:
             print ("Unknown exception")
         return result
 
-    def save_document(self, doc_name=""):
+    def save_document(self, doc_name="", filter_name=""):
         """
         Save document.
 
         @type  doc_name: string
         @param doc_name: Document name. If no document name defined the current
                         name is used.
+
+        @type  filter_name: string
+        @param filter_name: file type:
+                            # ods=""
+                            # pdf="calc_pdf_Export"
+                            # csv="Text - txt - csv (StarCalc)"
+                            # xls="calc_MS_Excel_40"
+                            # xlsx="Calc Office Open XML"
 
         @rtype:   boolean
         @return:  Operation result
@@ -418,11 +448,15 @@ listen on the resource (" + e.Message + ")")
             else:
                 full_file_name = unohelper.systemPathToFileUrl(doc_name)
                 try:
-                    self._oDocument.storeToURL(full_file_name)
+                    self._oDocument.storeToURL(
+                                full_file_name,
+                                self._toProperties(FilterName=filter_name))
                     result = True
                 except IllegalArgumentException as e:
                     print ("The url (" + full_file_name + ") "
                            "is invalid ( " + e.Message + ")")
+                except ErrorCodeIOException as e:
+                    print (e)
                 except:
                     print ("Unknown exception")
         return result
@@ -466,3 +500,12 @@ listen on the resource (" + e.Message + ")")
         except:
             print ("Unknown exception")
         return result
+
+###############################################################################
+# Help code for future
+
+# prop_val = uno.createUnoStruct( "com.sun.star.beans.PropertyValue" )
+# prop_val = PropertyValue
+# prop_val.Name = "Overwrite";
+# prop_val.Value = True;
+# props.append(prop_val)
