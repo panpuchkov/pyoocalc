@@ -18,14 +18,8 @@ import pylibratm
 # template = pylibratm.TemplateManager().template()
 template = pylibratm.Template()
 if template:
-    file_name = os.getcwd() + "/example2.ods"
+    file_name = os.getcwd() + "/example.ods"
     template.open_document( file_name )
-
-#     file_name1 = os.getcwd() + "/example1.ods"
-#     template.new_document()
-#     template.save_document(file_name1, )
-
-exit()
 
 # Get document fields
 fields = template.fields()
@@ -41,13 +35,6 @@ print ("New table name is: " + field.value())
 
 # Insert rows
 field1 = fields.field("FIELD_1")
-# field1.insert_rows(1)
-# field1.insert_rows(1)
-# field1.insert_rows(1)
-# field1.set_value("F1.1", 0, 1)
-# field1.set_value("F1.2", 0, 2)
-
-if template:
-    print (template)
-    template.save_document()
-    template.close_document()
+field1.insert_rows(1)
+field1.set_value("F1.1", 0, 1)
+field1.set_value("F1.2", 0, 2)
