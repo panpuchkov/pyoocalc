@@ -18,11 +18,18 @@ sudo apt-get install libreoffice-script-provider-python
 @contact: panpuchkov@gmail.com
 """
 
-__version__ = "$Revision$"
-# $Source$
-
 ###############################################################################
 import uno
+import unohelper
+
+from com.sun.star.uno import RuntimeException
+from com.sun.star.lang import IllegalArgumentException
+from com.sun.star.connection import NoConnectException
+
+###############################################################################
+
+__version__ = "$Revision$"
+# $Source$
 
 ###############################################################################
 # example
@@ -132,7 +139,7 @@ class Field:
                 value = self._oCell.getString()
         return value
 
-    def insert_row(self, row=1, step=1, num_columns=1, offset=0):
+    def insert_rows(self, row=0, step=1, num_columns=1, offset=0):
         """
         Insert rows
 
@@ -141,13 +148,13 @@ class Field:
         to the new rows.
 
         @type  row: integer
-        @param row: Row index. Default value=1.
+        @param row: Row index relative to current Field. Default value=0.
 
         @type  step: integer
-        @param step: Default value = 1.    // FIXME
+        @param step: Step of rows insertion.
 
         @type  num_columns: integer
-        @param num_columns: Number of columns to copy. Default value=1
+        @param num_columns: Number of columns to insert. Default value=1
 
         @type  offset: integer
         @param offset: Rows offset. Relatively to current field.
@@ -156,19 +163,40 @@ class Field:
         @rtype:   boolean
         @return:  Operation result
         """
-        result = True
-        if self._oCell and self._fields:
+        result = False
+#         if self._oCell and self._fields:
+        if self._fields:
             # oCellAddress = self._oCell.CellAddress
             # oSheets = self._fields.template().document().getSheets()
             # oSheet = oSheets.getByIndex(oCellAddress.Sheet)
             if self._oSheet:
                 self._oSheet.Rows.insertByIndex(
-                    self._oCellAddress.Row + offset, num_columns)
-        else:
-            result = False
+                    self._oCellAddress.Row + row, num_columns)
+# self._oCellAddress.Row + row + step + offset, num_columns)
+
+                self._oCellAddress = self._oRange.getReferencePosition()
+                self._oCellAddress.Column = 0
+                print (self._oCellAddress.Column)
+                print (self._oCellAddress.Row)
+
+                oCellAddress_src = CellRangeAddress()
+#                 oCellAddress_Source = self._oCellAddress.Sheet()
+
+#                 self._oSheet.copyRange(self._oCellAddress,
+#                                             oCellAddress_Source)
+
+#                 CellAddress cAddress;
+#                 cAddress.Sheet = m_cAddress.Sheet;
+#                 cAddress.Column = 0;
+#                 cAddress.Row = crAddress.StartRow;
+#                 crAddress.StartRow -= nStep;
+#                 crAddress.EndRow -= nStep;
+#                 xCellRangeMovement->copyRange(cAddress, crAddress);
+#                 xCellRangeMovement->copyRange(cAddress, crAddress);
+            result = True
         return result
 
-    def insert_column(self, column, step=1, num_rows=1, offset=0):
+    def insert_columns(self, column=0, step=1, num_rows=1, offset=0):
         """
         Insert rows
 
@@ -296,6 +324,7 @@ class Template:
     def __init__(self, connection_string="\
 uno:socket,host=localhost,port=2002;urp;StarOffice.ComponentContext"):
         self._fields = None
+        self._connection_string = connection_string
 
 #         LibreOffice variables.
         self._oResolver = None
@@ -308,12 +337,23 @@ uno:socket,host=localhost,port=2002;urp;StarOffice.ComponentContext"):
             self._oResolver = \
                 self._oLocal.ServiceManager.createInstanceWithContext(
                     "com.sun.star.bridge.UnoUrlResolver", self._oLocal)
-            if self._oResolver:
-                self._oContext = self._oResolver.resolve(connection_string)
-                if self._oContext:
-                    self._oDesktop = self\
-                        ._oContext.ServiceManager.createInstanceWithContext(
-                            "com.sun.star.frame.Desktop", self._oContext)
+            try:
+                if self._oResolver:
+                    self._oContext = self._oResolver.resolve(
+                        self._connection_string)
+                    self._oDesktop = self._oContext.ServiceManager.\
+                        createInstanceWithContext(
+                                            "com.sun.star.frame.Desktop",
+                                            self._oContext)
+            except NoConnectException as e:
+                print ("The OpenOffice.org process is not started or does not\
+listen on the resource (" + e.Message + ")")
+            except IllegalArgumentException as e:
+                print ("The url is invalid ( " + e.Message + ")")
+            except RuntimeException as e:
+                print ("An unknown error occurred: " + e.Message)
+            except:
+                print ("Unknown exception")
 
     def document(self):
         """
@@ -336,7 +376,7 @@ uno:socket,host=localhost,port=2002;urp;StarOffice.ComponentContext"):
     def version(self):
         """
         Get library version.
-        
+
         @rtype:   string
         @return:  PyLibra version
         """
@@ -347,9 +387,17 @@ uno:socket,host=localhost,port=2002;urp;StarOffice.ComponentContext"):
         Close document.
 
         Close current document.
-        Not implemented yet.
+
+        @rtype:   boolean
+        @return:  Operation result
         """
         result = False
+        try:
+            if self._oDocument:
+                self._oDocument.close(True)
+                result = True
+        except:
+            print ("Unknown exception")
         return result
 
     def save_document(self, doc_name=""):
@@ -363,15 +411,20 @@ uno:socket,host=localhost,port=2002;urp;StarOffice.ComponentContext"):
         @rtype:   boolean
         @return:  Operation result
         """
-        result = True
+        result = False
         if self._oDocument:
             if 0 == len(doc_name):
                 self._oDocument.store()
             else:
-                strFullFileName = "file://" + doc_name
-                self._oDocument.storeToURL(strFullFileName)
-        else:
-            result = False
+                full_file_name = unohelper.systemPathToFileUrl(doc_name)
+                try:
+                    self._oDocument.storeToURL(full_file_name)
+                    result = True
+                except IllegalArgumentException as e:
+                    print ("The url (" + full_file_name + ") "
+                           "is invalid ( " + e.Message + ")")
+                except:
+                    print ("Unknown exception")
         return result
 
     def open_document(self, doc_name):
@@ -384,16 +437,20 @@ uno:socket,host=localhost,port=2002;urp;StarOffice.ComponentContext"):
         @rtype:   boolean
         @return:  Operation result
         """
-        result = True
+        result = False
         if len(doc_name) > 0 and self._oDesktop:
-            strFullFileName = "file://" + doc_name
-            self._oDocument = self._oDesktop.loadComponentFromURL(
-                strFullFileName, "_blank", 0, ())
-        else:
-            result = False
+            full_file_name = unohelper.systemPathToFileUrl(doc_name)
+            try:
+                self._oDocument = self._oDesktop.loadComponentFromURL(
+                    full_file_name, "_blank", 0, ())
+                result = True
+            except IllegalArgumentException as e:
+                print (e)
+            except:
+                print ("Unknown exception")
         return result
 
-    def new_document(self, doc_name):
+    def new_document(self):
         """
         Create new document.
 
@@ -401,4 +458,11 @@ uno:socket,host=localhost,port=2002;urp;StarOffice.ComponentContext"):
         Not implemented yet.
         """
         result = False
+        try:
+            if self._oDesktop:
+                self._oDocument = self._oDesktop.loadComponentFromURL(
+                                    "private:factory/scalc", "_blank", 0, ())
+                result = True
+        except:
+            print ("Unknown exception")
         return result
