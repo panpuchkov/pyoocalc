@@ -351,7 +351,7 @@ uno:socket,host=localhost,port=2002;urp;StarOffice.ComponentContext"):
                 print ('Start LibreOffice/OpenOffice in listening mode, \
 example:\n\n\
 libreoffice \
--accept="socket,host=localhost,port=2002;urp;StarOffice.ServiceManager\n')
+-accept="socket,host=localhost,port=2002;urp;StarOffice.ServiceManager"\n')
                 print ("Error: The OpenOffice.org process is not started or \
 does not listen on the resource (" + e.Message + ")")
             except IllegalArgumentException as e:

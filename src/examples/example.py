@@ -12,11 +12,10 @@ import os
 sys.path.append('./../')
 
 # user modules
-import pylibratm
+import pylibretm
 
 # open document
-# template = pylibratm.TemplateManager().template()
-template = pylibratm.Template()
+template = pylibretm.Template()
 if template:
     file_name = os.getcwd() + "/example.ods"
     file_name_saved = os.getcwd() + "/example_saved.ods"
