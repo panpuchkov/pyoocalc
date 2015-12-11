@@ -25,7 +25,7 @@ it is available as libreoffice-calc package.
 Install
 -------
 
-You can copy the pylibretm.py file somewhere to your PYTHONPATH.
+You can copy the pylibretm.py file somewhere to your ``PYTHONPATH``.
 
 
 
