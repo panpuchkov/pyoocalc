@@ -5,7 +5,6 @@ src.pylibratm.Field	src.pylibratm.Field-class.html
 src.pylibratm.Field.fields	src.pylibratm.Field-class.html#fields
 src.pylibratm.Field.is_null	src.pylibratm.Field-class.html#is_null
 src.pylibratm.Field.value	src.pylibratm.Field-class.html#value
-src.pylibratm.Field.remove	src.pylibratm.Field-class.html#remove
 src.pylibratm.Field.insert_columns	src.pylibratm.Field-class.html#insert_columns
 src.pylibratm.Field.insert_rows	src.pylibratm.Field-class.html#insert_rows
 src.pylibratm.Field.__init__	src.pylibratm.Field-class.html#__init__
@@ -15,6 +14,7 @@ src.pylibratm.Fields.field	src.pylibratm.Fields-class.html#field
 src.pylibratm.Fields.add	src.pylibratm.Fields-class.html#add
 src.pylibratm.Fields.template	src.pylibratm.Fields-class.html#template
 src.pylibratm.Fields.__init__	src.pylibratm.Fields-class.html#__init__
+src.pylibratm.Fields.remove	src.pylibratm.Fields-class.html#remove
 src.pylibratm.Template	src.pylibratm.Template-class.html
 src.pylibratm.Template.open_document	src.pylibratm.Template-class.html#open_document
 src.pylibratm.Template._toProperties	src.pylibratm.Template-class.html#_toProperties

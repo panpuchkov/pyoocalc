@@ -240,15 +240,6 @@ class Field:
             result = False
         return result
 
-    def remove(self):
-        """
-        Remove field name.
-
-        Remove field name from the document.
-        Not implemented yet.
-        """
-        return None
-
 ###############################################################################
 ###############################################################################
 ###############################################################################
@@ -268,7 +259,6 @@ class Fields:
 #         LibreOffice variables.
 #         self._oSheets = None
         self._oNamedRanges = None
-
         if self._template:
             self._oNamedRanges = self._template.document().NamedRanges
 
@@ -296,11 +286,33 @@ class Fields:
             self._field = None
         return self._field
 
-    def add(self, name, value, sheet, column, row):
+    def add(self, name, value, sheet, column, row, type=0):
         """
-        Get field.
-
         Not implemented yet. FIXME
+        Adds a new field (named range) to the collection. 
+
+        @type  name: string
+        @param name: the new name of the named range.
+
+        @type  value: string
+        @param value: the formula expression.
+
+        @type  sheet: integer
+        @param sheet: the formula expression.
+
+        @type  column: integer
+        @param column: the formula expression.
+
+        @type  row: integer
+        @param row: the formula expression.
+
+        @type  type: integer
+        @param type: a combination of flags that specify the type of a named \
+                    range, as defined in NamedRangeFlag. This parameter \
+                    will be zero for any common named range.
+
+        @rtype:   boolean
+        @return:  Operation result
         """
         cell_address = uno.createUnoStruct("com.sun.star.table.CellAddress")
         cell_address.Sheet = sheet
@@ -314,6 +326,24 @@ class Fields:
         # [in] long     nType
         # )
         return None
+
+    def remove(self, name):
+        """
+        Not implemented yet. FIXME
+        Removes a field (named range) from the collection.
+
+        @type  name: string
+        @param name: the new name of the named range.
+
+        @rtype:   boolean
+        @return:  Operation result
+        """
+        result = False
+        if self._oNamedRanges:
+            self._oNamedRanges.removeByName(name)
+            result = True
+        return result
+
 
 ###############################################################################
 ###############################################################################
@@ -532,7 +562,8 @@ does not listen on the resource (" + e.Message + ")")
         @rtype:   Fields
         @return:  Fields object
         """
-        self._fields = Fields(self)
+        if self._fields:
+            self._fields = Fields(self)
         return self._fields
 
     def version(self):
