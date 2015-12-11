@@ -550,10 +550,3 @@ does not listen on the resource (" + e.Message + ")")
         @return:  PyLibra version
         """
         return "0.0.1"
-
-###############################################################################
-# Help code for future
-
-# prop_val = uno.createUnoStruct( "com.sun.star.beans.PropertyValue" )
-# prop_val.Name = "Overwrite";
-# prop_val.Value = True;
