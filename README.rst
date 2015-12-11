@@ -1,12 +1,15 @@
+========================================================
 PyLibreTM - Python LibreOffice Template Manager
+========================================================
 
 PyLibreTM allows you to generate different report documents on the base of
-prepared templates. PyLibreTM is used in accounting system for generating 
-invoices and other documents.
+prepared OpenOffice_ or LibreOffice_ templates. PyLibreTM is used in accounting
+system for generating invoices and other documents.
 
 
 
-REQUIREMENTS
+Requirements
+------------
 
 PyLibreTM runs on Python 3.
 
@@ -20,12 +23,15 @@ it is available as libreoffice-calc package.
 
 
 Install
+-------
 
 You can copy the pylibretm.py file somewhere to your PYTHONPATH.
 
 
 
-USAGE
+Usage
+-----
+
 
 Starting OpenOffice / LibreOffice
 
@@ -54,7 +60,8 @@ you may not get the correct PID of the running program.
 
 
 
-DOCUMENTATION
+Documentation
+-------------
 
 You can find documentation here:
 
@@ -66,7 +73,8 @@ Examples:
 
 
 
-TESTING
+Testing
+-------
 
 Automated integration tests cover most of the code.
 
