@@ -39,14 +39,12 @@ PyLibreTM requires a running OpenOffice or LibreOffice instance which it can
 connect to. On Ubuntu you can start LibreOffice from a command line using a 
 command similar to: ::
 
-$ soffice --accept="socket,host=localhost,port=2002;urp;" \
---norestore --nologo --nodefault # --headless
+$ soffice --accept="socket,host=localhost,port=2002;urp;" --norestore --nologo --nodefault # --headless
 
 The LibreOffice will be listening for localhost connection on port 2002.
 Alternatively a named pipe can be used: ::
 
-$ soffice --accept="pipe,name=hello;urp;" --norestore --nologo\
- --nodefault # --headless
+$ soffice --accept="pipe,name=hello;urp;" --norestore --nologo --nodefault # --headless
 
 If the --headless option is used then no user interface is visible even when a
 document is opened.
