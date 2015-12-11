@@ -22,17 +22,20 @@ sudo apt-get install libreoffice-script-provider-python
 import uno
 import unohelper
 
+# Exceptions
 from com.sun.star.uno import RuntimeException
 from com.sun.star.lang import IllegalArgumentException
 from com.sun.star.connection import NoConnectException
 from com.sun.star.io import IOException
 
+# Other office interfaces
+from com.sun.star.table import CellRangeAddress
+from com.sun.star.beans import PropertyValue
+
 # _IndexOutOfBoundsException = \
 # uno.getClass('com.sun.star.lang.IndexOutOfBoundsException')
 # _NoSuchElementException = \
 # uno.getClass('com.sun.star.container.NoSuchElementException')
-
-from com.sun.star.beans import PropertyValue
 
 ###############################################################################
 
@@ -147,7 +150,10 @@ class Field:
                 value = self._oCell.getString()
         return value
 
-    def insert_rows(self, row=0, step=1, num_columns=1, offset=0):
+    def insert_rows(self,
+                    num_rows=1,
+                    step=1,
+                    copy_rows=True):
         """
         Insert rows
 
@@ -155,89 +161,53 @@ class Field:
         After the new row insertion the content of the current rows is copied
         to the new rows.
 
-        @type  row: integer
-        @param row: Row index relative to current Field. Default value=0.
+        @type  num_rows: integer
+        @param num_rows: Number of rows to insert. Default value=1
 
         @type  step: integer
         @param step: Step of rows insertion.
 
-        @type  num_columns: integer
-        @param num_columns: Number of columns to insert. Default value=1
-
-        @type  offset: integer
-        @param offset: Rows offset. Relatively to current field.
-                        Default value=0
+        @type  copy_rows: boolean
+        @param copy_rows: Copy rows on insert. Allows to save row format on\
+                        inserting new rows.
 
         @rtype:   boolean
         @return:  Operation result
         """
         result = False
-#         if self._oCell and self._fields:
-        if self._fields:
-            # oCellAddress = self._oCell.CellAddress
-            # oSheets = self._fields.template().document().getSheets()
-            # oSheet = oSheets.getByIndex(oCellAddress.Sheet)
-            if self._oSheet:
-                self._oSheet.Rows.insertByIndex(
-                    self._oCellAddress.Row + row, num_columns)
-# self._oCellAddress.Row + row + step + offset, num_columns)
+        if self._fields and self._oSheet and num_rows > 0:
+            insert_pos_with_step = self._oCellAddress.Row + 1 + step
+            self._oSheet.Rows.insertByIndex(
+                insert_pos_with_step, (num_rows * step))
 
+            # Copy rows
+            if copy_rows and num_rows > 0:
+                # Initialize variable as CellRangeAddress object
+                oCellRangeAddress_Src = CellRangeAddress()
+
+                # Source address
+                oCellRangeAddress_Src.Sheet = self._oCellAddress.Sheet
+                oCellRangeAddress_Src.StartColumn = 0
+                oCellRangeAddress_Src.EndColumn = 200
+                oCellRangeAddress_Src.StartRow = \
+                    self._oCellAddress.Row + 1
+                oCellRangeAddress_Src.EndRow = \
+                    oCellRangeAddress_Src.StartRow + step - 1
+
+                # Destination address
+                oCellAddress_Dst = self._oCellAddress
+                oCellAddress_Dst.Column = 0
+                oCellAddress_Dst.Row = oCellAddress_Dst.Row + 1 + step
+
+                for i in range(0, num_rows):
+                    self._oSheet.copyRange(oCellAddress_Dst,
+                                           oCellRangeAddress_Src)
+                    oCellAddress_Dst.Row += step
+
+#                 Restore cell address variable
                 self._oCellAddress = self._oRange.getReferencePosition()
-                self._oCellAddress.Column = 0
-                print (self._oCellAddress.Column)
-                print (self._oCellAddress.Row)
 
-#                 oCellAddress_src = CellRangeAddress()
-#                 oCellAddress_Source = self._oCellAddress.Sheet()
-
-#                 self._oSheet.copyRange(self._oCellAddress,
-#                                             oCellAddress_Source)
-
-#                 CellAddress cAddress;
-#                 cAddress.Sheet = m_cAddress.Sheet;
-#                 cAddress.Column = 0;
-#                 cAddress.Row = crAddress.StartRow;
-#                 crAddress.StartRow -= nStep;
-#                 crAddress.EndRow -= nStep;
-#                 xCellRangeMovement->copyRange(cAddress, crAddress);
-#                 xCellRangeMovement->copyRange(cAddress, crAddress);
             result = True
-        return result
-
-    def insert_columns(self, column=0, step=1, num_rows=1, offset=0):
-        """
-        Insert rows
-
-        Insert new column at the specified position relatively to cell.
-        After the new column insertion the content of the current columns is
-        copied to the new columns.
-
-        @type  column: integer
-        @param column: Row index. Default value=1.
-
-        @type  step: integer
-        @param step: Default value = 1.    // FIXME
-
-        @type  num_rows: integer
-        @param num_rows: Number of columns to copy. Default value=1
-
-        @type  offset: integer
-        @param offset: Rows offset. Relatively to current field.
-                        Default value=0
-
-        @rtype:   boolean
-        @return:  Operation result
-        """
-        result = True
-        if self._oCell and self._fields:
-            # oCellAddress = self._oCell.CellAddress
-            # oSheets = self._fields.template().document().getSheets()
-            # oSheet = oSheets.getByIndex(oCellAddress.Sheet)
-            if self._oSheet:
-                self._oSheet.Columns.insertByIndex(
-                    self._oCellAddress.Column + offset, num_rows)
-        else:
-            result = False
         return result
 
 ###############################################################################
@@ -289,7 +259,7 @@ class Fields:
     def add(self, name, value, sheet, column, row, type=0):
         """
         Not implemented yet. FIXME
-        Adds a new field (named range) to the collection. 
+        Adds a new field (named range) to the collection.
 
         @type  name: string
         @param name: the new name of the named range.
@@ -427,16 +397,10 @@ does not listen on the resource (" + e.Message + ")")
         @return:  Operation result
         """
         result = False
-        full_file_name = ""
-        if 0 == len(doc_name):
-            full_file_name = "private:factory/scalc"
-        else:
-            full_file_name = unohelper.systemPathToFileUrl(doc_name)
-
         if self._oDesktop:
             try:
                 self._oDocument = self._oDesktop.loadComponentFromURL(
-                    full_file_name, "_blank", 0, ())
+                    doc_name, "_blank", 0, ())
                 result = True
             except IllegalArgumentException as e:
                 print (e)
@@ -453,7 +417,7 @@ does not listen on the resource (" + e.Message + ")")
         @rtype:   boolean
         @return:  Operation result
         """
-        return self._open_document()
+        return self._open_document("private:factory/scalc")
 
     def open_document(self, doc_name):
         """
@@ -467,6 +431,7 @@ does not listen on the resource (" + e.Message + ")")
         """
         result = False
         if len(doc_name) > 0:
+            doc_name = unohelper.systemPathToFileUrl(doc_name)
             result = self._open_document(doc_name)
         return result
 
@@ -572,7 +537,7 @@ does not listen on the resource (" + e.Message + ")")
         @rtype:   Fields
         @return:  Fields object
         """
-        if self._fields:
+        if self._fields is None:
             self._fields = Fields(self)
         return self._fields
 

@@ -5,7 +5,6 @@ src.pylibratm.Field	src.pylibratm.Field-class.html
 src.pylibratm.Field.fields	src.pylibratm.Field-class.html#fields
 src.pylibratm.Field.is_null	src.pylibratm.Field-class.html#is_null
 src.pylibratm.Field.value	src.pylibratm.Field-class.html#value
-src.pylibratm.Field.insert_columns	src.pylibratm.Field-class.html#insert_columns
 src.pylibratm.Field.insert_rows	src.pylibratm.Field-class.html#insert_rows
 src.pylibratm.Field.__init__	src.pylibratm.Field-class.html#__init__
 src.pylibratm.Field.set_value	src.pylibratm.Field-class.html#set_value

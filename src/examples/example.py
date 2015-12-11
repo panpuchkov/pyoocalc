@@ -19,6 +19,7 @@ import pylibratm
 template = pylibratm.Template()
 if template:
     file_name = os.getcwd() + "/example.ods"
+    file_name_saved = os.getcwd() + "/example_saved.ods"
     template.open_document( file_name )
 
 # Get document fields
@@ -35,12 +36,19 @@ print ("New table name is: " + field.value())
 
 # Insert rows
 field1 = fields.field("FIELD_1")
-field1.insert_rows(1)
-field1.set_value("F1.1", 0, 1)
-field1.set_value("F1.2", 0, 2)
+field2 = fields.field("FIELD_2")
+field3 = fields.field("FIELD_3")
+field4 = fields.field("FIELD_4")
+
+num_rows = 5
+step = 2
+if num_rows > 0:
+    field1.insert_rows(num_rows=num_rows-1, step=step, copy_rows=True)
+for i in range(1, num_rows + 1):
+    field1.set_value("F1." + str(i), 0, i * step - (step -1))
+    field2.set_value("F2." + str(i), 0, i * step - (step -1))
+    field3.set_value("F3." + str(i), 0, i * step - (step -1))
+    field4.set_value("F4." + str(i), 0, i * step - (step -1))
 
 # template.insert_spreadsheet("Test", 1)
 # template.remove_spreadsheet("Лист1")
-
-fields.remove("TABLE_NAME")
-

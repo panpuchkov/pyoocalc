@@ -164,34 +164,12 @@
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
           <td><span class="summary-sig"><a href="src.pylibratm.Field-class.html#insert_rows" class="summary-sig-name">insert_rows</a>(<span class="summary-sig-arg">self</span>,
-        <span class="summary-sig-arg">row</span>=<span class="summary-sig-default">0</span>,
+        <span class="summary-sig-arg">num_rows</span>=<span class="summary-sig-default">1</span>,
         <span class="summary-sig-arg">step</span>=<span class="summary-sig-default">1</span>,
-        <span class="summary-sig-arg">num_columns</span>=<span class="summary-sig-default">1</span>,
-        <span class="summary-sig-arg">offset</span>=<span class="summary-sig-default">0</span>)</span><br />
+        <span class="summary-sig-arg">copy_rows</span>=<span class="summary-sig-default">True</span>)</span><br />
       Insert rows</td>
           <td align="right" valign="top">
             <span class="codelink"><a href="src.pylibratm-pysrc.html#Field.insert_rows">source&nbsp;code</a></span>
-            
-          </td>
-        </tr>
-      </table>
-      
-    </td>
-  </tr>
-<tr>
-    <td width="15%" align="right" valign="top" class="summary">
-      <span class="summary-type">boolean</span>
-    </td><td class="summary">
-      <table width="100%" cellpadding="0" cellspacing="0" border="0">
-        <tr>
-          <td><span class="summary-sig"><a href="src.pylibratm.Field-class.html#insert_columns" class="summary-sig-name">insert_columns</a>(<span class="summary-sig-arg">self</span>,
-        <span class="summary-sig-arg">column</span>=<span class="summary-sig-default">0</span>,
-        <span class="summary-sig-arg">step</span>=<span class="summary-sig-default">1</span>,
-        <span class="summary-sig-arg">num_rows</span>=<span class="summary-sig-default">1</span>,
-        <span class="summary-sig-arg">offset</span>=<span class="summary-sig-default">0</span>)</span><br />
-      Insert rows</td>
-          <td align="right" valign="top">
-            <span class="codelink"><a href="src.pylibratm-pysrc.html#Field.insert_columns">source&nbsp;code</a></span>
             
           </td>
         </tr>
@@ -318,10 +296,9 @@
   <table width="100%" cellpadding="0" cellspacing="0" border="0">
   <tr valign="top"><td>
   <h3 class="epydoc"><span class="sig"><span class="sig-name">insert_rows</span>(<span class="sig-arg">self</span>,
-        <span class="sig-arg">row</span>=<span class="sig-default">0</span>,
+        <span class="sig-arg">num_rows</span>=<span class="sig-default">1</span>,
         <span class="sig-arg">step</span>=<span class="sig-default">1</span>,
-        <span class="sig-arg">num_columns</span>=<span class="sig-default">1</span>,
-        <span class="sig-arg">offset</span>=<span class="sig-default">0</span>)</span>
+        <span class="sig-arg">copy_rows</span>=<span class="sig-default">True</span>)</span>
   </h3>
   </td><td align="right" valign="top"
     ><span class="codelink"><a href="src.pylibratm-pysrc.html#Field.insert_rows">source&nbsp;code</a></span>&nbsp;
@@ -335,45 +312,10 @@
   <dl class="fields">
     <dt>Parameters:</dt>
     <dd><ul class="nomargin-top">
-        <li><strong class="pname"><code>row</code></strong> (integer) - Row index relative to current Field. Default value=0.</li>
+        <li><strong class="pname"><code>num_rows</code></strong> (integer) - Number of rows to insert. Default value=1</li>
         <li><strong class="pname"><code>step</code></strong> (integer) - Step of rows insertion.</li>
-        <li><strong class="pname"><code>num_columns</code></strong> (integer) - Number of columns to insert. Default value=1</li>
-        <li><strong class="pname"><code>offset</code></strong> (integer) - Rows offset. Relatively to current field. Default value=0</li>
-    </ul></dd>
-    <dt>Returns: boolean</dt>
-        <dd>Operation result</dd>
-  </dl>
-</td></tr></table>
-</div>
-<a name="insert_columns"></a>
-<div>
-<table class="details" border="1" cellpadding="3"
-       cellspacing="0" width="100%" bgcolor="white">
-<tr><td>
-  <table width="100%" cellpadding="0" cellspacing="0" border="0">
-  <tr valign="top"><td>
-  <h3 class="epydoc"><span class="sig"><span class="sig-name">insert_columns</span>(<span class="sig-arg">self</span>,
-        <span class="sig-arg">column</span>=<span class="sig-default">0</span>,
-        <span class="sig-arg">step</span>=<span class="sig-default">1</span>,
-        <span class="sig-arg">num_rows</span>=<span class="sig-default">1</span>,
-        <span class="sig-arg">offset</span>=<span class="sig-default">0</span>)</span>
-  </h3>
-  </td><td align="right" valign="top"
-    ><span class="codelink"><a href="src.pylibratm-pysrc.html#Field.insert_columns">source&nbsp;code</a></span>&nbsp;
-    </td>
-  </tr></table>
-  
-  <p>Insert rows</p>
-  <p>Insert new column at the specified position relatively to cell. After 
-  the new column insertion the content of the current columns is copied to 
-  the new columns.</p>
-  <dl class="fields">
-    <dt>Parameters:</dt>
-    <dd><ul class="nomargin-top">
-        <li><strong class="pname"><code>column</code></strong> (integer) - Row index. Default value=1.</li>
-        <li><strong class="pname"><code>step</code></strong> (integer) - Default value = 1.    // FIXME</li>
-        <li><strong class="pname"><code>num_rows</code></strong> (integer) - Number of columns to copy. Default value=1</li>
-        <li><strong class="pname"><code>offset</code></strong> (integer) - Rows offset. Relatively to current field. Default value=0</li>
+        <li><strong class="pname"><code>copy_rows</code></strong> (boolean) - Copy rows on insert. Allows to save row format on
+          inserting new rows.</li>
     </ul></dd>
     <dt>Returns: boolean</dt>
         <dd>Operation result</dd>
@@ -408,7 +350,7 @@
   <tr>
     <td align="left" class="footer">
     Generated by Epydoc 3.0.1
-    on Fri Dec 11 11:27:56 2015
+    on Fri Dec 11 17:44:14 2015
     </td>
     <td align="right" class="footer">
       <a target="mainFrame" href="http://epydoc.sourceforge.net"
