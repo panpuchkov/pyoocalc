@@ -37,13 +37,13 @@ Starting OpenOffice / LibreOffice
 
 PyLibreTM requires a running OpenOffice or LibreOffice instance which it can
 connect to. On Ubuntu you can start LibreOffice from a command line using a 
-command similar to:
+command similar to: ::
 
 $ soffice --accept="socket,host=localhost,port=2002;urp;" \
 --norestore --nologo --nodefault # --headless
 
 The LibreOffice will be listening for localhost connection on port 2002.
-Alternatively a named pipe can be used:
+Alternatively a named pipe can be used: ::
 
 $ soffice --accept="pipe,name=hello;urp;" --norestore --nologo\
  --nodefault # --headless
@@ -51,9 +51,10 @@ $ soffice --accept="pipe,name=hello;urp;" --norestore --nologo\
 If the --headless option is used then no user interface is visible even when a
 document is opened.
 
-For more information run:
+For more information run: ::
 
 $ soffice --help
+
 It is recommended to start directly the soffice binary. There can be various 
 scripts (called for example libreoffice) which will run the soffice binary but 
 you may not get the correct PID of the running program.
@@ -63,11 +64,11 @@ you may not get the correct PID of the running program.
 Documentation
 -------------
 
-You can find documentation here:
+You can find documentation here: ::
 
 ./doc/index.html
 
-Examples:
+Examples: ::
 
  ./src/examples/example.py
 
@@ -81,7 +82,7 @@ Automated integration tests cover most of the code.
 The test suite assumes that OpenOffice or LibreOffice is running and it is 
 listening on localhost port 2002.
 
-All tests are in the test.py file:
+All tests are in the test.py file: ::
 
 $ python3 example.py
 
