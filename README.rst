@@ -1,5 +1,5 @@
 ========================================================
-PyLibreTM - Python LibreOffice Template Manager
+PyLibreTM - Python Libre/Open Office Template Manager
 ========================================================
 
 PyLibreTM allows you to generate different report documents on the base of
