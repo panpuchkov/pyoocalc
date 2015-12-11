@@ -88,4 +88,5 @@ $ python3 example.py
 
 LICENSE
 
-GPL-V3
+This library is released under the GPL-V3 license. See the ``LICENSE`` file.
+Copyright (c) 2015 thepurple.
