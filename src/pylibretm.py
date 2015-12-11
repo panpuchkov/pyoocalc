@@ -291,11 +291,6 @@ class Fields:
         cell_address.Row = row
         if self._oNamedRanges:
             self._oNamedRanges.addNewByName(name, value, cell_address, 0)
-        # void addNewByName    (    [in] string     aName,
-        # [in] string     aContent,
-        # [in] com::sun::star::table::CellAddress     aPosition,
-        # [in] long     nType
-        # )
         return None
 
     def remove(self, name):
@@ -314,7 +309,6 @@ class Fields:
             self._oNamedRanges.removeByName(name)
             result = True
         return result
-
 
 ###############################################################################
 ###############################################################################
@@ -492,6 +486,10 @@ does not listen on the resource (" + e.Message + ")")
                 self.document().close(True)
                 self._oDocument = None
                 result = True
+        except ErrorCodeIOException as e:
+            print (e)
+        except IOException as e:
+            raise IOError(e.Message)
         except:
             print ("Unknown exception")
         return result
