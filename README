@@ -1,11 +1,31 @@
-License: GPL-V3
+PyLibreTM - Python LibreOffice Template Manager
+
+PyLibreTM allows you to generate different report documents on the base of
+prepared templates. PyLibreTM is used in accounting system for generating 
+invoices and other documents.
+
+
+
+REQUIREMENTS
+
+PyLibreTM runs on Python 3.
+
+The only dependency is the Python-UNO library (imported as a module uno).
+It is often installed with the office suite. On Debian based systems it can be
+installed as python-uno or python3-uno package.
+
+Obviously you will also need OpenOffice or LibreOffice Calc. On Debian systems
+it is available as libreoffice-calc package.
+
+
 
 Install
 
 You can copy the pylibretm.py file somewhere to your PYTHONPATH.
 
 
-Usage
+
+USAGE
 
 Starting OpenOffice / LibreOffice
 
@@ -31,3 +51,34 @@ $ soffice --help
 It is recommended to start directly the soffice binary. There can be various 
 scripts (called for example libreoffice) which will run the soffice binary but 
 you may not get the correct PID of the running program.
+
+
+
+DOCUMENTATION
+
+You can find documentation here:
+
+./doc/index.html
+
+Examples:
+
+ ./src/examples/example.py
+
+
+
+TESTING
+
+Automated integration tests cover most of the code.
+
+The test suite assumes that OpenOffice or LibreOffice is running and it is 
+listening on localhost port 2002.
+
+All tests are in the test.py file:
+
+$ python3 example.py
+
+
+
+LICENSE
+
+GPL-V3
