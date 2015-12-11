@@ -153,7 +153,8 @@ class Field:
     def insert_rows(self,
                     num_rows=1,
                     step=1,
-                    copy_rows=True):
+                    columns_to_copy=1000
+                    ):
         """
         Insert rows
 
@@ -167,9 +168,9 @@ class Field:
         @type  step: integer
         @param step: Step of rows insertion.
 
-        @type  copy_rows: boolean
-        @param copy_rows: Copy rows on insert. Allows to save row format on\
-                        inserting new rows.
+        @type  columns_to_copy: boolean
+        @param columns_to_copy: Number of a columns to copy on insert.
+                            No copy will be performed if columns_to_copy = 0
 
         @rtype:   boolean
         @return:  Operation result
@@ -181,14 +182,14 @@ class Field:
                 insert_pos_with_step, (num_rows * step))
 
             # Copy rows
-            if copy_rows and num_rows > 0:
+            if columns_to_copy > 0 and num_rows > 0:
                 # Initialize variable as CellRangeAddress object
                 oCellRangeAddress_Src = CellRangeAddress()
 
                 # Source address
                 oCellRangeAddress_Src.Sheet = self._oCellAddress.Sheet
                 oCellRangeAddress_Src.StartColumn = 0
-                oCellRangeAddress_Src.EndColumn = 200
+                oCellRangeAddress_Src.EndColumn = columns_to_copy
                 oCellRangeAddress_Src.StartRow = \
                     self._oCellAddress.Row + 1
                 oCellRangeAddress_Src.EndRow = \
