@@ -416,6 +416,36 @@ does not listen on the resource (" + e.Message + ")")
         """
         return self._oDocument
 
+    def _open_document(self, doc_name=""):
+        """
+        Open document.
+
+        @type  doc_name: string
+        @param doc_name: Document name.
+
+        @rtype:   boolean
+        @return:  Operation result
+        """
+        result = False
+        full_file_name = ""
+        if 0 == len(doc_name):
+            full_file_name = "private:factory/scalc"
+        else:
+            full_file_name = unohelper.systemPathToFileUrl(doc_name)
+
+        if self._oDesktop:
+            try:
+                self._oDocument = self._oDesktop.loadComponentFromURL(
+                    full_file_name, "_blank", 0, ())
+                result = True
+            except IllegalArgumentException as e:
+                print (e)
+            except IOException as e:
+                raise IOError(e.Message)
+            except:
+                print ("Unknown exception")
+        return result
+
     def new_document(self):
         """
         Create new document.
@@ -423,17 +453,7 @@ does not listen on the resource (" + e.Message + ")")
         @rtype:   boolean
         @return:  Operation result
         """
-        result = False
-        try:
-            if self._oDesktop:
-                self._oDocument = self._oDesktop.loadComponentFromURL(
-                                    "private:factory/scalc", "_blank", 0, ())
-                result = True
-        except IOException as e:
-            raise IOError(e.Message)
-        except:
-            print ("Unknown exception")
-        return result
+        return self._open_document()
 
     def open_document(self, doc_name):
         """
@@ -446,18 +466,8 @@ does not listen on the resource (" + e.Message + ")")
         @return:  Operation result
         """
         result = False
-        if len(doc_name) > 0 and self._oDesktop:
-            full_file_name = unohelper.systemPathToFileUrl(doc_name)
-            try:
-                self._oDocument = self._oDesktop.loadComponentFromURL(
-                    full_file_name, "_blank", 0, ())
-                result = True
-            except IllegalArgumentException as e:
-                print (e)
-            except IOException as e:
-                raise IOError(e.Message)
-            except:
-                print ("Unknown exception")
+        if len(doc_name) > 0:
+            result = self._open_document(doc_name)
         return result
 
     def save_document(self, doc_name="", filter_name=""):

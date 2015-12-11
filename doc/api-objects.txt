@@ -17,11 +17,12 @@ src.pylibratm.Fields.__init__	src.pylibratm.Fields-class.html#__init__
 src.pylibratm.Fields.remove	src.pylibratm.Fields-class.html#remove
 src.pylibratm.Template	src.pylibratm.Template-class.html
 src.pylibratm.Template.open_document	src.pylibratm.Template-class.html#open_document
+src.pylibratm.Template.version	src.pylibratm.Template-class.html#version
 src.pylibratm.Template._toProperties	src.pylibratm.Template-class.html#_toProperties
 src.pylibratm.Template.remove_spreadsheet	src.pylibratm.Template-class.html#remove_spreadsheet
 src.pylibratm.Template.fields	src.pylibratm.Template-class.html#fields
 src.pylibratm.Template.insert_spreadsheet	src.pylibratm.Template-class.html#insert_spreadsheet
-src.pylibratm.Template.version	src.pylibratm.Template-class.html#version
+src.pylibratm.Template._open_document	src.pylibratm.Template-class.html#_open_document
 src.pylibratm.Template.save_document	src.pylibratm.Template-class.html#save_document
 src.pylibratm.Template.__init__	src.pylibratm.Template-class.html#__init__
 src.pylibratm.Template.close_document	src.pylibratm.Template-class.html#close_document
