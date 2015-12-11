@@ -25,6 +25,12 @@ import unohelper
 from com.sun.star.uno import RuntimeException
 from com.sun.star.lang import IllegalArgumentException
 from com.sun.star.connection import NoConnectException
+from com.sun.star.io import IOException
+
+# _IndexOutOfBoundsException = \
+# uno.getClass('com.sun.star.lang.IndexOutOfBoundsException')
+# _NoSuchElementException = \
+# uno.getClass('com.sun.star.container.NoSuchElementException')
 
 from com.sun.star.beans import PropertyValue
 
@@ -260,7 +266,7 @@ class Fields:
         self._field = None
 
 #         LibreOffice variables.
-        self._oSheets = None
+#         self._oSheets = None
         self._oNamedRanges = None
 
         if self._template:
@@ -290,31 +296,24 @@ class Fields:
             self._field = None
         return self._field
 
-    def insert_spreadsheet(self, name, index):
-        """
-        Insert spreadsheet.
-
-        Not implemented yet.
-        """
-        result = False
-        return result
-
-    def add(self, name):
+    def add(self, name, value, sheet, column, row):
         """
         Get field.
 
-        Not implemented yet.
+        Not implemented yet. FIXME
         """
+        cell_address = uno.createUnoStruct("com.sun.star.table.CellAddress")
+        cell_address.Sheet = sheet
+        cell_address.Column = column
+        cell_address.Row = row
+        if self._oNamedRanges:
+            self._oNamedRanges.addNewByName(name, value, cell_address, 0)
+        # void addNewByName    (    [in] string     aName,
+        # [in] string     aContent,
+        # [in] com::sun::star::table::CellAddress     aPosition,
+        # [in] long     nType
+        # )
         return None
-
-    def count(self):
-        """
-        Get fields count.
-
-        Not implemented yet.
-        """
-        count = -1
-        return count
 
 ###############################################################################
 ###############################################################################
@@ -381,45 +380,54 @@ does not listen on the resource (" + e.Message + ")")
         LibreOffice/OpenOffice Calc document object.
 
         Required for Fileds and Field classes. Do not use it directly.
+
+        @rtype:   com::sun::star::lang::XComponent
+        @return:  Libre/Open office document object
         """
         return self._oDocument
 
-    def fields(self):
+    def new_document(self):
         """
-        Get fields document's object.
-
-        @rtype:   Fields
-        @return:  Fields object
-        """
-        self._fields = Fields(self)
-        return self._fields
-
-    def version(self):
-        """
-        Get library version.
-
-        @rtype:   string
-        @return:  PyLibra version
-        """
-        return "0.0.1"
-
-    def close_document(self):
-        """
-        Close document.
-
-        Close current document.
+        Create new document.
 
         @rtype:   boolean
         @return:  Operation result
         """
         result = False
         try:
-            if self._oDocument:
-                self._oDocument.close(True)
-                self._oDocument = None
+            if self._oDesktop:
+                self._oDocument = self._oDesktop.loadComponentFromURL(
+                                    "private:factory/scalc", "_blank", 0, ())
                 result = True
+        except IOException as e:
+            raise IOError(e.Message)
         except:
             print ("Unknown exception")
+        return result
+
+    def open_document(self, doc_name):
+        """
+        Open document.
+
+        @type  doc_name: string
+        @param doc_name: Document name.
+
+        @rtype:   boolean
+        @return:  Operation result
+        """
+        result = False
+        if len(doc_name) > 0 and self._oDesktop:
+            full_file_name = unohelper.systemPathToFileUrl(doc_name)
+            try:
+                self._oDocument = self._oDesktop.loadComponentFromURL(
+                    full_file_name, "_blank", 0, ())
+                result = True
+            except IllegalArgumentException as e:
+                print (e)
+            except IOException as e:
+                raise IOError(e.Message)
+            except:
+                print ("Unknown exception")
         return result
 
     def save_document(self, doc_name="", filter_name=""):
@@ -442,13 +450,13 @@ does not listen on the resource (" + e.Message + ")")
         @return:  Operation result
         """
         result = False
-        if self._oDocument:
+        if self.document():
             if 0 == len(doc_name):
-                self._oDocument.store()
+                self.document().store()
             else:
                 full_file_name = unohelper.systemPathToFileUrl(doc_name)
                 try:
-                    self._oDocument.storeToURL(
+                    self.document().storeToURL(
                                 full_file_name,
                                 self._toProperties(FilterName=filter_name))
                     result = True
@@ -457,55 +465,88 @@ does not listen on the resource (" + e.Message + ")")
                            "is invalid ( " + e.Message + ")")
                 except ErrorCodeIOException as e:
                     print (e)
+                except IOException as e:
+                    raise IOError(e.Message)
                 except:
                     print ("Unknown exception")
         return result
 
-    def open_document(self, doc_name):
+    def close_document(self):
         """
-        Open document.
+        Close document.
 
-        @type  doc_name: string
-        @param doc_name: Document name.
+        Close current document.
 
         @rtype:   boolean
         @return:  Operation result
         """
         result = False
-        if len(doc_name) > 0 and self._oDesktop:
-            full_file_name = unohelper.systemPathToFileUrl(doc_name)
-            try:
-                self._oDocument = self._oDesktop.loadComponentFromURL(
-                    full_file_name, "_blank", 0, ())
-                result = True
-            except IllegalArgumentException as e:
-                print (e)
-            except:
-                print ("Unknown exception")
-        return result
-
-    def new_document(self):
-        """
-        Create new document.
-
-        Create new document.
-        Not implemented yet.
-        """
-        result = False
         try:
-            if self._oDesktop:
-                self._oDocument = self._oDesktop.loadComponentFromURL(
-                                    "private:factory/scalc", "_blank", 0, ())
+            if self.document():
+                self.document().close(True)
+                self._oDocument = None
                 result = True
         except:
             print ("Unknown exception")
         return result
 
+    def insert_spreadsheet(self, name, index):
+        """
+        Inserts a new sheet into the collection.
+
+        @type  name: string
+        @param name: The name of the new spreadsheet.
+
+        @type  index: integer
+        @param index: The index of the new spreadsheet in the collection.
+
+        @rtype:   boolean
+        @return:  Operation result
+        """
+        result = False
+        if self.document():
+            self.document().getSheets().insertNewByName(name, index)
+            result = True
+        return result
+
+    def remove_spreadsheet(self, name):
+        """
+        Inserts a new sheet into the collection.
+
+        @type  name: string
+        @param name: The name of the removing spreadsheet.
+
+        @rtype:   boolean
+        @return:  Operation result
+        """
+        result = False
+        if self.document():
+            self.document().getSheets().removeByName(name)
+            result = True
+        return result
+
+    def fields(self):
+        """
+        Get fields document's object.
+
+        @rtype:   Fields
+        @return:  Fields object
+        """
+        self._fields = Fields(self)
+        return self._fields
+
+    def version(self):
+        """
+        Get library version.
+
+        @rtype:   string
+        @return:  PyLibra version
+        """
+        return "0.0.1"
+
 ###############################################################################
 # Help code for future
 
 # prop_val = uno.createUnoStruct( "com.sun.star.beans.PropertyValue" )
-# prop_val = PropertyValue
 # prop_val.Name = "Overwrite";
 # prop_val.Value = True;
-# props.append(prop_val)

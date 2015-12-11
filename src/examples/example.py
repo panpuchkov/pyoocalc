@@ -38,3 +38,6 @@ field1 = fields.field("FIELD_1")
 field1.insert_rows(1)
 field1.set_value("F1.1", 0, 1)
 field1.set_value("F1.2", 0, 2)
+
+# template.insert_spreadsheet("Test", 1)
+# template.remove_spreadsheet("Лист1")
