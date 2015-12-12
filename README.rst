@@ -127,4 +127,4 @@ License
 
 This library is released under the GPL-V3 license. See the ``LICENSE`` file.
 
-(c) 2015 thepurple.
+Copyright (c) 2015 - thepurple.
