@@ -12,10 +12,13 @@ Optional requirements:
 
 sudo apt-get install libreoffice-script-provider-python
 
+Copyright (c) 2015
+
 @author: Yurii Puchkov
 @organization: http://arilot.com/
 @license: GPL v3.0
 @contact: panpuchkov@gmail.com
+
 """
 
 ###############################################################################
