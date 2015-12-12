@@ -72,4 +72,3 @@ if doc:
     sheet = doc.sheets().sheet("Test1")
     sheet.set_cell_value_by_index(0, 1, "value2")
     print (sheet.cell_value_by_index(0, 1))
-
