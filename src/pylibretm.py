@@ -32,6 +32,9 @@ from com.sun.star.io import IOException
 from com.sun.star.table import CellRangeAddress
 from com.sun.star.beans import PropertyValue
 
+# Office eNums
+from com.sun.star.table.CellContentType import TEXT, EMPTY, VALUE, FORMULA
+
 # _IndexOutOfBoundsException = \
 # uno.getClass('com.sun.star.lang.IndexOutOfBoundsException')
 # _NoSuchElementException = \
@@ -220,7 +223,7 @@ class Fields:
 
     """
     Document fields.
-    Search and manage fields.
+    Search and manage fields (name ranges).
     """
 
     def __init__(self, document):
@@ -228,10 +231,21 @@ class Fields:
         self._field = None
 
 #         LibreOffice variables.
-#         self._oSheets = None
         self._oNamedRanges = None
         if self._document:
             self._oNamedRanges = self._document.o_doc().NamedRanges
+
+    def count(self):
+        """
+        Get number of fields (named ranges) in the document.
+
+        @rtype:   integer
+        @return:  the number of fields in the document.
+        """
+        count = 0
+        if self._oNamedRanges:
+            count = self._oNamedRanges.getCount()
+        return count
 
     def document(self):
         """
@@ -314,6 +328,75 @@ class Fields:
 ###############################################################################
 ###############################################################################
 
+
+class Sheet:
+
+    """
+    Document sheet.
+    Manage sheet and cells.
+    """
+
+    def __init__(self, sheets, index_or_name):
+        self._sheets = sheets
+
+#         LibreOffice variables.
+        self._oSheet = None
+
+        if isinstance(index_or_name, int):
+            # get by index
+            self._oSheet = self._sheets.o_sheets().getByIndex(index_or_name)
+        else:
+            # get by name
+            self._oSheet = self._sheets.o_sheets().getByName(index_or_name)
+
+    def set_cell_value_by_index(self, col, row, value, is_formula=False):
+        """
+        Set cell value.
+
+        @type  value: string
+        @param value: Cell value
+
+        @rtype:   boolean
+        @return:  Operation result
+        """
+        result = False
+        oCell = self._oSheet.getCellByPosition(col, row)
+        if is_formula:
+            oCell.setFormula(value)
+            result = True
+        elif isinstance(value, int)\
+                or isinstance(value, float):
+            oCell.setValue(value)
+            result = True
+        else:
+            oCell.setString(value)
+            result = True
+        return result
+
+    def cell_value_by_index(self, col, row):
+        """
+        Get cell value.
+
+        @rtype:   long, int, float or string
+        @return:  Value. Value type depends on document cell value.
+        """
+        value = None
+        oCell = self._oSheet.getCellByPosition(col, row)
+        value_type = oCell.getType()
+        if VALUE == value_type:
+            value = oCell.getValue()
+        if FORMULA == value_type:
+            value = oCell.getFormula()
+        if TEXT == value_type:
+            value = oCell.getString()
+
+        return value
+
+###############################################################################
+###############################################################################
+###############################################################################
+
+
 class Sheets:
 
     """
@@ -323,13 +406,47 @@ class Sheets:
 
     def __init__(self, document):
         self._document = document
-        self._field = None
+        self._sheet = None
 
 #         LibreOffice variables.
-#         self._oSheets = None
         self._oSheets = None
         if self._document:
             self._oSheets = self._document.o_doc().getSheets()
+
+    def sheet_by_index(self, index):
+        """
+        Get sheet by name.
+
+        @rtype:   Sheet
+        @return:  Sheets object
+        """
+        if self._sheet is None:
+            self._sheet = Sheet(self, index)
+        return self._sheet
+
+    def sheet_by_name(self, name):
+        """
+        Not implemented yet. FIXME
+        Get sheet by name.
+
+        @rtype:   Sheet
+        @return:  Sheets object
+        """
+        if self._sheet is None:
+            self._sheet = Sheet(name)
+        return self._sheet
+
+    def count(self):
+        """
+        Get number of sheets in document.
+
+        @rtype:   integer
+        @return:  the number of sheets in document.
+        """
+        count = 0
+        if self._oSheets:
+            count = self._oSheets.getCount()
+        return count
 
     def o_sheets(self):
         """

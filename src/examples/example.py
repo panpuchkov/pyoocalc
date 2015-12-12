@@ -33,6 +33,7 @@ if doc:
 
     # Get document fields
     fields = doc.fields()
+    print ("Fields count: ", fields.count())
 
     # Get field "HEADER"
     field = fields.field("HEADER")
@@ -63,3 +64,7 @@ if doc:
     doc.sheets().insert_spreadsheet("Test1", 0)
     doc.sheets().insert_spreadsheet("Test2", 2)
     doc.sheets().remove_spreadsheet("Test2")
+
+    sheet = doc.sheets().sheet_by_index(0)
+    sheet.set_cell_value_by_index(1, 0, "value")
+    print (sheet.cell_value_by_index(1, 0))
