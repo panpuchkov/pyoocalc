@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 
 """
-Python library for operating with LibreOffice/OpenOffice.org Calc.
+PyLOO - Python Libre/Open Office interface API (UNO)
 
 Requirements for Ubuntu users:
 
@@ -16,7 +16,7 @@ Copyright (c) 2015
 
 @author: Yurii Puchkov
 @organization: http://arilot.com/
-@license: GPL v3.0
+@license: GPL v3
 @contact: panpuchkov@gmail.com
 
 """
@@ -37,16 +37,6 @@ from com.sun.star.beans import PropertyValue
 
 # Office eNums
 from com.sun.star.table.CellContentType import TEXT, EMPTY, VALUE, FORMULA
-
-# _IndexOutOfBoundsException = \
-# uno.getClass('com.sun.star.lang.IndexOutOfBoundsException')
-# _NoSuchElementException = \
-# uno.getClass('com.sun.star.container.NoSuchElementException')
-
-###############################################################################
-
-__version__ = "$Revision$"
-# $Source$
 
 ###############################################################################
 # Start LibreOffice/OpenOffice Calc in listening mode:
