@@ -4,7 +4,6 @@
 """
 PyLOO - Python Libre/Open Office interface API (UNO)
 
-
 Requirements for Ubuntu users:
 
 sudo apt-get install python-uno
