@@ -413,28 +413,14 @@ class Sheets:
         if self._document:
             self._oSheets = self._document.o_doc().getSheets()
 
-    def sheet_by_index(self, index):
+    def sheet(self, index_or_name):
         """
-        Get sheet by name.
+        Get sheet by index or name.
 
         @rtype:   Sheet
-        @return:  Sheets object
+        @return:  Sheet object
         """
-        if self._sheet is None:
-            self._sheet = Sheet(self, index)
-        return self._sheet
-
-    def sheet_by_name(self, name):
-        """
-        Not implemented yet. FIXME
-        Get sheet by name.
-
-        @rtype:   Sheet
-        @return:  Sheets object
-        """
-        if self._sheet is None:
-            self._sheet = Sheet(name)
-        return self._sheet
+        return Sheet(self, index_or_name)
 
     def count(self):
         """

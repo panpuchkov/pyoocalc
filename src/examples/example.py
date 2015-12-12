@@ -65,6 +65,11 @@ if doc:
     doc.sheets().insert_spreadsheet("Test2", 2)
     doc.sheets().remove_spreadsheet("Test2")
 
-    sheet = doc.sheets().sheet_by_index(0)
-    sheet.set_cell_value_by_index(1, 0, "value")
+    sheet = doc.sheets().sheet(0)
+    sheet.set_cell_value_by_index(1, 0, "value1")
     print (sheet.cell_value_by_index(1, 0))
+
+    sheet = doc.sheets().sheet("Test1")
+    sheet.set_cell_value_by_index(0, 1, "value2")
+    print (sheet.cell_value_by_index(0, 1))
+
