@@ -4,7 +4,7 @@ PyLOO - Python Libre/Open Office interface API (UNO)
 
 Description
 -----------
-There is a number of python libraries for dealing with Libre/OpenOffice via 
+There are a lot of python libraries for dealing with Libre/OpenOffice via 
 API (UNO). As for me, one of the most interesting projects is pyoo. It supports 
 a lot of feature from open/save documents up to cell merging and working with 
 charts and diagrams. But none of them implements number of functions wich 
