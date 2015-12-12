@@ -110,10 +110,10 @@ class Field:
         @type  value: string
         @param value: Cell value
 
-        @type  column: integer
+        @type  column: int
         @param column: column index
 
-        @type  row: integer
+        @type  row: int
         @param row: row index
 
         @rtype:   boolean
@@ -134,10 +134,10 @@ class Field:
         """
         Get filed value at position Column/Row
 
-        @type  column: integer
+        @type  column: int
         @param column: column index
 
-        @type  row: integer
+        @type  row: int
         @param row: row index
 
         @rtype:   string
@@ -165,10 +165,10 @@ class Field:
         After the new row insertion the content of the current rows is copied
         to the new rows.
 
-        @type  num_rows: integer
+        @type  num_rows: int
         @param num_rows: Number of rows to insert. Default value=1
 
-        @type  step: integer
+        @type  step: int
         @param step: Step of rows insertion.
 
         @type  columns_to_copy: boolean
@@ -239,7 +239,7 @@ class Fields:
         """
         Get number of fields (named ranges) in the document.
 
-        @rtype:   integer
+        @rtype:   int
         @return:  the number of fields in the document.
         """
         count = 0
@@ -282,16 +282,16 @@ class Fields:
         @type  value: string
         @param value: the formula expression.
 
-        @type  sheet: integer
+        @type  sheet: int
         @param sheet: the formula expression.
 
-        @type  column: integer
+        @type  column: int
         @param column: the formula expression.
 
-        @type  row: integer
+        @type  row: int
         @param row: the formula expression.
 
-        @type  type: integer
+        @type  type: int
         @param type: a combination of flags that specify the type of a named \
                     range, as defined in NamedRangeFlag. This parameter \
                     will be zero for any common named range.
@@ -417,6 +417,9 @@ class Sheets:
         """
         Get sheet by index or name.
 
+        @type  value: int, string
+        @param value: Sheet index or name
+
         @rtype:   Sheet
         @return:  Sheet object
         """
@@ -426,7 +429,7 @@ class Sheets:
         """
         Get number of sheets in document.
 
-        @rtype:   integer
+        @rtype:   int
         @return:  the number of sheets in document.
         """
         count = 0
@@ -452,7 +455,7 @@ class Sheets:
         @type  name: string
         @param name: The name of the new spreadsheet.
 
-        @type  index: integer
+        @type  index: int
         @param index: The index of the new spreadsheet in the collection.
 
         @rtype:   boolean
