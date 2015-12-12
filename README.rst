@@ -2,10 +2,46 @@
 PyLOO - Python Libre/Open Office interface API (UNO)
 ========================================================
 
-PyLOO allows you to generate different report documents on the base of
-prepared OpenOffice or LibreOffice templates. PyLOO is used in accounting
-system for generating invoices and other documents.
+Description
+-----------
+There is a number of python libraries for dealing with Libre/OpenOffice via 
+API (UNO). As for me, one of the most interesting projects is pyoo. It supports 
+a lot of feature from open/save documents up to cell merging and working with 
+charts and diagrams. But none of them doesn't implements number of functions 
+wich I need.
 
+I have to generate different documents for number of projects such as 
+accounting system, estate management, document circulation and others. The 
+easiest way was to use office. It allows to create different templates in 
+standard. End users can create their own template without great efforts.
+
+It's easy to create template but how to know where I have to insert data into 
+template. I can use ``Cell`` indexes (column, row) or name (example: ``E5``). 
+
+But what if I want to use more then one template for report. For example one 
+report for landscape format another for portrait. There is no warranty that 
+I have to set the same value into the same Cell in different templates. 
+So I have to store rules for different templates somewhere. I have found 
+easier way and that is ``NamedRange``.
+
+``NamedRange`` is a name for a cell or cell range on a sheet. ``NamedRange`` 
+is unique for entire document. 
+
+One more unfound feature is inserting rows. Any report or invoice has table 
+with header and footprint. So I need to insert rows into table area and keep 
+row format (font, cell merging etc).
+
+Main features:
+.............
+  * Opening and creation of spreadsheet documents
+  * Saving documents to all formats available in OpenOffice
+  * Insert remove sheets
+  * Insert rows
+  * Set/get value by NamedRange
+  * Set/get value by Cell address or name
+
+You can find an example of the document with NamedRanges and how to work 
+with it in the examples folder.
 
 
 Requirements
