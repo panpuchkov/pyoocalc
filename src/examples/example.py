@@ -12,13 +12,13 @@ import os
 import sys
 sys.path.append('./../')
 # user modules
-import pylibretm
+import pyloo
 
 # open document
 doc = None
 try:
-    doc = pylibretm.Document()
-except pylibretm.NoConnectException as e:
+    doc = pyloo.Document()
+except pyloo.NoConnectException as e:
     print ("Error: The OpenOffice.org process is not started or \
 does not listen on the resource (" + e.Message + ")\n\
 Start LibreOffice/OpenOffice in listening mode, \
