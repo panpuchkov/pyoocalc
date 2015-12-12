@@ -75,7 +75,7 @@ class Field:
             if self._fields._oNamedRanges.hasByName(name):
                 self._oRange = self._fields._oNamedRanges.getByName(name)
                 self._oCellAddress = self._oRange.getReferencePosition()
-                oSheets = self._fields.template().document().getSheets()
+                oSheets = self._fields.template().o_doc().getSheets()
                 self._oSheet = oSheets.getByIndex(self._oCellAddress.Sheet)
                 self._is_null = False
             else:
@@ -231,7 +231,7 @@ class Fields:
 #         self._oSheets = None
         self._oNamedRanges = None
         if self._template:
-            self._oNamedRanges = self._template.document().NamedRanges
+            self._oNamedRanges = self._template.o_doc().NamedRanges
 
     def template(self):
         """
@@ -315,7 +315,7 @@ class Fields:
 ###############################################################################
 
 
-class Template:
+class Document:
 
     def __init__(self, connection_string="\
 uno:socket,host=localhost,port=2002;urp;StarOffice.ComponentContext"):
@@ -326,7 +326,7 @@ uno:socket,host=localhost,port=2002;urp;StarOffice.ComponentContext"):
         self._oResolver = None
         self._oContext = None
         self._oDesktop = None
-        self._oDocument = None
+        self._oDoc = None
         self._oLocal = uno.getComponentContext()
 
         if self._oLocal:
@@ -342,18 +342,11 @@ uno:socket,host=localhost,port=2002;urp;StarOffice.ComponentContext"):
                                             "com.sun.star.frame.Desktop",
                                             self._oContext)
             except NoConnectException as e:
-                print ('Start LibreOffice/OpenOffice in listening mode, \
-example:\n\n\
-libreoffice \
--accept="socket,host=localhost,port=2002;urp;StarOffice.ServiceManager"\n')
-                print ("Error: The OpenOffice.org process is not started or \
-does not listen on the resource (" + e.Message + ")")
+                raise (e)
             except IllegalArgumentException as e:
-                print ("The url is invalid ( " + e.Message + ")")
+                raise (e)
             except RuntimeException as e:
-                print ("An unknown error occurred: " + e.Message)
-            except:
-                print ("Unknown exception")
+                raise (e)
 
     def _toProperties(self, **args):
         """
@@ -370,16 +363,16 @@ does not listen on the resource (" + e.Message + ")")
             props.append(prop)
         return tuple(props)
 
-    def document(self):
+    def o_doc(self):
         """
         LibreOffice/OpenOffice Calc document object.
 
-        Required for Fileds and Field classes. Do not use it directly.
+        Required for Fields and Field classes. Not recommended use it directly.
 
         @rtype:   com::sun::star::lang::XComponent
         @return:  Libre/Open office document object
         """
-        return self._oDocument
+        return self._oDoc
 
     def _open_document(self, doc_name=""):
         """
@@ -394,15 +387,13 @@ does not listen on the resource (" + e.Message + ")")
         result = False
         if self._oDesktop:
             try:
-                self._oDocument = self._oDesktop.loadComponentFromURL(
+                self._oDoc = self._oDesktop.loadComponentFromURL(
                     doc_name, "_blank", 0, ())
                 result = True
             except IllegalArgumentException as e:
-                print (e)
+                raise (e)
             except IOException as e:
-                raise IOError(e.Message)
-            except:
-                print ("Unknown exception")
+                raise (e)
         return result
 
     def new_document(self):
@@ -461,14 +452,11 @@ does not listen on the resource (" + e.Message + ")")
                                 self._toProperties(FilterName=filter_name))
                     result = True
                 except IllegalArgumentException as e:
-                    print ("The url (" + full_file_name + ") "
-                           "is invalid ( " + e.Message + ")")
+                    raise (e)
                 except ErrorCodeIOException as e:
-                    print (e)
+                    raise (e)
                 except IOException as e:
-                    raise IOError(e.Message)
-                except:
-                    print ("Unknown exception")
+                    raise (e)
         return result
 
     def close_document(self):
@@ -484,14 +472,12 @@ does not listen on the resource (" + e.Message + ")")
         try:
             if self.document():
                 self.document().close(True)
-                self._oDocument = None
+                self._oDoc = None
                 result = True
         except ErrorCodeIOException as e:
-            print (e)
+            raise (e)
         except IOException as e:
-            raise IOError(e.Message)
-        except:
-            print ("Unknown exception")
+            raise (e)
         return result
 
     def insert_spreadsheet(self, name, index):
@@ -508,8 +494,8 @@ does not listen on the resource (" + e.Message + ")")
         @return:  Operation result
         """
         result = False
-        if self.document():
-            self.document().getSheets().insertNewByName(name, index)
+        if self.o_doc():
+            self.o_doc().getSheets().insertNewByName(name, index)
             result = True
         return result
 
@@ -524,8 +510,8 @@ does not listen on the resource (" + e.Message + ")")
         @return:  Operation result
         """
         result = False
-        if self.document():
-            self.document().getSheets().removeByName(name)
+        if self.o_doc():
+            self.o_doc().getSheets().removeByName(name)
             result = True
         return result
 
