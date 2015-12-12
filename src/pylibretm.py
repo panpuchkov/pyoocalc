@@ -550,12 +550,10 @@ uno:socket,host=localhost,port=2002;urp;StarOffice.ComponentContext"):
 
     def sheets(self):
         """
-        LibreOffice/OpenOffice Calc Spreadsheets object.
+        Get Sheets document's object.
 
-        Required for Fields and Field classes. Not recommended use it directly.
-
-        @rtype:   com::sun::star::sheet::XSpreadsheets
-        @return:  Libre/Open office Spreadsheets object
+        @rtype:   Sheets
+        @return:  Sheets object
         """
 
         if self._sheets is None:
@@ -564,7 +562,7 @@ uno:socket,host=localhost,port=2002;urp;StarOffice.ComponentContext"):
 
     def fields(self):
         """
-        Get fields document's object.
+        Get Fields document's object.
 
         @rtype:   Fields
         @return:  Fields object
