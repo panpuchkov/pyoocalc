@@ -7,8 +7,8 @@ Description
 There is a number of python libraries for dealing with Libre/OpenOffice via 
 API (UNO). As for me, one of the most interesting projects is pyoo. It supports 
 a lot of feature from open/save documents up to cell merging and working with 
-charts and diagrams. But none of them don't implements number of functions 
-wich I need.
+charts and diagrams. But none of them implements number of functions wich 
+I need.
 
 I have to generate different documents for number of projects such as 
 accounting system, estate management, document circulation and others. The 
