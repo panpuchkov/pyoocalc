@@ -1,9 +1,9 @@
 ========================================================
-PyLibreTM - Python Libre/Open Office Template Manager
+PyLOO - Python Libre/Open Office interface API(UNO)
 ========================================================
 
-PyLibreTM allows you to generate different report documents on the base of
-prepared OpenOffice or LibreOffice templates. PyLibreTM is used in accounting
+PyLOO allows you to generate different report documents on the base of
+prepared OpenOffice or LibreOffice templates. PyLOO is used in accounting
 system for generating invoices and other documents.
 
 
@@ -11,7 +11,7 @@ system for generating invoices and other documents.
 Requirements
 ------------
 
-PyLibreTM runs on Python 3.
+PyLOO runs on Python 3.
 
 The only dependency is the Python-UNO library (imported as a module uno).
 It is often installed with the office suite. On Debian based systems it can be
@@ -25,7 +25,7 @@ it is available as libreoffice-calc package.
 Install
 -------
 
-You can copy the pylibretm.py file somewhere to your ``PYTHONPATH``.
+You can copy the pyloo.py file somewhere to your ``PYTHONPATH``.
 
 
 
@@ -35,7 +35,7 @@ Usage
 
 Starting OpenOffice / LibreOffice
 
-PyLibreTM requires a running OpenOffice or LibreOffice instance which it can
+PyLOO requires a running OpenOffice or LibreOffice instance which it can
 connect to. On Ubuntu you can start LibreOffice from a command line using a 
 command similar to: ::
 
