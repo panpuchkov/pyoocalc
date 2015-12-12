@@ -12,8 +12,8 @@ I need.
 
 I have to generate different documents for number of projects such as 
 accounting system, estate management, document circulation and others. The 
-easiest way was to use office. It allows to create different templates in 
-standard. End users can create their own template without great efforts.
+easiest way is to use standard office software.. End users can create their 
+own template without great efforts.
 
 It's easy to create template but how to know where I have to insert data into 
 template. I can use ``Cell`` indexes (column, row) or name (example: ``E5``). 
