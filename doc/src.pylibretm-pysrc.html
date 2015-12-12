@@ -607,38 +607,36 @@ src.pylibretm.Field.fields" class="py-name" href="#" onclick="return doclink('li
 </div><a name="L550"></a><tt class="py-lineno">550</tt>  <tt class="py-line"> </tt>
 <a name="Document.sheets"></a><div id="Document.sheets-def"><a name="L551"></a><tt class="py-lineno">551</tt> <a class="py-toggle" href="#" id="Document.sheets-toggle" onclick="return toggle('Document.sheets');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="src.pylibretm.Document-class.html#sheets">sheets</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
 </div><div id="Document.sheets-collapsed" style="display:none;" pad="+++" indent="++++++++"></div><div id="Document.sheets-expanded"><a name="L552"></a><tt class="py-lineno">552</tt>  <tt class="py-line">        <tt class="py-docstring">"""</tt> </tt>
-<a name="L553"></a><tt class="py-lineno">553</tt>  <tt class="py-line"><tt class="py-docstring">        LibreOffice/OpenOffice Calc Spreadsheets object.</tt> </tt>
+<a name="L553"></a><tt class="py-lineno">553</tt>  <tt class="py-line"><tt class="py-docstring">        Get Sheets document's object.</tt> </tt>
 <a name="L554"></a><tt class="py-lineno">554</tt>  <tt class="py-line"><tt class="py-docstring"></tt> </tt>
-<a name="L555"></a><tt class="py-lineno">555</tt>  <tt class="py-line"><tt class="py-docstring">        Required for Fields and Field classes. Not recommended use it directly.</tt> </tt>
-<a name="L556"></a><tt class="py-lineno">556</tt>  <tt class="py-line"><tt class="py-docstring"></tt> </tt>
-<a name="L557"></a><tt class="py-lineno">557</tt>  <tt class="py-line"><tt class="py-docstring">        @rtype:   com::sun::star::sheet::XSpreadsheets</tt> </tt>
-<a name="L558"></a><tt class="py-lineno">558</tt>  <tt class="py-line"><tt class="py-docstring">        @return:  Libre/Open office Spreadsheets object</tt> </tt>
-<a name="L559"></a><tt class="py-lineno">559</tt>  <tt class="py-line"><tt class="py-docstring">        """</tt> </tt>
-<a name="L560"></a><tt class="py-lineno">560</tt>  <tt class="py-line"> </tt>
-<a name="L561"></a><tt class="py-lineno">561</tt>  <tt class="py-line">        <tt class="py-keyword">if</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">_sheets</tt> <tt class="py-keyword">is</tt> <tt class="py-name">None</tt><tt class="py-op">:</tt> </tt>
-<a name="L562"></a><tt class="py-lineno">562</tt>  <tt class="py-line">            <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">_sheets</tt> <tt class="py-op">=</tt> <tt id="link-23" class="py-name" targets="Class src.pylibretm.Sheets=src.pylibretm.Sheets-class.html"><a title="src.pylibretm.Sheets" class="py-name" href="#" onclick="return doclink('link-23', 'Sheets', 'link-23');">Sheets</a></tt><tt class="py-op">(</tt><tt class="py-name">self</tt><tt class="py-op">)</tt> </tt>
-<a name="L563"></a><tt class="py-lineno">563</tt>  <tt class="py-line">        <tt class="py-keyword">return</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">_sheets</tt> </tt>
-</div><a name="L564"></a><tt class="py-lineno">564</tt>  <tt class="py-line"> </tt>
-<a name="Document.fields"></a><div id="Document.fields-def"><a name="L565"></a><tt class="py-lineno">565</tt> <a class="py-toggle" href="#" id="Document.fields-toggle" onclick="return toggle('Document.fields');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="src.pylibretm.Document-class.html#fields">fields</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
-</div><div id="Document.fields-collapsed" style="display:none;" pad="+++" indent="++++++++"></div><div id="Document.fields-expanded"><a name="L566"></a><tt class="py-lineno">566</tt>  <tt class="py-line">        <tt class="py-docstring">"""</tt> </tt>
-<a name="L567"></a><tt class="py-lineno">567</tt>  <tt class="py-line"><tt class="py-docstring">        Get fields document's object.</tt> </tt>
-<a name="L568"></a><tt class="py-lineno">568</tt>  <tt class="py-line"><tt class="py-docstring"></tt> </tt>
-<a name="L569"></a><tt class="py-lineno">569</tt>  <tt class="py-line"><tt class="py-docstring">        @rtype:   Fields</tt> </tt>
-<a name="L570"></a><tt class="py-lineno">570</tt>  <tt class="py-line"><tt class="py-docstring">        @return:  Fields object</tt> </tt>
-<a name="L571"></a><tt class="py-lineno">571</tt>  <tt class="py-line"><tt class="py-docstring">        """</tt> </tt>
-<a name="L572"></a><tt class="py-lineno">572</tt>  <tt class="py-line">        <tt class="py-keyword">if</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">_fields</tt> <tt class="py-keyword">is</tt> <tt class="py-name">None</tt><tt class="py-op">:</tt> </tt>
-<a name="L573"></a><tt class="py-lineno">573</tt>  <tt class="py-line">            <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">_fields</tt> <tt class="py-op">=</tt> <tt id="link-24" class="py-name" targets="Class src.pylibretm.Fields=src.pylibretm.Fields-class.html"><a title="src.pylibretm.Fields" class="py-name" href="#" onclick="return doclink('link-24', 'Fields', 'link-24');">Fields</a></tt><tt class="py-op">(</tt><tt class="py-name">self</tt><tt class="py-op">)</tt> </tt>
-<a name="L574"></a><tt class="py-lineno">574</tt>  <tt class="py-line">        <tt class="py-keyword">return</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">_fields</tt> </tt>
-</div><a name="L575"></a><tt class="py-lineno">575</tt>  <tt class="py-line"> </tt>
-<a name="Document.version"></a><div id="Document.version-def"><a name="L576"></a><tt class="py-lineno">576</tt> <a class="py-toggle" href="#" id="Document.version-toggle" onclick="return toggle('Document.version');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="src.pylibretm.Document-class.html#version">version</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
-</div><div id="Document.version-collapsed" style="display:none;" pad="+++" indent="++++++++"></div><div id="Document.version-expanded"><a name="L577"></a><tt class="py-lineno">577</tt>  <tt class="py-line">        <tt class="py-docstring">"""</tt> </tt>
-<a name="L578"></a><tt class="py-lineno">578</tt>  <tt class="py-line"><tt class="py-docstring">        Get library version.</tt> </tt>
-<a name="L579"></a><tt class="py-lineno">579</tt>  <tt class="py-line"><tt class="py-docstring"></tt> </tt>
-<a name="L580"></a><tt class="py-lineno">580</tt>  <tt class="py-line"><tt class="py-docstring">        @rtype:   string</tt> </tt>
-<a name="L581"></a><tt class="py-lineno">581</tt>  <tt class="py-line"><tt class="py-docstring">        @return:  PyLibra version</tt> </tt>
-<a name="L582"></a><tt class="py-lineno">582</tt>  <tt class="py-line"><tt class="py-docstring">        """</tt> </tt>
-<a name="L583"></a><tt class="py-lineno">583</tt>  <tt class="py-line">        <tt class="py-keyword">return</tt> <tt class="py-string">"0.0.1"</tt> </tt>
-</div></div><a name="L584"></a><tt class="py-lineno">584</tt>  <tt class="py-line"> </tt><script type="text/javascript">
+<a name="L555"></a><tt class="py-lineno">555</tt>  <tt class="py-line"><tt class="py-docstring">        @rtype:   Sheets</tt> </tt>
+<a name="L556"></a><tt class="py-lineno">556</tt>  <tt class="py-line"><tt class="py-docstring">        @return:  Sheets object</tt> </tt>
+<a name="L557"></a><tt class="py-lineno">557</tt>  <tt class="py-line"><tt class="py-docstring">        """</tt> </tt>
+<a name="L558"></a><tt class="py-lineno">558</tt>  <tt class="py-line"> </tt>
+<a name="L559"></a><tt class="py-lineno">559</tt>  <tt class="py-line">        <tt class="py-keyword">if</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">_sheets</tt> <tt class="py-keyword">is</tt> <tt class="py-name">None</tt><tt class="py-op">:</tt> </tt>
+<a name="L560"></a><tt class="py-lineno">560</tt>  <tt class="py-line">            <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">_sheets</tt> <tt class="py-op">=</tt> <tt id="link-23" class="py-name" targets="Class src.pylibretm.Sheets=src.pylibretm.Sheets-class.html"><a title="src.pylibretm.Sheets" class="py-name" href="#" onclick="return doclink('link-23', 'Sheets', 'link-23');">Sheets</a></tt><tt class="py-op">(</tt><tt class="py-name">self</tt><tt class="py-op">)</tt> </tt>
+<a name="L561"></a><tt class="py-lineno">561</tt>  <tt class="py-line">        <tt class="py-keyword">return</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">_sheets</tt> </tt>
+</div><a name="L562"></a><tt class="py-lineno">562</tt>  <tt class="py-line"> </tt>
+<a name="Document.fields"></a><div id="Document.fields-def"><a name="L563"></a><tt class="py-lineno">563</tt> <a class="py-toggle" href="#" id="Document.fields-toggle" onclick="return toggle('Document.fields');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="src.pylibretm.Document-class.html#fields">fields</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="Document.fields-collapsed" style="display:none;" pad="+++" indent="++++++++"></div><div id="Document.fields-expanded"><a name="L564"></a><tt class="py-lineno">564</tt>  <tt class="py-line">        <tt class="py-docstring">"""</tt> </tt>
+<a name="L565"></a><tt class="py-lineno">565</tt>  <tt class="py-line"><tt class="py-docstring">        Get Fields document's object.</tt> </tt>
+<a name="L566"></a><tt class="py-lineno">566</tt>  <tt class="py-line"><tt class="py-docstring"></tt> </tt>
+<a name="L567"></a><tt class="py-lineno">567</tt>  <tt class="py-line"><tt class="py-docstring">        @rtype:   Fields</tt> </tt>
+<a name="L568"></a><tt class="py-lineno">568</tt>  <tt class="py-line"><tt class="py-docstring">        @return:  Fields object</tt> </tt>
+<a name="L569"></a><tt class="py-lineno">569</tt>  <tt class="py-line"><tt class="py-docstring">        """</tt> </tt>
+<a name="L570"></a><tt class="py-lineno">570</tt>  <tt class="py-line">        <tt class="py-keyword">if</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">_fields</tt> <tt class="py-keyword">is</tt> <tt class="py-name">None</tt><tt class="py-op">:</tt> </tt>
+<a name="L571"></a><tt class="py-lineno">571</tt>  <tt class="py-line">            <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">_fields</tt> <tt class="py-op">=</tt> <tt id="link-24" class="py-name" targets="Class src.pylibretm.Fields=src.pylibretm.Fields-class.html"><a title="src.pylibretm.Fields" class="py-name" href="#" onclick="return doclink('link-24', 'Fields', 'link-24');">Fields</a></tt><tt class="py-op">(</tt><tt class="py-name">self</tt><tt class="py-op">)</tt> </tt>
+<a name="L572"></a><tt class="py-lineno">572</tt>  <tt class="py-line">        <tt class="py-keyword">return</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">_fields</tt> </tt>
+</div><a name="L573"></a><tt class="py-lineno">573</tt>  <tt class="py-line"> </tt>
+<a name="Document.version"></a><div id="Document.version-def"><a name="L574"></a><tt class="py-lineno">574</tt> <a class="py-toggle" href="#" id="Document.version-toggle" onclick="return toggle('Document.version');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="src.pylibretm.Document-class.html#version">version</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="Document.version-collapsed" style="display:none;" pad="+++" indent="++++++++"></div><div id="Document.version-expanded"><a name="L575"></a><tt class="py-lineno">575</tt>  <tt class="py-line">        <tt class="py-docstring">"""</tt> </tt>
+<a name="L576"></a><tt class="py-lineno">576</tt>  <tt class="py-line"><tt class="py-docstring">        Get library version.</tt> </tt>
+<a name="L577"></a><tt class="py-lineno">577</tt>  <tt class="py-line"><tt class="py-docstring"></tt> </tt>
+<a name="L578"></a><tt class="py-lineno">578</tt>  <tt class="py-line"><tt class="py-docstring">        @rtype:   string</tt> </tt>
+<a name="L579"></a><tt class="py-lineno">579</tt>  <tt class="py-line"><tt class="py-docstring">        @return:  PyLibra version</tt> </tt>
+<a name="L580"></a><tt class="py-lineno">580</tt>  <tt class="py-line"><tt class="py-docstring">        """</tt> </tt>
+<a name="L581"></a><tt class="py-lineno">581</tt>  <tt class="py-line">        <tt class="py-keyword">return</tt> <tt class="py-string">"0.0.1"</tt> </tt>
+</div></div><a name="L582"></a><tt class="py-lineno">582</tt>  <tt class="py-line"> </tt><script type="text/javascript">
 <!--
 expandto(location.href);
 // -->
@@ -672,7 +670,7 @@ expandto(location.href);
   <tr>
     <td align="left" class="footer">
     Generated by Epydoc 3.0.1
-    on Sat Dec 12 11:53:50 2015
+    on Sat Dec 12 11:55:01 2015
     </td>
     <td align="right" class="footer">
       <a target="mainFrame" href="http://epydoc.sourceforge.net"
