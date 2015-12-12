@@ -20,9 +20,9 @@ the template. I can use ``Cell`` indexes (column, row) or name (``E5``).
 
 But what if I want to use more then one template for the report. For example 
 one report for landscape format another for portrait. There is no warranty that 
-I have to set the same value into the same Cell in different templates. 
-So I have to store rules for different templates somewhere. I have found 
-easier way and that is ``NamedRange``.
+I have to set the same value into the same ``cell name`` or ``cell position`` 
+in different templates. So I have to store rules for different templates 
+somewhere. I have found easier way and that is ``NamedRange``.
 
 ``NamedRange`` is a name for a cell or cell range on a sheet. ``NamedRange`` 
 is unique for entire document. 
