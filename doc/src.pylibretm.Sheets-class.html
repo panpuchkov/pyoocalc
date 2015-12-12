@@ -3,7 +3,7 @@
           "DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 <head>
-  <title>src.pylibretm.Fields</title>
+  <title>src.pylibretm.Sheets</title>
   <link rel="stylesheet" href="epydoc.css" type="text/css" />
   <script type="text/javascript" src="epydoc.js"></script>
 </head>
@@ -39,7 +39,7 @@
       <span class="breadcrumbs">
         <a href="src-module.html">Package&nbsp;src</a> ::
         <a href="src.pylibretm-module.html">Module&nbsp;pylibretm</a> ::
-        Class&nbsp;Fields
+        Class&nbsp;Sheets
       </span>
     </td>
     <td>
@@ -47,15 +47,15 @@
         <!-- hide/show private -->
         <tr><td align="right"><span class="options"
             >[<a href="frames.html" target="_top">frames</a
-            >]&nbsp;|&nbsp;<a href="src.pylibretm.Fields-class.html"
+            >]&nbsp;|&nbsp;<a href="src.pylibretm.Sheets-class.html"
             target="_top">no&nbsp;frames</a>]</span></td></tr>
       </table>
     </td>
   </tr>
 </table>
 <!-- ==================== CLASS DESCRIPTION ==================== -->
-<h1 class="epydoc">Class Fields</h1><p class="nomargin-top"><span class="codelink"><a href="src.pylibretm-pysrc.html#Fields">source&nbsp;code</a></span></p>
-<p>Document fields. Search and manage fields.</p>
+<h1 class="epydoc">Class Sheets</h1><p class="nomargin-top"><span class="codelink"><a href="src.pylibretm-pysrc.html#Sheets">source&nbsp;code</a></span></p>
+<p>Document sheets. Search and manage sheets.</p>
 
 <!-- ==================== INSTANCE METHODS ==================== -->
 <a name="section-InstanceMethods"></a>
@@ -74,7 +74,7 @@
           <td><span class="summary-sig"><a name="__init__"></a><span class="summary-sig-name">__init__</span>(<span class="summary-sig-arg">self</span>,
         <span class="summary-sig-arg">document</span>)</span></td>
           <td align="right" valign="top">
-            <span class="codelink"><a href="src.pylibretm-pysrc.html#Fields.__init__">source&nbsp;code</a></span>
+            <span class="codelink"><a href="src.pylibretm-pysrc.html#Sheets.__init__">source&nbsp;code</a></span>
             
           </td>
         </tr>
@@ -84,32 +84,14 @@
   </tr>
 <tr>
     <td width="15%" align="right" valign="top" class="summary">
-      <span class="summary-type">Template</span>
+      <span class="summary-type">com::sun::star::sheet::XSpreadsheets</span>
     </td><td class="summary">
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
-          <td><span class="summary-sig"><a href="src.pylibretm.Fields-class.html#document" class="summary-sig-name">document</a>(<span class="summary-sig-arg">self</span>)</span><br />
-      Get document object.</td>
+          <td><span class="summary-sig"><a href="src.pylibretm.Sheets-class.html#o_sheets" class="summary-sig-name">o_sheets</a>(<span class="summary-sig-arg">self</span>)</span><br />
+      LibreOffice/OpenOffice Calc Spreadsheets object.</td>
           <td align="right" valign="top">
-            <span class="codelink"><a href="src.pylibretm-pysrc.html#Fields.document">source&nbsp;code</a></span>
-            
-          </td>
-        </tr>
-      </table>
-      
-    </td>
-  </tr>
-<tr>
-    <td width="15%" align="right" valign="top" class="summary">
-      <span class="summary-type">Field object</span>
-    </td><td class="summary">
-      <table width="100%" cellpadding="0" cellspacing="0" border="0">
-        <tr>
-          <td><span class="summary-sig"><a href="src.pylibretm.Fields-class.html#field" class="summary-sig-name">field</a>(<span class="summary-sig-arg">self</span>,
-        <span class="summary-sig-arg">name</span>)</span><br />
-      Get document field by name</td>
-          <td align="right" valign="top">
-            <span class="codelink"><a href="src.pylibretm-pysrc.html#Fields.field">source&nbsp;code</a></span>
+            <span class="codelink"><a href="src.pylibretm-pysrc.html#Sheets.o_sheets">source&nbsp;code</a></span>
             
           </td>
         </tr>
@@ -123,16 +105,12 @@
     </td><td class="summary">
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
-          <td><span class="summary-sig"><a href="src.pylibretm.Fields-class.html#add" class="summary-sig-name">add</a>(<span class="summary-sig-arg">self</span>,
+          <td><span class="summary-sig"><a href="src.pylibretm.Sheets-class.html#insert_spreadsheet" class="summary-sig-name">insert_spreadsheet</a>(<span class="summary-sig-arg">self</span>,
         <span class="summary-sig-arg">name</span>,
-        <span class="summary-sig-arg">value</span>,
-        <span class="summary-sig-arg">sheet</span>,
-        <span class="summary-sig-arg">column</span>,
-        <span class="summary-sig-arg">row</span>,
-        <span class="summary-sig-arg">type</span>=<span class="summary-sig-default">0</span>)</span><br />
-      Not implemented yet.</td>
+        <span class="summary-sig-arg">index</span>)</span><br />
+      Inserts a new sheet into the collection.</td>
           <td align="right" valign="top">
-            <span class="codelink"><a href="src.pylibretm-pysrc.html#Fields.add">source&nbsp;code</a></span>
+            <span class="codelink"><a href="src.pylibretm-pysrc.html#Sheets.insert_spreadsheet">source&nbsp;code</a></span>
             
           </td>
         </tr>
@@ -146,11 +124,11 @@
     </td><td class="summary">
       <table width="100%" cellpadding="0" cellspacing="0" border="0">
         <tr>
-          <td><span class="summary-sig"><a href="src.pylibretm.Fields-class.html#remove" class="summary-sig-name">remove</a>(<span class="summary-sig-arg">self</span>,
+          <td><span class="summary-sig"><a href="src.pylibretm.Sheets-class.html#remove_spreadsheet" class="summary-sig-name">remove_spreadsheet</a>(<span class="summary-sig-arg">self</span>,
         <span class="summary-sig-arg">name</span>)</span><br />
-      Not implemented yet.</td>
+      Inserts a new sheet into the collection.</td>
           <td align="right" valign="top">
-            <span class="codelink"><a href="src.pylibretm-pysrc.html#Fields.remove">source&nbsp;code</a></span>
+            <span class="codelink"><a href="src.pylibretm-pysrc.html#Sheets.remove_spreadsheet">source&nbsp;code</a></span>
             
           </td>
         </tr>
@@ -168,113 +146,77 @@
     <span class="table-header">Method Details</span></td>
 </tr>
 </table>
-<a name="document"></a>
+<a name="o_sheets"></a>
 <div>
 <table class="details" border="1" cellpadding="3"
        cellspacing="0" width="100%" bgcolor="white">
 <tr><td>
   <table width="100%" cellpadding="0" cellspacing="0" border="0">
   <tr valign="top"><td>
-  <h3 class="epydoc"><span class="sig"><span class="sig-name">document</span>(<span class="sig-arg">self</span>)</span>
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">o_sheets</span>(<span class="sig-arg">self</span>)</span>
   </h3>
   </td><td align="right" valign="top"
-    ><span class="codelink"><a href="src.pylibretm-pysrc.html#Fields.document">source&nbsp;code</a></span>&nbsp;
+    ><span class="codelink"><a href="src.pylibretm-pysrc.html#Sheets.o_sheets">source&nbsp;code</a></span>&nbsp;
     </td>
   </tr></table>
   
-  <p>Get document object.</p>
+  <p>LibreOffice/OpenOffice Calc Spreadsheets object.</p>
+  <p>Required for Fields and Field classes. Not recommended use it 
+  directly.</p>
   <dl class="fields">
-    <dt>Returns: Template</dt>
-        <dd>Template object</dd>
+    <dt>Returns: com::sun::star::sheet::XSpreadsheets</dt>
+        <dd>Libre/Open office Spreadsheets object</dd>
   </dl>
 </td></tr></table>
 </div>
-<a name="field"></a>
+<a name="insert_spreadsheet"></a>
 <div>
 <table class="details" border="1" cellpadding="3"
        cellspacing="0" width="100%" bgcolor="white">
 <tr><td>
   <table width="100%" cellpadding="0" cellspacing="0" border="0">
   <tr valign="top"><td>
-  <h3 class="epydoc"><span class="sig"><span class="sig-name">field</span>(<span class="sig-arg">self</span>,
-        <span class="sig-arg">name</span>)</span>
-  </h3>
-  </td><td align="right" valign="top"
-    ><span class="codelink"><a href="src.pylibretm-pysrc.html#Fields.field">source&nbsp;code</a></span>&nbsp;
-    </td>
-  </tr></table>
-  
-  <p>Get document field by name</p>
-  <dl class="fields">
-    <dt>Parameters:</dt>
-    <dd><ul class="nomargin-top">
-        <li><strong class="pname"><code>name</code></strong> (string) - Field name</li>
-    </ul></dd>
-    <dt>Returns: Field object</dt>
-        <dd>Field object</dd>
-  </dl>
-</td></tr></table>
-</div>
-<a name="add"></a>
-<div>
-<table class="details" border="1" cellpadding="3"
-       cellspacing="0" width="100%" bgcolor="white">
-<tr><td>
-  <table width="100%" cellpadding="0" cellspacing="0" border="0">
-  <tr valign="top"><td>
-  <h3 class="epydoc"><span class="sig"><span class="sig-name">add</span>(<span class="sig-arg">self</span>,
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">insert_spreadsheet</span>(<span class="sig-arg">self</span>,
         <span class="sig-arg">name</span>,
-        <span class="sig-arg">value</span>,
-        <span class="sig-arg">sheet</span>,
-        <span class="sig-arg">column</span>,
-        <span class="sig-arg">row</span>,
-        <span class="sig-arg">type</span>=<span class="sig-default">0</span>)</span>
+        <span class="sig-arg">index</span>)</span>
   </h3>
   </td><td align="right" valign="top"
-    ><span class="codelink"><a href="src.pylibretm-pysrc.html#Fields.add">source&nbsp;code</a></span>&nbsp;
+    ><span class="codelink"><a href="src.pylibretm-pysrc.html#Sheets.insert_spreadsheet">source&nbsp;code</a></span>&nbsp;
     </td>
   </tr></table>
   
-  <p>Not implemented yet. FIXME Adds a new field (named range) to the 
-  collection.</p>
+  <p>Inserts a new sheet into the collection.</p>
   <dl class="fields">
     <dt>Parameters:</dt>
     <dd><ul class="nomargin-top">
-        <li><strong class="pname"><code>name</code></strong> (string) - the new name of the named range.</li>
-        <li><strong class="pname"><code>value</code></strong> (string) - the formula expression.</li>
-        <li><strong class="pname"><code>sheet</code></strong> (integer) - the formula expression.</li>
-        <li><strong class="pname"><code>column</code></strong> (integer) - the formula expression.</li>
-        <li><strong class="pname"><code>row</code></strong> (integer) - the formula expression.</li>
-        <li><strong class="pname"><code>type</code></strong> (integer) - a combination of flags that specify the type of a named
-          range, as defined in NamedRangeFlag. This parameter
-          will be zero for any common named range.</li>
+        <li><strong class="pname"><code>name</code></strong> (string) - The name of the new spreadsheet.</li>
+        <li><strong class="pname"><code>index</code></strong> (integer) - The index of the new spreadsheet in the collection.</li>
     </ul></dd>
     <dt>Returns: boolean</dt>
         <dd>Operation result</dd>
   </dl>
 </td></tr></table>
 </div>
-<a name="remove"></a>
+<a name="remove_spreadsheet"></a>
 <div>
 <table class="details" border="1" cellpadding="3"
        cellspacing="0" width="100%" bgcolor="white">
 <tr><td>
   <table width="100%" cellpadding="0" cellspacing="0" border="0">
   <tr valign="top"><td>
-  <h3 class="epydoc"><span class="sig"><span class="sig-name">remove</span>(<span class="sig-arg">self</span>,
+  <h3 class="epydoc"><span class="sig"><span class="sig-name">remove_spreadsheet</span>(<span class="sig-arg">self</span>,
         <span class="sig-arg">name</span>)</span>
   </h3>
   </td><td align="right" valign="top"
-    ><span class="codelink"><a href="src.pylibretm-pysrc.html#Fields.remove">source&nbsp;code</a></span>&nbsp;
+    ><span class="codelink"><a href="src.pylibretm-pysrc.html#Sheets.remove_spreadsheet">source&nbsp;code</a></span>&nbsp;
     </td>
   </tr></table>
   
-  <p>Not implemented yet. FIXME Removes a field (named range) from the 
-  collection.</p>
+  <p>Inserts a new sheet into the collection.</p>
   <dl class="fields">
     <dt>Parameters:</dt>
     <dd><ul class="nomargin-top">
-        <li><strong class="pname"><code>name</code></strong> (string) - the new name of the named range.</li>
+        <li><strong class="pname"><code>name</code></strong> (string) - The name of the removing spreadsheet.</li>
     </ul></dd>
     <dt>Returns: boolean</dt>
         <dd>Operation result</dd>

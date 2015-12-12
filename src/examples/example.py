@@ -15,9 +15,9 @@ sys.path.append('./../')
 import pylibretm
 
 # open document
-template = None
+doc = None
 try:
-    template = pylibretm.Document()
+    doc = pylibretm.Document()
 except pylibretm.NoConnectException as e:
     print ("Error: The OpenOffice.org process is not started or \
 does not listen on the resource (" + e.Message + ")\n\
@@ -26,13 +26,13 @@ example:\n\
     libreoffice \
 -accept=\"socket,host=localhost,port=2002;urp;StarOffice.ServiceManager\"\n")
 
-if template:
+if doc:
     file_name = os.getcwd() + "/example.ods"
     file_name_saved = os.getcwd() + "/example_saved.ods"
-    template.open_document(file_name)
+    doc.open_document(file_name)
 
     # Get document fields
-    fields = template.fields()
+    fields = doc.fields()
 
     # Get field "HEADER"
     field = fields.field("HEADER")
@@ -59,6 +59,7 @@ if template:
         field3.set_value("F3." + str(i), 0, i * step - (step - 1))
         field4.set_value("F4." + str(i), 0, i * step - (step - 1))
 
-    template.insert_spreadsheet("Test1", 0)
-    template.insert_spreadsheet("Test2", 2)
-    template.remove_spreadsheet("Test2")
+    doc.sheets()
+    doc.sheets().insert_spreadsheet("Test1", 0)
+    doc.sheets().insert_spreadsheet("Test2", 2)
+    doc.sheets().remove_spreadsheet("Test2")

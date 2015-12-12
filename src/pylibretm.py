@@ -75,7 +75,7 @@ class Field:
             if self._fields._oNamedRanges.hasByName(name):
                 self._oRange = self._fields._oNamedRanges.getByName(name)
                 self._oCellAddress = self._oRange.getReferencePosition()
-                oSheets = self._fields.template().o_doc().getSheets()
+                oSheets = self._fields.document().o_doc().getSheets()
                 self._oSheet = oSheets.getByIndex(self._oCellAddress.Sheet)
                 self._is_null = False
             else:
@@ -223,24 +223,24 @@ class Fields:
     Search and manage fields.
     """
 
-    def __init__(self, template):
-        self._template = template
+    def __init__(self, document):
+        self._document = document
         self._field = None
 
 #         LibreOffice variables.
 #         self._oSheets = None
         self._oNamedRanges = None
-        if self._template:
-            self._oNamedRanges = self._template.o_doc().NamedRanges
+        if self._document:
+            self._oNamedRanges = self._document.o_doc().NamedRanges
 
-    def template(self):
+    def document(self):
         """
-        Get template object.
+        Get document object.
 
         @rtype:   Template
         @return:  Template object
         """
-        return self._template
+        return self._document
 
     def field(self, name):
         """
@@ -314,11 +314,79 @@ class Fields:
 ###############################################################################
 ###############################################################################
 
+class Sheets:
+
+    """
+    Document sheets.
+    Search and manage sheets.
+    """
+
+    def __init__(self, document):
+        self._document = document
+        self._field = None
+
+#         LibreOffice variables.
+#         self._oSheets = None
+        self._oSheets = None
+        if self._document:
+            self._oSheets = self._document.o_doc().getSheets()
+
+    def o_sheets(self):
+        """
+        LibreOffice/OpenOffice Calc Spreadsheets object.
+
+        Required for Fields and Field classes. Not recommended use it directly.
+
+        @rtype:   com::sun::star::sheet::XSpreadsheets
+        @return:  Libre/Open office Spreadsheets object
+        """
+        return self._oSheets
+
+    def insert_spreadsheet(self, name, index):
+        """
+        Inserts a new sheet into the collection.
+
+        @type  name: string
+        @param name: The name of the new spreadsheet.
+
+        @type  index: integer
+        @param index: The index of the new spreadsheet in the collection.
+
+        @rtype:   boolean
+        @return:  Operation result
+        """
+        result = False
+        if self.o_sheets():
+            self.o_sheets().insertNewByName(name, index)
+            result = True
+        return result
+
+    def remove_spreadsheet(self, name):
+        """
+        Inserts a new sheet into the collection.
+
+        @type  name: string
+        @param name: The name of the removing spreadsheet.
+
+        @rtype:   boolean
+        @return:  Operation result
+        """
+        result = False
+        if self.o_sheets():
+            self.o_sheets().removeByName(name)
+            result = True
+        return result
+
+###############################################################################
+###############################################################################
+###############################################################################
+
 
 class Document:
 
     def __init__(self, connection_string="\
 uno:socket,host=localhost,port=2002;urp;StarOffice.ComponentContext"):
+        self._sheets = None
         self._fields = None
         self._connection_string = connection_string
 
@@ -480,40 +548,19 @@ uno:socket,host=localhost,port=2002;urp;StarOffice.ComponentContext"):
             raise (e)
         return result
 
-    def insert_spreadsheet(self, name, index):
+    def sheets(self):
         """
-        Inserts a new sheet into the collection.
+        LibreOffice/OpenOffice Calc Spreadsheets object.
 
-        @type  name: string
-        @param name: The name of the new spreadsheet.
+        Required for Fields and Field classes. Not recommended use it directly.
 
-        @type  index: integer
-        @param index: The index of the new spreadsheet in the collection.
-
-        @rtype:   boolean
-        @return:  Operation result
+        @rtype:   com::sun::star::sheet::XSpreadsheets
+        @return:  Libre/Open office Spreadsheets object
         """
-        result = False
-        if self.o_doc():
-            self.o_doc().getSheets().insertNewByName(name, index)
-            result = True
-        return result
 
-    def remove_spreadsheet(self, name):
-        """
-        Inserts a new sheet into the collection.
-
-        @type  name: string
-        @param name: The name of the removing spreadsheet.
-
-        @rtype:   boolean
-        @return:  Operation result
-        """
-        result = False
-        if self.o_doc():
-            self.o_doc().getSheets().removeByName(name)
-            result = True
-        return result
+        if self._sheets is None:
+            self._sheets = Sheets(self)
+        return self._sheets
 
     def fields(self):
         """

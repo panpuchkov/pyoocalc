@@ -3,11 +3,10 @@ src.__package__	src-module.html#__package__
 src.pylibretm	src.pylibretm-module.html
 src.pylibretm.Document	src.pylibretm.Document-class.html
 src.pylibretm.Document.open_document	src.pylibretm.Document-class.html#open_document
-src.pylibretm.Document.version	src.pylibretm.Document-class.html#version
+src.pylibretm.Document.sheets	src.pylibretm.Document-class.html#sheets
 src.pylibretm.Document._toProperties	src.pylibretm.Document-class.html#_toProperties
-src.pylibretm.Document.remove_spreadsheet	src.pylibretm.Document-class.html#remove_spreadsheet
 src.pylibretm.Document.fields	src.pylibretm.Document-class.html#fields
-src.pylibretm.Document.insert_spreadsheet	src.pylibretm.Document-class.html#insert_spreadsheet
+src.pylibretm.Document.version	src.pylibretm.Document-class.html#version
 src.pylibretm.Document.o_doc	src.pylibretm.Document-class.html#o_doc
 src.pylibretm.Document._open_document	src.pylibretm.Document-class.html#_open_document
 src.pylibretm.Document.save_document	src.pylibretm.Document-class.html#save_document
@@ -24,6 +23,11 @@ src.pylibretm.Field.set_value	src.pylibretm.Field-class.html#set_value
 src.pylibretm.Fields	src.pylibretm.Fields-class.html
 src.pylibretm.Fields.field	src.pylibretm.Fields-class.html#field
 src.pylibretm.Fields.add	src.pylibretm.Fields-class.html#add
-src.pylibretm.Fields.template	src.pylibretm.Fields-class.html#template
-src.pylibretm.Fields.__init__	src.pylibretm.Fields-class.html#__init__
+src.pylibretm.Fields.document	src.pylibretm.Fields-class.html#document
 src.pylibretm.Fields.remove	src.pylibretm.Fields-class.html#remove
+src.pylibretm.Fields.__init__	src.pylibretm.Fields-class.html#__init__
+src.pylibretm.Sheets	src.pylibretm.Sheets-class.html
+src.pylibretm.Sheets.remove_spreadsheet	src.pylibretm.Sheets-class.html#remove_spreadsheet
+src.pylibretm.Sheets.o_sheets	src.pylibretm.Sheets-class.html#o_sheets
+src.pylibretm.Sheets.insert_spreadsheet	src.pylibretm.Sheets-class.html#insert_spreadsheet
+src.pylibretm.Sheets.__init__	src.pylibretm.Sheets-class.html#__init__
