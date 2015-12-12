@@ -1,5 +1,5 @@
 ========================================================
-PyLOO - Python Libre/Open Office interface API(UNO)
+PyLOO - Python Libre/Open Office interface API (UNO)
 ========================================================
 
 PyLOO allows you to generate different report documents on the base of
