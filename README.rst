@@ -18,8 +18,8 @@ template without great efforts.
 It's easy to create template but how to know where I have to insert data into 
 the template. I can use ``Cell`` indexes (column, row) or name (``E5``). 
 
-But what if I want to use more then one template for report. For example one 
-report for landscape format another for portrait. There is no warranty that 
+But what if I want to use more then one template for the report. For example 
+one report for landscape format another for portrait. There is no warranty that 
 I have to set the same value into the same Cell in different templates. 
 So I have to store rules for different templates somewhere. I have found 
 easier way and that is ``NamedRange``.
