@@ -98,7 +98,7 @@ class Field:
         """
         Checking if a field is null.
 
-        @rtype:   boolean
+        @rtype:   bool
         @return:  Value insertion result
         """
         return self._is_null
@@ -116,7 +116,7 @@ class Field:
         @type  row: int
         @param row: row index
 
-        @rtype:   boolean
+        @rtype:   bool
         @return:  Value insertion result
         """
         result = True
@@ -171,11 +171,11 @@ class Field:
         @type  step: int
         @param step: Step of rows insertion.
 
-        @type  columns_to_copy: boolean
+        @type  columns_to_copy: bool
         @param columns_to_copy: Number of a columns to copy on insert.
                             No copy will be performed if columns_to_copy = 0
 
-        @rtype:   boolean
+        @rtype:   bool
         @return:  Operation result
         """
         result = False
@@ -296,7 +296,7 @@ class Fields:
                     range, as defined in NamedRangeFlag. This parameter \
                     will be zero for any common named range.
 
-        @rtype:   boolean
+        @rtype:   bool
         @return:  Operation result
         """
         cell_address = uno.createUnoStruct("com.sun.star.table.CellAddress")
@@ -315,7 +315,7 @@ class Fields:
         @type  name: string
         @param name: the new name of the named range.
 
-        @rtype:   boolean
+        @rtype:   bool
         @return:  Operation result
         """
         result = False
@@ -356,7 +356,7 @@ class Sheet:
         @type  value: string
         @param value: Cell value
 
-        @rtype:   boolean
+        @rtype:   bool
         @return:  Operation result
         """
         result = False
@@ -458,7 +458,7 @@ class Sheets:
         @type  index: int
         @param index: The index of the new spreadsheet in the collection.
 
-        @rtype:   boolean
+        @rtype:   bool
         @return:  Operation result
         """
         result = False
@@ -474,7 +474,7 @@ class Sheets:
         @type  name: string
         @param name: The name of the removing spreadsheet.
 
-        @rtype:   boolean
+        @rtype:   bool
         @return:  Operation result
         """
         result = False
@@ -555,7 +555,7 @@ uno:socket,host=localhost,port=2002;urp;StarOffice.ComponentContext"):
         @type  doc_name: string
         @param doc_name: Document name.
 
-        @rtype:   boolean
+        @rtype:   bool
         @return:  Operation result
         """
         result = False
@@ -574,7 +574,7 @@ uno:socket,host=localhost,port=2002;urp;StarOffice.ComponentContext"):
         """
         Create new document.
 
-        @rtype:   boolean
+        @rtype:   bool
         @return:  Operation result
         """
         return self._open_document("private:factory/scalc")
@@ -586,7 +586,7 @@ uno:socket,host=localhost,port=2002;urp;StarOffice.ComponentContext"):
         @type  doc_name: string
         @param doc_name: Document name.
 
-        @rtype:   boolean
+        @rtype:   bool
         @return:  Operation result
         """
         result = False
@@ -611,7 +611,7 @@ uno:socket,host=localhost,port=2002;urp;StarOffice.ComponentContext"):
                             # xls="calc_MS_Excel_40"
                             # xlsx="Calc Office Open XML"
 
-        @rtype:   boolean
+        @rtype:   bool
         @return:  Operation result
         """
         result = False
@@ -639,7 +639,7 @@ uno:socket,host=localhost,port=2002;urp;StarOffice.ComponentContext"):
 
         Close current document.
 
-        @rtype:   boolean
+        @rtype:   bool
         @return:  Operation result
         """
         result = False
