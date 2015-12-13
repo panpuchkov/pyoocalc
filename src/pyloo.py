@@ -18,7 +18,6 @@ Copyright (c) 2015
 @organization: http://arilot.com/
 @license: GPL v3
 @contact: panpuchkov@gmail.com
-
 """
 
 ###############################################################################

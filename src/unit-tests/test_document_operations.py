@@ -1,12 +1,31 @@
 # coding: utf-8
 
+"""
+PyLOO - Python Libre/Open Office interface API (UNO)
+
+Requirements for Ubuntu users:
+
+sudo apt-get install python-uno
+
+Optional requirements:
+
+sudo apt-get install libreoffice-script-provider-python
+
+Copyright (c) 2015
+
+@author: Yurii Puchkov
+@organization: http://arilot.com/
+@license: GPL v3
+@contact: panpuchkov@gmail.com
+"""
+
 import unittest
+
 ###############################################################################
 import os
 import sys
-sys.path.append('./../')
 
-###############################################################################
+sys.path.append('./../')
 import pyloo
 
 ###############################################################################

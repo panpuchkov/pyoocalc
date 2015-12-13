@@ -1,17 +1,28 @@
-#!/usr/bin/python3
 # -*- coding: utf-8 -*-
 
-###############################################################################
-# Requirements (for Ubuntu)
-# sudo apt-get install python-uno
-# sudo apt-get install libreoffice-script-provider-python
-###############################################################################
+"""
+PyLOO - Python Libre/Open Office interface API (UNO)
 
-# common modules
+Requirements for Ubuntu users:
+
+sudo apt-get install python-uno
+
+Optional requirements:
+
+sudo apt-get install libreoffice-script-provider-python
+
+Copyright (c) 2015
+
+@author: Yurii Puchkov
+@organization: http://arilot.com/
+@license: GPL v3
+@contact: panpuchkov@gmail.com
+"""
+
 import os
 import sys
+
 sys.path.append('./../')
-# user modules
 import pyloo
 
 # open document
