@@ -39,16 +39,18 @@ def pyloo_open_close_doc(f):
     Decorator. Opens libre/open office document call function for testing
     and closes the document.
     """
-
     def _f(*args, **kwargs):
+        # open document
         doc = pyloo.Document()
         file_name = os.getcwd() + "/test.ods"
         doc.open_document(file_name)
 
+        # Test function call
         kwargs['doc'] = doc
         keep_doc_opened = _f._retval = f(*args, **kwargs)
         keep_doc_opened = bool(keep_doc_opened)
 
+        # close document
         if HIDE_OFFICE_RESULTS and not keep_doc_opened:
             doc.close_document()
     return _f
