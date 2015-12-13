@@ -32,6 +32,7 @@ src.pyloo.Fields.__init__	src.pyloo.Fields-class.html#__init__
 src.pyloo.Sheet	src.pyloo.Sheet-class.html
 src.pyloo.Sheet.cell_value_by_index	src.pyloo.Sheet-class.html#cell_value_by_index
 src.pyloo.Sheet.set_cell_value_by_index	src.pyloo.Sheet-class.html#set_cell_value_by_index
+src.pyloo.Sheet.is_null	src.pyloo.Sheet-class.html#is_null
 src.pyloo.Sheet.__init__	src.pyloo.Sheet-class.html#__init__
 src.pyloo.Sheets	src.pyloo.Sheets-class.html
 src.pyloo.Sheets.count	src.pyloo.Sheets-class.html#count

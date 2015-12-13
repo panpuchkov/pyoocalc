@@ -57,6 +57,15 @@ class Field:
     """
 
     def __init__(self, fields, name):
+        """
+        Constructor
+
+        @type  fields: Fields
+        @param fields: Fields object
+
+        @type  name: string
+        @param name: Field name
+        """
         self._fields = fields
         self._is_null = True
 
@@ -146,11 +155,7 @@ class Field:
                 value = self._oCell.getString()
         return value
 
-    def insert_rows(self,
-                    num_rows=1,
-                    step=1,
-                    columns_to_copy=250
-                    ):
+    def insert_rows(self, num_rows=1, step=1, columns_to_copy=250):
         """
         Insert rows
 
@@ -220,6 +225,12 @@ class Fields:
     """
 
     def __init__(self, document):
+        """
+        Constructor
+
+        @type  document: Document
+        @param document: Document object
+        """
         self._document = document
         self._field = None
         self._is_null = True
@@ -230,7 +241,6 @@ class Fields:
             self._oNamedRanges = self._document.o_doc().NamedRanges
             self._is_null = False
 
-
     def is_null(self):
         """
         Checking if the fields (NamedRanges) object is initialized
@@ -239,7 +249,7 @@ class Fields:
         @return:  Fields object state
         """
         return self._is_null
-    
+
     def count(self):
         """
         Get number of fields (named ranges) in the document.
@@ -342,6 +352,15 @@ class Sheet:
     """
 
     def __init__(self, sheets, index_or_name):
+        """
+        Constructor
+
+        @type  sheets: Sheets
+        @param sheets: Sheets object
+
+        @type  index_or_name: int or string
+        @param index_or_name: Sheet index or sheet name
+        """
         self._sheets = sheets
         self._is_null = True
 
@@ -370,8 +389,17 @@ class Sheet:
         """
         Set cell value.
 
+        @type  col: int
+        @param col: Cell column index
+
+        @type  row: int
+        @param row: Cell row index
+
         @type  value: string
         @param value: Cell value
+
+        @type  is_formula: bool
+        @param is_formula: Not supported yet
 
         @rtype:   bool
         @return:  Operation result
@@ -393,6 +421,12 @@ class Sheet:
     def cell_value_by_index(self, col, row):
         """
         Get cell value.
+
+        @type  col: int
+        @param col: Cell column index
+
+        @type  row: int
+        @param row: Cell row index
 
         @rtype:   long, int, float or string
         @return:  Value. Value type depends on document cell value.
@@ -422,6 +456,12 @@ class Sheets:
     """
 
     def __init__(self, document):
+        """
+        Constructor
+
+        @type  document: Document
+        @param document: Document object
+        """
         self._document = document
         self._sheet = None
 
@@ -429,7 +469,7 @@ class Sheets:
         self._oSheets = None
         if self._document:
             self._oSheets = self._document.o_doc().getSheets()
-            
+
     def is_null(self):
         """
         Checking if the document object is initialized
@@ -521,6 +561,12 @@ class Document:
 
     def __init__(self, connection_string="\
 uno:socket,host=localhost,port=2002;urp;StarOffice.ComponentContext"):
+        """
+        Constructor
+
+        @type  connection_string: string
+        @param connection_string: Libre/Open office initialization string
+        """
         self._sheets = None
         self._fields = None
         self._connection_string = connection_string

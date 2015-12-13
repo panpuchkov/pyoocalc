@@ -27,9 +27,10 @@ def pyloo_open_close_doc(f):
         doc.open_document(file_name)
 
         kwargs['doc'] = doc
-        _f._retval = f(*args, **kwargs)
+        keep_doc_opened = _f._retval = f(*args, **kwargs)
+        keep_doc_opened = bool(keep_doc_opened)
 
-        if HIDE_OFFICE_RESULTS:
+        if HIDE_OFFICE_RESULTS and not keep_doc_opened:
             doc.close_document()
     return _f
 
@@ -90,9 +91,11 @@ class Test_PyLOO_Field(unittest.TestCase):
     def test_field_set_get(self, doc):
         field = doc.fields().field("TABLE_NAME")
         test_value = "Test table name"
+
         # set and get value without offset
         self.assertTrue(field.set_value(test_value))
         self.assertEqual(field.value(), test_value)
+
         # set and get value with offset
         self.assertTrue(field.set_value(test_value, 2, 1))
         self.assertEqual(field.value(2, 1), test_value)
@@ -139,6 +142,34 @@ class Test_PyLOO_Sheets(unittest.TestCase):
         self.assertEqual(doc.sheets().count(), 2, "Wrong number of fields")
         self.assertTrue(doc.sheets().remove_spreadsheet("test1"))
         self.assertEqual(doc.sheets().count(), 1, "Wrong number of fields")
+
+###############################################################################
+
+
+class Test_PyLOO_Sheet(unittest.TestCase):
+
+    @pyloo_open_close_doc
+    def test_sheet_set_get_cell_value_by_index(self, doc):
+        s_val = "value"
+        n_val = 123
+        f_val = 1.23
+        formula = "=G2+G3"
+
+        sheet = doc.sheets().sheet("Sheet1")
+
+        # set values
+        self.assertTrue(sheet.set_cell_value_by_index(7, 0, s_val))
+        self.assertTrue(sheet.set_cell_value_by_index(7, 1, n_val))
+        self.assertTrue(sheet.set_cell_value_by_index(7, 2, f_val))
+        self.assertTrue(sheet.set_cell_value_by_index(7, 3, formula, True))
+
+        # get values and check results
+        self.assertEqual(sheet.cell_value_by_index(7, 0), s_val)
+        self.assertEqual(sheet.cell_value_by_index(7, 1), n_val)
+        self.assertEqual(sheet.cell_value_by_index(7, 2), f_val)
+#         self.assertEqual(sheet.set_cell_value_by_index(7, 3), formula))
+
+        return True
 
 ###############################################################################
 
