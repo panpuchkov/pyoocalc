@@ -60,6 +60,9 @@ def pyloo_open_close_doc(f):
 
 class Test_PyLOO_Document(unittest.TestCase):
 
+    def setUp(self):
+        pass
+
     def test_document_initialize(self):
         doc = pyloo.Document()
         self.assertFalse(doc.is_null())
