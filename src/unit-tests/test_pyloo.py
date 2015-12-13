@@ -177,7 +177,7 @@ class Test_PyLOO_Sheet(unittest.TestCase):
         s_val = "value"
         n_val = 123
         f_val = 1.23
-        formula = "=G2+G3"
+#         formula = "=G2+G3"
 
         sheet = doc.sheets().sheet("Sheet1")
 
