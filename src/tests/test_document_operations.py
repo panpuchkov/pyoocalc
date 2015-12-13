@@ -158,18 +158,16 @@ class Test_PyLOO_Sheet(unittest.TestCase):
         sheet = doc.sheets().sheet("Sheet1")
 
         # set values
-        self.assertTrue(sheet.set_cell_value_by_index(7, 0, s_val))
-        self.assertTrue(sheet.set_cell_value_by_index(7, 1, n_val))
-        self.assertTrue(sheet.set_cell_value_by_index(7, 2, f_val))
-        self.assertTrue(sheet.set_cell_value_by_index(7, 3, formula, True))
+        self.assertTrue(sheet.set_cell_value_by_index(s_val, 7, 0))
+        self.assertTrue(sheet.set_cell_value_by_index(n_val, 7, 1))
+        self.assertTrue(sheet.set_cell_value_by_index(f_val, 7, 2))
+        self.assertTrue(sheet.set_cell_value_by_index(formula, 7, 3, True))
 
         # get values and check results
         self.assertEqual(sheet.cell_value_by_index(7, 0), s_val)
         self.assertEqual(sheet.cell_value_by_index(7, 1), n_val)
         self.assertEqual(sheet.cell_value_by_index(7, 2), f_val)
 #         self.assertEqual(sheet.set_cell_value_by_index(7, 3), formula))
-
-        return True
 
 ###############################################################################
 

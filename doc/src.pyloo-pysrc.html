@@ -449,18 +449,18 @@ src.pyloo.Sheets.is_null" class="py-name" href="#" onclick="return doclink('link
 <a name="L385"></a><tt class="py-lineno">385</tt>  <tt class="py-line"><tt class="py-docstring">        """</tt> </tt>
 <a name="L386"></a><tt class="py-lineno">386</tt>  <tt class="py-line">        <tt class="py-keyword">return</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">_is_null</tt> </tt>
 </div><a name="L387"></a><tt class="py-lineno">387</tt>  <tt class="py-line"> </tt>
-<a name="Sheet.set_cell_value_by_index"></a><div id="Sheet.set_cell_value_by_index-def"><a name="L388"></a><tt class="py-lineno">388</tt> <a class="py-toggle" href="#" id="Sheet.set_cell_value_by_index-toggle" onclick="return toggle('Sheet.set_cell_value_by_index');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="src.pyloo.Sheet-class.html#set_cell_value_by_index">set_cell_value_by_index</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">,</tt> <tt class="py-param">col</tt><tt class="py-op">,</tt> <tt class="py-param">row</tt><tt class="py-op">,</tt> <tt class="py-param">value</tt><tt class="py-op">,</tt> <tt class="py-param">is_formula</tt><tt class="py-op">=</tt><tt class="py-name">False</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+<a name="Sheet.set_cell_value_by_index"></a><div id="Sheet.set_cell_value_by_index-def"><a name="L388"></a><tt class="py-lineno">388</tt> <a class="py-toggle" href="#" id="Sheet.set_cell_value_by_index-toggle" onclick="return toggle('Sheet.set_cell_value_by_index');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="src.pyloo.Sheet-class.html#set_cell_value_by_index">set_cell_value_by_index</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">,</tt> <tt class="py-param">value</tt><tt class="py-op">,</tt> <tt class="py-param">col</tt><tt class="py-op">,</tt> <tt class="py-param">row</tt><tt class="py-op">,</tt> <tt class="py-param">is_formula</tt><tt class="py-op">=</tt><tt class="py-name">False</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
 </div><div id="Sheet.set_cell_value_by_index-collapsed" style="display:none;" pad="+++" indent="++++++++"></div><div id="Sheet.set_cell_value_by_index-expanded"><a name="L389"></a><tt class="py-lineno">389</tt>  <tt class="py-line">        <tt class="py-docstring">"""</tt> </tt>
 <a name="L390"></a><tt class="py-lineno">390</tt>  <tt class="py-line"><tt class="py-docstring">        Set cell value.</tt> </tt>
 <a name="L391"></a><tt class="py-lineno">391</tt>  <tt class="py-line"><tt class="py-docstring"></tt> </tt>
-<a name="L392"></a><tt class="py-lineno">392</tt>  <tt class="py-line"><tt class="py-docstring">        @type  col: int</tt> </tt>
-<a name="L393"></a><tt class="py-lineno">393</tt>  <tt class="py-line"><tt class="py-docstring">        @param col: Cell column index</tt> </tt>
+<a name="L392"></a><tt class="py-lineno">392</tt>  <tt class="py-line"><tt class="py-docstring">        @type  value: string</tt> </tt>
+<a name="L393"></a><tt class="py-lineno">393</tt>  <tt class="py-line"><tt class="py-docstring">        @param value: Cell value</tt> </tt>
 <a name="L394"></a><tt class="py-lineno">394</tt>  <tt class="py-line"><tt class="py-docstring"></tt> </tt>
-<a name="L395"></a><tt class="py-lineno">395</tt>  <tt class="py-line"><tt class="py-docstring">        @type  row: int</tt> </tt>
-<a name="L396"></a><tt class="py-lineno">396</tt>  <tt class="py-line"><tt class="py-docstring">        @param row: Cell row index</tt> </tt>
+<a name="L395"></a><tt class="py-lineno">395</tt>  <tt class="py-line"><tt class="py-docstring">        @type  col: int</tt> </tt>
+<a name="L396"></a><tt class="py-lineno">396</tt>  <tt class="py-line"><tt class="py-docstring">        @param col: Cell column index</tt> </tt>
 <a name="L397"></a><tt class="py-lineno">397</tt>  <tt class="py-line"><tt class="py-docstring"></tt> </tt>
-<a name="L398"></a><tt class="py-lineno">398</tt>  <tt class="py-line"><tt class="py-docstring">        @type  value: string</tt> </tt>
-<a name="L399"></a><tt class="py-lineno">399</tt>  <tt class="py-line"><tt class="py-docstring">        @param value: Cell value</tt> </tt>
+<a name="L398"></a><tt class="py-lineno">398</tt>  <tt class="py-line"><tt class="py-docstring">        @type  row: int</tt> </tt>
+<a name="L399"></a><tt class="py-lineno">399</tt>  <tt class="py-line"><tt class="py-docstring">        @param row: Cell row index</tt> </tt>
 <a name="L400"></a><tt class="py-lineno">400</tt>  <tt class="py-line"><tt class="py-docstring"></tt> </tt>
 <a name="L401"></a><tt class="py-lineno">401</tt>  <tt class="py-line"><tt class="py-docstring">        @type  is_formula: bool</tt> </tt>
 <a name="L402"></a><tt class="py-lineno">402</tt>  <tt class="py-line"><tt class="py-docstring">        @param is_formula: Not supported yet</tt> </tt>
@@ -873,7 +873,7 @@ expandto(location.href);
   <tr>
     <td align="left" class="footer">
     Generated by Epydoc 3.0.1
-    on Sun Dec 13 17:10:57 2015
+    on Sun Dec 13 17:46:31 2015
     </td>
     <td align="right" class="footer">
       <a target="mainFrame" href="http://epydoc.sourceforge.net"

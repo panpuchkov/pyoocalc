@@ -385,18 +385,18 @@ class Sheet:
         """
         return self._is_null
 
-    def set_cell_value_by_index(self, col, row, value, is_formula=False):
+    def set_cell_value_by_index(self, value, col, row, is_formula=False):
         """
         Set cell value.
+
+        @type  value: string
+        @param value: Cell value
 
         @type  col: int
         @param col: Cell column index
 
         @type  row: int
         @param row: Cell row index
-
-        @type  value: string
-        @param value: Cell value
 
         @type  is_formula: bool
         @param is_formula: Not supported yet

@@ -66,9 +66,9 @@ if doc:
     doc.sheets().remove_spreadsheet("Test2")
 
     sheet = doc.sheets().sheet(0)
-    sheet.set_cell_value_by_index(1, 0, "value1")
+    sheet.set_cell_value_by_index("value1", 1, 0,)
     print (sheet.cell_value_by_index(1, 0))
 
     sheet = doc.sheets().sheet("Test1")
-    sheet.set_cell_value_by_index(0, 1, "value2")
+    sheet.set_cell_value_by_index("value2", 0, 1,)
     print (sheet.cell_value_by_index(0, 1))
