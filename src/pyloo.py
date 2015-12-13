@@ -89,7 +89,7 @@ class Field:
 
     def is_null(self):
         """
-        Checking if a field is null.
+        Checking if the field is null.
 
         @rtype:   bool
         @return:  Value insertion result
@@ -343,6 +343,7 @@ class Sheet:
 
     def __init__(self, sheets, index_or_name):
         self._sheets = sheets
+        self._is_null = True
 
 #         LibreOffice variables.
         self._oSheet = None
@@ -350,9 +351,20 @@ class Sheet:
         if isinstance(index_or_name, int):
             # get by index
             self._oSheet = self._sheets.o_sheets().getByIndex(index_or_name)
+            self._is_null = False
         else:
             # get by name
             self._oSheet = self._sheets.o_sheets().getByName(index_or_name)
+            self._is_null = False
+
+    def is_null(self):
+        """
+        Checking if the sheet is null.
+
+        @rtype:   bool
+        @return:  Value insertion result
+        """
+        return self._is_null
 
     def set_cell_value_by_index(self, col, row, value, is_formula=False):
         """

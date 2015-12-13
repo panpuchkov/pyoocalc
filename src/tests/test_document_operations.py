@@ -74,20 +74,12 @@ class Test_PyLOO_Fields(unittest.TestCase):
 
     @pyloo_open_close_doc
     def test_fields_field(self, doc):
-        doc = pyloo.Document()
-        file_name = os.getcwd() + "/test.ods"
-        doc.open_document(file_name)
         field = doc.fields().field("TABLE_NAME")
         self.assertFalse(field.is_null(), "get field object")
-        doc.close_document()
 
     @pyloo_open_close_doc
     def test_fields_count(self, doc):
-        doc = pyloo.Document()
-        file_name = os.getcwd() + "/test.ods"
-        doc.open_document(file_name)
         self.assertEqual(doc.fields().count(), 11, "Wrong number of fields")
-        doc.close_document()
 
 ###############################################################################
 
@@ -127,9 +119,26 @@ class Test_PyLOO_Field(unittest.TestCase):
             self.assertEqual(field.value(0, 1 + ((num_rows + 1) * step)),
                              test_value)
 
-        # check row insertion with row step 2 and row step 1
-        check_insert_rows(t1_field, "f1.1", 2)
+        # check row insertion with row step 1 and row step 2
         check_insert_rows(t2_field, "t2.f1.1", 1)
+        check_insert_rows(t1_field, "f1.1", 2)
+
+###############################################################################
+
+
+class Test_PyLOO_Sheets(unittest.TestCase):
+
+    @pyloo_open_close_doc
+    def test_sheets_sheet_by_index(self, doc):
+        sheet = doc.sheets().sheet("Sheet1")
+        self.assertFalse(sheet.is_null(), "get sheet object")
+
+    @pyloo_open_close_doc
+    def test_sheets_insert_remove_spreadsheet_count(self, doc):
+        self.assertTrue(doc.sheets().insert_spreadsheet("test1", 1))
+        self.assertEqual(doc.sheets().count(), 2, "Wrong number of fields")
+        self.assertTrue(doc.sheets().remove_spreadsheet("test1"))
+        self.assertEqual(doc.sheets().count(), 1, "Wrong number of fields")
 
 ###############################################################################
 
