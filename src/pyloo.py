@@ -222,12 +222,24 @@ class Fields:
     def __init__(self, document):
         self._document = document
         self._field = None
+        self._is_null = True
 
 #         LibreOffice variables.
         self._oNamedRanges = None
         if self._document:
             self._oNamedRanges = self._document.o_doc().NamedRanges
+            self._is_null = False
 
+
+    def is_null(self):
+        """
+        Checking if the fields (NamedRanges) object is initialized
+
+        @rtype:   bool
+        @return:  Fields object state
+        """
+        return self._is_null
+    
     def count(self):
         """
         Get number of fields (named ranges) in the document.
@@ -405,6 +417,18 @@ class Sheets:
         self._oSheets = None
         if self._document:
             self._oSheets = self._document.o_doc().getSheets()
+            
+    def is_null(self):
+        """
+        Checking if the document object is initialized
+
+        @rtype:   bool
+        @return:  Document object state
+        """
+        result = False
+        if self._oSheets is None:
+            result = True
+        return result
 
     def sheet(self, index_or_name):
         """
@@ -515,6 +539,18 @@ uno:socket,host=localhost,port=2002;urp;StarOffice.ComponentContext"):
             except RuntimeException as e:
                 raise (e)
 
+    def is_null(self):
+        """
+        Checking if the document object is initialized
+
+        @rtype:   bool
+        @return:  Document object state
+        """
+        result = False
+        if self._oDesktop is None:
+            result = True
+        return result
+
     def _toProperties(self, **args):
         """
         Converts '**args' arguments to the tuple of 'PropertyValue's
@@ -608,13 +644,13 @@ uno:socket,host=localhost,port=2002;urp;StarOffice.ComponentContext"):
         @return:  Operation result
         """
         result = False
-        if self.document():
+        if self.o_doc():
             if 0 == len(doc_name):
-                self.document().store()
+                self.o_doc().store()
             else:
                 full_file_name = unohelper.systemPathToFileUrl(doc_name)
                 try:
-                    self.document().storeToURL(
+                    self.o_doc().storeToURL(
                                 full_file_name,
                                 self._toProperties(FilterName=filter_name))
                     result = True
@@ -637,8 +673,8 @@ uno:socket,host=localhost,port=2002;urp;StarOffice.ComponentContext"):
         """
         result = False
         try:
-            if self.document():
-                self.document().close(True)
+            if self.o_doc():
+                self.o_doc().close(True)
                 self._oDoc = None
                 result = True
         except ErrorCodeIOException as e:
