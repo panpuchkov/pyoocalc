@@ -10,6 +10,9 @@ sys.path.append('./../')
 import pyloo
 
 ###############################################################################
+HIDE_OFFICE_RESULTS = True
+
+###############################################################################
 
 
 def pyloo_open_close_doc(f):
@@ -26,7 +29,8 @@ def pyloo_open_close_doc(f):
         kwargs['doc'] = doc
         _f._retval = f(*args, **kwargs)
 
-        doc.close_document()
+        if HIDE_OFFICE_RESULTS:
+            doc.close_document()
     return _f
 
 ###############################################################################
@@ -82,7 +86,7 @@ class Test_PyLOO_Fields(unittest.TestCase):
         doc = pyloo.Document()
         file_name = os.getcwd() + "/test.ods"
         doc.open_document(file_name)
-        self.assertEqual(doc.fields().count(), 7, "Wrong number of fields")
+        self.assertEqual(doc.fields().count(), 11, "Wrong number of fields")
         doc.close_document()
 
 ###############################################################################
@@ -94,15 +98,38 @@ class Test_PyLOO_Field(unittest.TestCase):
     def test_field_set_get(self, doc):
         field = doc.fields().field("TABLE_NAME")
         test_value = "Test table name"
+        # set and get value without offset
         self.assertTrue(field.set_value(test_value))
         self.assertEqual(field.value(), test_value)
+        # set and get value with offset
+        self.assertTrue(field.set_value(test_value, 2, 1))
+        self.assertEqual(field.value(2, 1), test_value)
 
     @pyloo_open_close_doc
     def test_field_insert_rows(self, doc):
-        field = doc.fields().field("TABLE_NAME")
-        test_value = "Test table name"
-        self.assertTrue(field.set_value(test_value))
-        self.assertEqual(field.value(), test_value)
+        t1_field = doc.fields().field("FIELD_1")
+        t2_field = doc.fields().field("T2FIELD_1")
+
+        def check_insert_rows(field, test_value, step):
+            # insert row with step = `step`
+            num_rows = 1
+            self.assertTrue(field.insert_rows(num_rows=num_rows, step=step))
+
+            # set value at row 2 with considering step = `step`
+            self.assertTrue(field.set_value(test_value, 0, 1 + step))
+            self.assertEqual(field.value(0, 1 + step), test_value)
+
+            # insert two more rows with step = `step`
+            num_rows = 2
+            self.assertTrue(field.insert_rows(num_rows=num_rows, step=step))
+
+            # get result at row 3 with considering step step = `step`
+            self.assertEqual(field.value(0, 1 + ((num_rows + 1) * step)),
+                             test_value)
+
+        # check row insertion with row step 2 and row step 1
+        check_insert_rows(t1_field, "f1.1", 2)
+        check_insert_rows(t2_field, "t2.f1.1", 1)
 
 ###############################################################################
 

@@ -149,7 +149,7 @@ class Field:
     def insert_rows(self,
                     num_rows=1,
                     step=1,
-                    columns_to_copy=1000
+                    columns_to_copy=250
                     ):
         """
         Insert rows
