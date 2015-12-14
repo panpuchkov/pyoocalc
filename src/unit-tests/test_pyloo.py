@@ -95,25 +95,40 @@ class Test_PyLOO_Document(unittest.TestCase):
 ###############################################################################
 
 
-class Test_PyLOO_Fields(unittest.TestCase):
+class Test_PyLOO_Base(unittest.TestCase):
+    """
+    Setup base class for future tests.
+    It opens and close the 'ods' document for testing.
+    """
+    def setUp(self):
+        # open document
+        self._doc = pyloo.Document()
+        file_name = os.getcwd() + "/test.ods"
+        self._doc.open_document(file_name)
 
-    @pyloo_open_close_doc
-    def test_fields_field(self, doc):
-        field = doc.fields().field("TABLE_NAME")
-        self.assertFalse(field.is_null(), "get field object")
-
-    @pyloo_open_close_doc
-    def test_fields_count(self, doc):
-        self.assertEqual(doc.fields().count(), 11, "Wrong number of fields")
+    def tearDown(self):
+        # close document
+        self._doc.close_document()
 
 ###############################################################################
 
 
-class Test_PyLOO_Field(unittest.TestCase):
+class Test_PyLOO_Fields(Test_PyLOO_Base):
 
-    @pyloo_open_close_doc
-    def test_field_set_get(self, doc):
-        field = doc.fields().field("TABLE_NAME")
+    def test_fields_field(self):
+        field = self._doc.fields().field("TABLE_NAME")
+        self.assertFalse(field.is_null(), "get field object")
+
+    def test_fields_count(self):
+        self.assertEqual(self._doc.fields().count(), 11, "Wrong number of fields")
+
+###############################################################################
+
+
+class Test_PyLOO_Field(Test_PyLOO_Base):
+
+    def test_field_set_get(self):
+        field = self._doc.fields().field("TABLE_NAME")
         test_value = "Test table name"
 
         # set and get value without offset
@@ -124,10 +139,9 @@ class Test_PyLOO_Field(unittest.TestCase):
         self.assertTrue(field.set_value(test_value, 2, 1))
         self.assertEqual(field.value(2, 1), test_value)
 
-    @pyloo_open_close_doc
-    def test_field_insert_rows(self, doc):
-        t1_field = doc.fields().field("FIELD_1")
-        t2_field = doc.fields().field("T2FIELD_1")
+    def test_field_insert_rows(self):
+        t1_field = self._doc.fields().field("FIELD_1")
+        t2_field = self._doc.fields().field("T2FIELD_1")
 
         def check_insert_rows(field, test_value, step):
             # insert row with step = `step`
@@ -153,39 +167,36 @@ class Test_PyLOO_Field(unittest.TestCase):
 ###############################################################################
 
 
-class Test_PyLOO_Sheets(unittest.TestCase):
+class Test_PyLOO_Sheets(Test_PyLOO_Base):
 
-    @pyloo_open_close_doc
-    def test_sheets_sheet_by_index(self, doc):
-        sheet = doc.sheets().sheet("Sheet1")
+    def test_sheets_sheet_by_index(self):
+        sheet = self._doc.sheets().sheet("Sheet1")
         self.assertFalse(sheet.is_null(), "get sheet object")
 
-    @pyloo_open_close_doc
-    def test_sheets_insert_remove_spreadsheet_count(self, doc):
-        self.assertTrue(doc.sheets().insert_spreadsheet("test1", 1))
-        self.assertEqual(doc.sheets().count(), 2, "Wrong number of fields")
-        self.assertTrue(doc.sheets().remove_spreadsheet("test1"))
-        self.assertEqual(doc.sheets().count(), 1, "Wrong number of fields")
+    def test_sheets_insert_remove_spreadsheet_count(self):
+        self.assertTrue(self._doc.sheets().insert_spreadsheet("test1", 1))
+        self.assertEqual(self._doc.sheets().count(), 2, "Wrong number of fields")
+        self.assertTrue(self._doc.sheets().remove_spreadsheet("test1"))
+        self.assertEqual(self._doc.sheets().count(), 1, "Wrong number of fields")
 
 ###############################################################################
 
 
-class Test_PyLOO_Sheet(unittest.TestCase):
+class Test_PyLOO_Sheet(Test_PyLOO_Base):
 
-    @pyloo_open_close_doc
-    def test_sheet_set_get_cell_value_by_index(self, doc):
+    def test_sheet_set_get_cell_value_by_index(self):
         s_val = "value"
         n_val = 123
         f_val = 1.23
 #         formula = "=G2+G3"
 
-        sheet = doc.sheets().sheet("Sheet1")
+        sheet = self._doc.sheets().sheet("Sheet1")
 
         # set values
         self.assertTrue(sheet.set_cell_value_by_index(s_val, 7, 0))
         self.assertTrue(sheet.set_cell_value_by_index(n_val, 7, 1))
         self.assertTrue(sheet.set_cell_value_by_index(f_val, 7, 2))
-        self.assertTrue(sheet.set_cell_value_by_index(formula, 7, 3, True))
+#         self.assertTrue(sheet.set_cell_value_by_index(formula, 7, 3, True))
 
         # get values and check results
         self.assertEqual(sheet.cell_value_by_index(7, 0), s_val)
@@ -198,3 +209,5 @@ class Test_PyLOO_Sheet(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
+#     suite = unittest.TestLoader().loadTestsFromTestCase(Test_PyLOO_Sheet)
+#     unittest.TextTestRunner(verbosity=2).run(suite)
