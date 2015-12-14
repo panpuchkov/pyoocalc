@@ -53,6 +53,7 @@ def pyloo_open_close_doc(f):
         # close document
         if HIDE_OFFICE_RESULTS and not keep_doc_opened:
             doc.close_document()
+        del doc
     return _f
 
 ###############################################################################
@@ -109,6 +110,7 @@ class Test_PyLOO_Base(unittest.TestCase):
     def tearDown(self):
         # close document
         self._doc.close_document()
+        del self._doc
 
 ###############################################################################
 
@@ -120,7 +122,8 @@ class Test_PyLOO_Fields(Test_PyLOO_Base):
         self.assertFalse(field.is_null(), "get field object")
 
     def test_fields_count(self):
-        self.assertEqual(self._doc.fields().count(), 11, "Wrong number of fields")
+        self.assertEqual(self._doc.fields().count(), 11,
+                         "Wrong number of fields")
 
 ###############################################################################
 
@@ -175,9 +178,11 @@ class Test_PyLOO_Sheets(Test_PyLOO_Base):
 
     def test_sheets_insert_remove_spreadsheet_count(self):
         self.assertTrue(self._doc.sheets().insert_spreadsheet("test1", 1))
-        self.assertEqual(self._doc.sheets().count(), 2, "Wrong number of fields")
+        self.assertEqual(self._doc.sheets().count(), 2,
+                         "Wrong number of fields")
         self.assertTrue(self._doc.sheets().remove_spreadsheet("test1"))
-        self.assertEqual(self._doc.sheets().count(), 1, "Wrong number of fields")
+        self.assertEqual(self._doc.sheets().count(), 1,
+                         "Wrong number of fields")
 
 ###############################################################################
 
