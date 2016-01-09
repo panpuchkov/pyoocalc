@@ -102,21 +102,32 @@ You can find documentation here: ::
 
 ./doc/index.html
 
-Examples: ::
 
- ./src/examples/example.py
+You can find an example file here: ::
+
+$ ./src/examples/example.py
+
+
+Run example: ::
+
+ $ python3 example.py
 
 
 
 Testing
 -------
 
-Automated integration ``unit-tests`` covers most of the code.
+Automated integration ``unit tests`` cover most of the code.
+
 
 The test suite assumes that OpenOffice or LibreOffice is running and it is 
 listening on localhost port 2002.
 
-All tests are in the ``./src/unit-tests/test_pyloo.py`` file: ::
+Tests script path: ::
+
+$ ./src/unit-tests/test_pyloo.py
+
+Run tests: ::
 
 $ python3 test_pyloo.py
 
