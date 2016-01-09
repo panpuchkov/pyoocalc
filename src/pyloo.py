@@ -24,6 +24,10 @@ Copyright (c) 2015
 import uno
 import unohelper
 
+import os
+import subprocess
+import time
+
 # Exceptions
 from com.sun.star.uno import RuntimeException
 from com.sun.star.lang import IllegalArgumentException
@@ -37,8 +41,9 @@ from com.sun.star.beans import PropertyValue
 # Office eNums
 from com.sun.star.table.CellContentType import TEXT, EMPTY, VALUE, FORMULA
 
+
 ###############################################################################
-__version__ = "0.0.1"
+__version__ = "0.0.2"
 
 ###############################################################################
 # Start LibreOffice/OpenOffice Calc in listening mode:
@@ -561,13 +566,32 @@ class Sheets:
 
 class Document:
 
-    def __init__(self, connection_string="\
-uno:socket,host=localhost,port=2002;urp;StarOffice.ComponentContext"):
+    def __init__(self,
+                 autostart=False,
+                 office='soffice \
+--accept="socket,host=localhost,port=2002;urp;"',
+                 connection_string="\
+uno:socket,host=localhost,port=2002;urp;StarOffice.ComponentContext",
+                 timeout=30,
+                 attempt_period=0.1):
         """
         Constructor
 
+        @type  autostart: bool
+        @param autostart: Auto Starts Libre/Open Office with a listening socket
+
+        @type  office: string
+        @param office: Libre/Open Office startup string
+
         @type  connection_string: string
         @param connection_string: Libre/Open office initialization string
+
+        @type  timeout: int
+        @param timeout: Timeout for starting Libre/Open Office in seconds
+
+        @type  attempt_period: int
+        @param attempt_period: Timeout between attempts in seconds
+
         """
         self._sheets = None
         self._fields = None
@@ -584,20 +608,95 @@ uno:socket,host=localhost,port=2002;urp;StarOffice.ComponentContext"):
             self._oResolver = \
                 self._oLocal.ServiceManager.createInstanceWithContext(
                     "com.sun.star.bridge.UnoUrlResolver", self._oLocal)
+            if autostart:
+                self._autostart_office(office, timeout, attempt_period)
+            else:
+                self._init_doc()
+
+    def _autostart_office(self, office, timeout, attempt_period):
+        """
+        Starts Libre/Open Office with a listening socket.
+
+        @type  timeout: int
+        @param timeout: Timeout for starting Libre/Open Office in seconds
+
+        @type  attempt_period: int
+        @param attempt_period: Timeout between attempts in seconds
+
+        @type  office: string
+        @param office: Libre/Open Office startup string
+        """
+        #######################################################################
+        def start_office_instance(office):
+            """
+            Starts Libre/Open Office with a listening socket.
+
+            @type  office: string
+            @param office: Libre/Open Office startup string
+            """
+            # Fork to execute Office
+            if os.fork():
+                return
+
+            # Start OpenOffice.org and report any errors that occur.
             try:
-                if self._oResolver:
-                    self._oContext = self._oResolver.resolve(
-                        self._connection_string)
-                    self._oDesktop = self._oContext.ServiceManager.\
-                        createInstanceWithContext(
-                                            "com.sun.star.frame.Desktop",
-                                            self._oContext)
-            except NoConnectException as e:
-                raise (e)
-            except IllegalArgumentException as e:
-                raise (e)
-            except RuntimeException as e:
-                raise (e)
+                retcode = subprocess.call(office, shell=True)
+                if retcode < 0:
+                    print (sys.stderr,
+                           "Office was terminated by signal",
+                           -retcode)
+                elif retcode > 0:
+                    print (sys.stderr,
+                           "Office returned",
+                           retcode)
+            except OSError as e:
+                print (sys.stderr, "Execution failed:", e)
+
+            # Terminate this process when Office has closed.
+            raise SystemExit()
+
+        #######################################################################
+        waiting = False
+        try:
+            self._init_doc()
+        except NoConnectException as e:
+            waiting = True
+            start_office_instance(office)
+
+        if waiting:
+            exception = None
+            steps = int(timeout/attempt_period)
+            for i in range(steps + 1):
+                try:
+                    self._init_doc()
+                    break
+                except NoConnectException as e:
+                    exception = e
+                    time.sleep(attempt_period)
+            else:
+                if exception:
+                    raise NoConnectException(exception)
+                else:
+                    raise NoConnectException()
+
+    def _init_doc(self):
+        """
+        Initialize Libre/Open Office connection
+        """
+        try:
+            if self._oResolver:
+                self._oContext = self._oResolver.resolve(
+                    self._connection_string)
+                self._oDesktop = self._oContext.ServiceManager.\
+                    createInstanceWithContext(
+                                        "com.sun.star.frame.Desktop",
+                                        self._oContext)
+        except NoConnectException as e:
+            raise (e)
+        except IllegalArgumentException as e:
+            raise (e)
+        except RuntimeException as e:
+            raise (e)
 
     def is_null(self):
         """

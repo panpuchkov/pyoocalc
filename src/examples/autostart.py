@@ -9,7 +9,7 @@ import uno
 sys.path.append('./../')
 import pyloo
 
-NoConnectionException = uno.getClass(
+NoConnectException = uno.getClass(
         "com.sun.star.connection.NoConnectException")
 
 ###############################################################################
@@ -61,22 +61,27 @@ def start_office(timeout=30, attempt_period=0.1,
 
     ###########################################################################
     waiting = False
-    doc = None
     try:
-        doc = pyloo.Document()
-    except NoConnectionException as e:
+        pyloo.Document()
+    except NoConnectException as e:
         waiting = True
         start_office_instance(office)
 
     if waiting:
         steps = int(timeout/attempt_period)
+        exception = None
         for i in range(steps + 1):
             try:
-                doc = pyloo.Document()
+                pyloo.Document()
                 break
-            except NoConnectionException as e:
+            except NoConnectException as e:
+                exception = e
                 time.sleep(attempt_period)
-    del doc
+        else:
+            if exception:
+                raise NoConnectException(exception)
+            else:
+                raise NoConnectException()
 
 ###############################################################################
 
@@ -86,5 +91,5 @@ try:
     doc = pyloo.Document()
     file_name = os.getcwd() + "/example.ods"
     doc.open_document(file_name)
-except NoConnectionException as e:
+except NoConnectException as e:
     print (e)

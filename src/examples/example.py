@@ -28,7 +28,7 @@ import pyloo
 # open document
 doc = None
 try:
-    doc = pyloo.Document()
+    doc = pyloo.Document(autostart=True)
     print ("version: ", doc.version())
 except pyloo.NoConnectException as e:
     print ("Error: The OpenOffice.org process is not started or \
