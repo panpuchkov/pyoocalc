@@ -111,7 +111,7 @@ Examples: ::
 Testing
 -------
 
-Automated integration tests (unit-tests) cover most of the code.
+Automated integration ``unit-tests`` covers most of the code.
 
 The test suite assumes that OpenOffice or LibreOffice is running and it is 
 listening on localhost port 2002.
