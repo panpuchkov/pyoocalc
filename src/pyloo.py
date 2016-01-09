@@ -38,6 +38,9 @@ from com.sun.star.beans import PropertyValue
 from com.sun.star.table.CellContentType import TEXT, EMPTY, VALUE, FORMULA
 
 ###############################################################################
+__version__ = "0.0.1"
+
+###############################################################################
 # Start LibreOffice/OpenOffice Calc in listening mode:
 # /usr/bin/libreoffice \
 # -accept="socket,host=localhost,port=2002;urp;StarOffice.ServiceManager"
@@ -770,4 +773,4 @@ uno:socket,host=localhost,port=2002;urp;StarOffice.ComponentContext"):
         @rtype:   string
         @return:  PyLibra version
         """
-        return "0.0.1"
+        return __version__

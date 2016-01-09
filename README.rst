@@ -111,14 +111,14 @@ Examples: ::
 Testing
 -------
 
-Automated integration tests cover most of the code.
+Automated integration tests (unit-tests) cover most of the code.
 
 The test suite assumes that OpenOffice or LibreOffice is running and it is 
 listening on localhost port 2002.
 
-All tests are in the test.py file: ::
+All tests are in the ``./src/unit-tests/test_pyloo.py`` file: ::
 
-$ python3 example.py
+$ python3 test_pyloo.py
 
 
 

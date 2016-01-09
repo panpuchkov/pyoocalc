@@ -29,13 +29,14 @@ import pyloo
 doc = None
 try:
     doc = pyloo.Document()
+    print ("version: ", doc.version())
 except pyloo.NoConnectException as e:
     print ("Error: The OpenOffice.org process is not started or \
 does not listen on the resource (" + e.Message + ")\n\
 Start LibreOffice/OpenOffice in listening mode, \
 example:\n\
-    libreoffice \
--accept=\"socket,host=localhost,port=2002;urp;StarOffice.ServiceManager\"\n")
+    soffice \
+--accept=\"socket,host=localhost,port=2002;urp;\"\n")
 
 if doc:
     file_name = os.getcwd() + "/example.ods"
