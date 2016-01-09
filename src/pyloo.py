@@ -864,6 +864,6 @@ uno:socket,host=localhost,port=2002;urp;StarOffice.ComponentContext",
         Get library version.
 
         @rtype:   string
-        @return:  PyLibra version
+        @return:  library version
         """
         return __version__
