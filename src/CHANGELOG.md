@@ -8,7 +8,7 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 Auto starts Libre/Open Office with a listening socket.
 
-Example:
+Example: ::
 
 doc = pyloo.Document(autostart=True)
 
