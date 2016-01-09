@@ -46,11 +46,6 @@ from com.sun.star.table.CellContentType import TEXT, EMPTY, VALUE, FORMULA
 __version__ = "0.0.2"
 
 ###############################################################################
-# Start LibreOffice/OpenOffice Calc in listening mode:
-# /usr/bin/libreoffice \
-# -accept="socket,host=localhost,port=2002;urp;StarOffice.ServiceManager"
-
-###############################################################################
 ###############################################################################
 ###############################################################################
 
@@ -591,7 +586,6 @@ uno:socket,host=localhost,port=2002;urp;StarOffice.ComponentContext",
 
         @type  attempt_period: int
         @param attempt_period: Timeout between attempts in seconds
-
         """
         self._sheets = None
         self._fields = None
