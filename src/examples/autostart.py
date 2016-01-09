@@ -13,8 +13,11 @@ NoConnectionException = uno.getClass(
         "com.sun.star.connection.NoConnectException")
 
 ###############################################################################
-def start_office(timeout=30, attempt_period=0.1, 
-        office='soffice --accept="socket,host=localhost,port=2002;urp;"'):
+
+
+def start_office(timeout=30, attempt_period=0.1,
+                 office='soffice \
+--accept="socket,host=localhost,port=2002;urp;"'):
     """
     Starts Libre/Open Office with a listening socket.
 
@@ -43,13 +46,13 @@ def start_office(timeout=30, attempt_period=0.1,
         try:
             retcode = subprocess.call(office, shell=True)
             if retcode < 0:
-                print (sys.stderr, \
-                    "Office was terminated by signal", \
-                    -retcode)
+                print (sys.stderr,
+                       "Office was terminated by signal",
+                       -retcode)
             elif retcode > 0:
-                print (sys.stderr, \
-                    "Office returned", \
-                    retcode)
+                print (sys.stderr,
+                       "Office returned",
+                       retcode)
         except OSError as e:
             print (sys.stderr, "Execution failed:", e)
 
@@ -85,4 +88,3 @@ try:
     doc.open_document(file_name)
 except NoConnectionException as e:
     print (e)
-
