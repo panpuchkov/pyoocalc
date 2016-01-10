@@ -19,8 +19,12 @@ Some class  methods are changed to be as properties via decorator
 #####Old code:
 doc.sheets().insert_spreadsheet("Test1", 0)
 
+doc.fields().field("FIELD_1")
+
 #####New code:
 doc.sheets.insert_spreadsheet("Test1", 0)
+
+doc.fields.field("FIELD_1")
 
 ####Changed methods:
 * Document.o_doc() -> Document.o_doc
