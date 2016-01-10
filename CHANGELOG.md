@@ -24,7 +24,7 @@ New code:
 
 doc.sheets.insert_spreadsheet("Test1", 0)
 
-Changed methods:
+####Changed methods:
 
 * Document.o_doc() -> Document.o_doc
 * Document.sheets() -> Document.sheets
