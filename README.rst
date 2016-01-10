@@ -47,7 +47,7 @@ with it in the examples folder.
 Requirements
 ------------
 
-PyLOO runs on Python 3.
+PyOOCalc runs on Python 3.
 
 The only dependency is the Python-UNO library (imported as a module uno).
 It is often installed with the office suite. On Debian based systems it can be
@@ -71,7 +71,7 @@ Usage
 
 Starting OpenOffice / LibreOffice
 
-PyLOO requires a running OpenOffice or LibreOffice instance which it can
+PyOOCalc requires a running OpenOffice or LibreOffice instance which it can
 connect to. On Ubuntu you can start LibreOffice from a command line using a 
 command similar to: ::
 
