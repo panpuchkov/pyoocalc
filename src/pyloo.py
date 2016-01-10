@@ -43,7 +43,7 @@ from com.sun.star.table.CellContentType import TEXT, EMPTY, VALUE, FORMULA
 
 
 ###############################################################################
-__version__ = "0.0.2"
+__version__ = "0.0.3"
 
 ###############################################################################
 ###############################################################################
@@ -82,21 +82,12 @@ class Field:
             if self._fields._oNamedRanges.hasByName(name):
                 self._oRange = self._fields._oNamedRanges.getByName(name)
                 self._oCellAddress = self._oRange.getReferencePosition()
-                oSheets = self._fields.document().o_doc().getSheets()
+                oSheets = self._fields.document.o_doc.getSheets()
                 self._oSheet = oSheets.getByIndex(self._oCellAddress.Sheet)
                 self._is_null = False
             else:
                 self._oRange = None
                 self._is_null = True
-
-    def fields(self):
-        """
-        Get fields object.
-
-        @rtype:   Fields
-        @return:  Fields object
-        """
-        return self._fields
 
     def is_null(self):
         """
@@ -240,7 +231,7 @@ class Fields:
 #         LibreOffice variables.
         self._oNamedRanges = None
         if self._document:
-            self._oNamedRanges = self._document.o_doc().NamedRanges
+            self._oNamedRanges = self._document.o_doc.NamedRanges
             self._is_null = False
 
     def is_null(self):
@@ -264,6 +255,7 @@ class Fields:
             count = self._oNamedRanges.getCount()
         return count
 
+    @property
     def document(self):
         """
         Get document object.
@@ -284,7 +276,7 @@ class Fields:
         @return:  Field object
         """
         self._field = Field(self, name)
-        if self._field.is_null() is None:
+        if self._field.is_null is None:
             self._field = None
         return self._field
 
@@ -371,11 +363,11 @@ class Sheet:
 
         if isinstance(index_or_name, int):
             # get by index
-            self._oSheet = self._sheets.o_sheets().getByIndex(index_or_name)
+            self._oSheet = self._sheets.o_sheets.getByIndex(index_or_name)
             self._is_null = False
         else:
             # get by name
-            self._oSheet = self._sheets.o_sheets().getByName(index_or_name)
+            self._oSheet = self._sheets.o_sheets.getByName(index_or_name)
             self._is_null = False
 
     def is_null(self):
@@ -470,7 +462,7 @@ class Sheets:
 #         LibreOffice variables.
         self._oSheets = None
         if self._document:
-            self._oSheets = self._document.o_doc().getSheets()
+            self._oSheets = self._document.o_doc.getSheets()
 
     def is_null(self):
         """
@@ -508,6 +500,7 @@ class Sheets:
             count = self._oSheets.getCount()
         return count
 
+    @property
     def o_sheets(self):
         """
         LibreOffice/OpenOffice Calc Spreadsheets object.
@@ -533,8 +526,8 @@ class Sheets:
         @return:  Operation result
         """
         result = False
-        if self.o_sheets():
-            self.o_sheets().insertNewByName(name, index)
+        if self.o_sheets:
+            self.o_sheets.insertNewByName(name, index)
             result = True
         return result
 
@@ -549,8 +542,8 @@ class Sheets:
         @return:  Operation result
         """
         result = False
-        if self.o_sheets():
-            self.o_sheets().removeByName(name)
+        if self.o_sheets:
+            self.o_sheets.removeByName(name)
             result = True
         return result
 
@@ -704,7 +697,7 @@ uno:socket,host=localhost,port=2002;urp;StarOffice.ComponentContext",
             result = True
         return result
 
-    def _toProperties(self, **args):
+    def _to_properties(self, **args):
         """
         Converts '**args' arguments to the tuple of 'PropertyValue's
 
@@ -719,6 +712,7 @@ uno:socket,host=localhost,port=2002;urp;StarOffice.ComponentContext",
             props.append(prop)
         return tuple(props)
 
+    @property
     def o_doc(self):
         """
         LibreOffice/OpenOffice Calc document object.
@@ -797,15 +791,15 @@ uno:socket,host=localhost,port=2002;urp;StarOffice.ComponentContext",
         @return:  Operation result
         """
         result = False
-        if self.o_doc():
+        if self._oDoc:
             if 0 == len(doc_name):
-                self.o_doc().store()
+                self._oDoc.store()
             else:
                 full_file_name = unohelper.systemPathToFileUrl(doc_name)
                 try:
-                    self.o_doc().storeToURL(
+                    self._oDoc.storeToURL(
                                 full_file_name,
-                                self._toProperties(FilterName=filter_name))
+                                self._to_properties(FilterName=filter_name))
                     result = True
                 except IllegalArgumentException as e:
                     raise (e)
@@ -826,8 +820,8 @@ uno:socket,host=localhost,port=2002;urp;StarOffice.ComponentContext",
         """
         result = False
         try:
-            if self.o_doc():
-                self.o_doc().close(True)
+            if self._oDoc:
+                self._oDoc.close(True)
                 self._oDoc = None
                 result = True
         except ErrorCodeIOException as e:
@@ -836,6 +830,7 @@ uno:socket,host=localhost,port=2002;urp;StarOffice.ComponentContext",
             raise (e)
         return result
 
+    @property
     def sheets(self):
         """
         Get Sheets document's object.
@@ -848,6 +843,7 @@ uno:socket,host=localhost,port=2002;urp;StarOffice.ComponentContext",
             self._sheets = Sheets(self)
         return self._sheets
 
+    @property
     def fields(self):
         """
         Get Fields document's object.

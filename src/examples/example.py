@@ -44,8 +44,8 @@ if doc:
     doc.open_document(file_name)
 
     # Get document fields
-    fields = doc.fields()
-    print ("Fields count: ", fields.count())
+    fields = doc.fields
+    print ("Fields count: ", fields.count)
 
     # Get field "HEADER"
     field = fields.field("HEADER")
@@ -72,16 +72,15 @@ if doc:
         field3.set_value("F3." + str(i), 0, i * step - (step - 1))
         field4.set_value("F4." + str(i), 0, i * step - (step - 1))
 
-    doc.sheets()
-    doc.sheets().insert_spreadsheet("Test1", 0)
-    doc.sheets().insert_spreadsheet("Test2", 2)
-    doc.sheets().remove_spreadsheet("Test2")
+    doc.sheets.insert_spreadsheet("Test1", 0)
+    doc.sheets.insert_spreadsheet("Test2", 2)
+    doc.sheets.remove_spreadsheet("Test2")
 
-    sheet = doc.sheets().sheet(0)
+    sheet = doc.sheets.sheet(0)
     sheet.set_cell_value_by_index("value1", 1, 0,)
     print (sheet.cell_value_by_index(1, 0))
 
-    sheet = doc.sheets().sheet("Test1")
+    sheet = doc.sheets.sheet("Test1")
     sheet.set_cell_value_by_index("value2", 0, 1,)
     print (sheet.cell_value_by_index(0, 1))
 
