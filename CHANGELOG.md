@@ -16,16 +16,13 @@ doc = pyloo.Document(autostart=True)
 Some class  methods are changed to be as properties via decorator
 ``@property``.
 
-Old code:
-
+####Old code:
 doc.sheets().insert_spreadsheet("Test1", 0)
 
-New code:
-
+####New code:
 doc.sheets.insert_spreadsheet("Test1", 0)
 
 ####Changed methods:
-
 * Document.o_doc() -> Document.o_doc
 * Document.sheets() -> Document.sheets
 * Document.fields() -> Document.fields
