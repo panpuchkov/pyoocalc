@@ -27,11 +27,7 @@ doc.sheets.insert_spreadsheet("Test1", 0)
 Changed methods:
 
 * Document.o_doc() -> Document.o_doc
-
 * Document.sheets() -> Document.sheets
-
 * Document.fields() -> Document.fields
-
 * Fields.document() -> Fields.document
-
 * Sheets.o_sheets() -> Sheets.o_sheets
