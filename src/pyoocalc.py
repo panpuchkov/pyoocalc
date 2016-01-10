@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 
 """
-PyLOO - Python Libre/Open Office interface API (UNO)
+PyOOCalc - Python Libre/Open Office Calc interface API (UNO)
 
 Requirements for Ubuntu users:
 

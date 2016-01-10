@@ -1,6 +1,6 @@
-========================================================
-PyLOO - Python Libre/Open Office interface API (UNO)
-========================================================
+============================================================
+PyOOCalc - Python Libre/Open Office Calc interface API (UNO)
+============================================================
 
 Description
 -----------
@@ -61,7 +61,7 @@ it is available as libreoffice-calc package.
 Install
 -------
 
-You can copy the pyloo.py file somewhere to your ``PYTHONPATH``.
+You can copy the pyoocalc.py file somewhere to your ``PYTHONPATH``.
 
 
 
@@ -125,11 +125,11 @@ listening on localhost port 2002.
 
 Tests script path: ::
 
-$ ./src/unit-tests/test_pyloo.py
+$ ./src/unit-tests/test.py
 
 Run tests: ::
 
-$ python3 test_pyloo.py
+$ python3 test_pyoocalc.py
 
 
 

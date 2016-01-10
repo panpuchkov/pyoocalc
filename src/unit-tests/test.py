@@ -1,7 +1,7 @@
 # coding: utf-8
 
 """
-PyLOO - Python Libre/Open Office interface API (UNO)
+PyOOCalc - Python Libre/Open Office Calc interface API (UNO)
 
 Requirements for Ubuntu users:
 
@@ -26,7 +26,7 @@ import os
 import sys
 
 sys.path.append('./../')
-import pyloo
+import pyoocalc
 
 ###############################################################################
 HIDE_OFFICE_RESULTS = True
@@ -34,14 +34,14 @@ HIDE_OFFICE_RESULTS = True
 ###############################################################################
 
 
-def pyloo_open_close_doc(f):
+def pyoocalc_open_close_doc(f):
     """
     Decorator. Opens libre/open office document call function for testing
     and closes the document.
     """
     def _f(*args, **kwargs):
         # open document
-        doc = pyloo.Document()
+        doc = pyoocalc.Document()
         file_name = os.getcwd() + "/test.ods"
         doc.open_document(file_name)
 
@@ -59,17 +59,17 @@ def pyloo_open_close_doc(f):
 ###############################################################################
 
 
-class Test_PyLOO_Document(unittest.TestCase):
+class Test_PyOOCalc_Document(unittest.TestCase):
 
     def setUp(self):
         pass
 
     def test_document_initialize(self):
-        doc = pyloo.Document()
+        doc = pyoocalc.Document()
         self.assertFalse(doc.is_null())
 
     def test_document_new_save_close(self):
-        doc = pyloo.Document()
+        doc = pyoocalc.Document()
         file_name_saved = os.getcwd() + "/test_saved.ods"
         self.assertTrue(doc.new_document())
         self.assertTrue(doc.save_document(file_name_saved))
@@ -80,30 +80,30 @@ class Test_PyLOO_Document(unittest.TestCase):
         self.assertTrue(doc.close_document())
 
     def test_document_open_close(self):
-        doc = pyloo.Document()
+        doc = pyoocalc.Document()
         file_name = os.getcwd() + "/test.ods"
         self.assertTrue(doc.open_document(file_name))
         self.assertTrue(doc.close_document())
 
-    @pyloo_open_close_doc
+    @pyoocalc_open_close_doc
     def test_document_sheets(self, doc):
         self.assertFalse(doc.sheets.is_null(), "get sheets object")
 
-    @pyloo_open_close_doc
+    @pyoocalc_open_close_doc
     def test_document_fields(self, doc):
         self.assertFalse(doc.fields.is_null(), "get fields object")
 
 ###############################################################################
 
 
-class Test_PyLOO_Base(unittest.TestCase):
+class Test_PyOOCalc_Base(unittest.TestCase):
     """
     Setup base class for future tests.
     It opens and close the 'ods' document for testing.
     """
     def setUp(self):
         # open document
-        self._doc = pyloo.Document()
+        self._doc = pyoocalc.Document()
         file_name = os.getcwd() + "/test.ods"
         self._doc.open_document(file_name)
 
@@ -115,7 +115,7 @@ class Test_PyLOO_Base(unittest.TestCase):
 ###############################################################################
 
 
-class Test_PyLOO_Fields(Test_PyLOO_Base):
+class Test_PyOOCalc_Fields(Test_PyOOCalc_Base):
 
     def test_fields_field(self):
         field = self._doc.fields.field("TABLE_NAME")
@@ -128,7 +128,7 @@ class Test_PyLOO_Fields(Test_PyLOO_Base):
 ###############################################################################
 
 
-class Test_PyLOO_Field(Test_PyLOO_Base):
+class Test_PyOOCalc_Field(Test_PyOOCalc_Base):
 
     def test_field_set_get(self):
         field = self._doc.fields.field("TABLE_NAME")
@@ -170,7 +170,7 @@ class Test_PyLOO_Field(Test_PyLOO_Base):
 ###############################################################################
 
 
-class Test_PyLOO_Sheets(Test_PyLOO_Base):
+class Test_PyOOCalc_Sheets(Test_PyOOCalc_Base):
 
     def test_sheets_sheet_by_index(self):
         sheet = self._doc.sheets.sheet("Sheet1")
@@ -187,7 +187,7 @@ class Test_PyLOO_Sheets(Test_PyLOO_Base):
 ###############################################################################
 
 
-class Test_PyLOO_Sheet(Test_PyLOO_Base):
+class Test_PyOOCalc_Sheet(Test_PyOOCalc_Base):
 
     def test_sheet_set_get_cell_value_by_index(self):
         s_val = "value"
@@ -214,5 +214,5 @@ class Test_PyLOO_Sheet(Test_PyLOO_Base):
 
 if __name__ == "__main__":
     unittest.main()
-#     suite = unittest.TestLoader().loadTestsFromTestCase(Test_PyLOO_Sheet)
+#     suite = unittest.TestLoader().loadTestsFromTestCase(Test_PyOOCalc_Sheet)
 #     unittest.TextTestRunner(verbosity=2).run(suite)

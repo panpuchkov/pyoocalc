@@ -32,4 +32,4 @@ Auto starts Libre/Open Office with a listening socket.
 
 Example:
 
-doc = pyloo.Document(autostart=True)
+doc = pyoocalc.Document(autostart=True)

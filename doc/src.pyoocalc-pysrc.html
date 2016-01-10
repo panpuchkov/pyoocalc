@@ -1,0 +1,985 @@
+<?xml version="1.0" encoding="ascii"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+          "DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <title>src.pyoocalc</title>
+  <link rel="stylesheet" href="epydoc.css" type="text/css" />
+  <script type="text/javascript" src="epydoc.js"></script>
+</head>
+
+<body bgcolor="white" text="black" link="blue" vlink="#204080"
+      alink="#204080">
+<!-- ==================== NAVIGATION BAR ==================== -->
+<table class="navbar" border="0" width="100%" cellpadding="0"
+       bgcolor="#a0c0ff" cellspacing="0">
+  <tr valign="middle">
+  <!-- Home link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="src-module.html">Home</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Tree link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="module-tree.html">Trees</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Index link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="identifier-index.html">Indices</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Help link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="help.html">Help</a>&nbsp;&nbsp;&nbsp;</th>
+
+      <th class="navbar" width="100%"></th>
+  </tr>
+</table>
+<table width="100%" cellpadding="0" cellspacing="0">
+  <tr valign="top">
+    <td width="100%">
+      <span class="breadcrumbs">
+        <a href="src-module.html">Package&nbsp;src</a> ::
+        Module&nbsp;pyoocalc
+      </span>
+    </td>
+    <td>
+      <table cellpadding="0" cellspacing="0">
+        <!-- hide/show private -->
+        <tr><td align="right"><span class="options"
+            >[<a href="frames.html" target="_top">frames</a
+            >]&nbsp;|&nbsp;<a href="src.pyoocalc-pysrc.html"
+            target="_top">no&nbsp;frames</a>]</span></td></tr>
+      </table>
+    </td>
+  </tr>
+</table>
+<h1 class="epydoc">Source Code for <a href="src.pyoocalc-module.html">Module src.pyoocalc</a></h1>
+<pre class="py-src">
+<a name="L1"></a><tt class="py-lineno">  1</tt>  <tt class="py-line"><tt class="py-comment">#!/usr/bin/python</tt> </tt>
+<a name="L2"></a><tt class="py-lineno">  2</tt>  <tt class="py-line"><tt class="py-comment"># -*- coding: utf-8 -*-</tt> </tt>
+<a name="L3"></a><tt class="py-lineno">  3</tt>  <tt class="py-line"> </tt>
+<a name="L4"></a><tt class="py-lineno">  4</tt>  <tt class="py-line"><tt class="py-docstring">"""</tt> </tt>
+<a name="L5"></a><tt class="py-lineno">  5</tt>  <tt class="py-line"><tt class="py-docstring">PyOOCalc - Python Libre/Open Office Calc interface API (UNO)</tt> </tt>
+<a name="L6"></a><tt class="py-lineno">  6</tt>  <tt class="py-line"><tt class="py-docstring"></tt> </tt>
+<a name="L7"></a><tt class="py-lineno">  7</tt>  <tt class="py-line"><tt class="py-docstring">Requirements for Ubuntu users:</tt> </tt>
+<a name="L8"></a><tt class="py-lineno">  8</tt>  <tt class="py-line"><tt class="py-docstring"></tt> </tt>
+<a name="L9"></a><tt class="py-lineno">  9</tt>  <tt class="py-line"><tt class="py-docstring">sudo apt-get install python-uno</tt> </tt>
+<a name="L10"></a><tt class="py-lineno"> 10</tt>  <tt class="py-line"><tt class="py-docstring"></tt> </tt>
+<a name="L11"></a><tt class="py-lineno"> 11</tt>  <tt class="py-line"><tt class="py-docstring">Optional requirements:</tt> </tt>
+<a name="L12"></a><tt class="py-lineno"> 12</tt>  <tt class="py-line"><tt class="py-docstring"></tt> </tt>
+<a name="L13"></a><tt class="py-lineno"> 13</tt>  <tt class="py-line"><tt class="py-docstring">sudo apt-get install libreoffice-script-provider-python</tt> </tt>
+<a name="L14"></a><tt class="py-lineno"> 14</tt>  <tt class="py-line"><tt class="py-docstring"></tt> </tt>
+<a name="L15"></a><tt class="py-lineno"> 15</tt>  <tt class="py-line"><tt class="py-docstring">Copyright (c) 2015</tt> </tt>
+<a name="L16"></a><tt class="py-lineno"> 16</tt>  <tt class="py-line"><tt class="py-docstring"></tt> </tt>
+<a name="L17"></a><tt class="py-lineno"> 17</tt>  <tt class="py-line"><tt class="py-docstring">@author: Yurii Puchkov</tt> </tt>
+<a name="L18"></a><tt class="py-lineno"> 18</tt>  <tt class="py-line"><tt class="py-docstring">@organization: http://arilot.com/</tt> </tt>
+<a name="L19"></a><tt class="py-lineno"> 19</tt>  <tt class="py-line"><tt class="py-docstring">@license: GPL v3</tt> </tt>
+<a name="L20"></a><tt class="py-lineno"> 20</tt>  <tt class="py-line"><tt class="py-docstring">@contact: panpuchkov@gmail.com</tt> </tt>
+<a name="L21"></a><tt class="py-lineno"> 21</tt>  <tt class="py-line"><tt class="py-docstring">"""</tt> </tt>
+<a name="L22"></a><tt class="py-lineno"> 22</tt>  <tt class="py-line"> </tt>
+<a name="L23"></a><tt class="py-lineno"> 23</tt>  <tt class="py-line"><tt class="py-comment">###############################################################################</tt> </tt>
+<a name="L24"></a><tt class="py-lineno"> 24</tt>  <tt class="py-line"><tt class="py-keyword">import</tt> <tt class="py-name">uno</tt> </tt>
+<a name="L25"></a><tt class="py-lineno"> 25</tt>  <tt class="py-line"><tt class="py-keyword">import</tt> <tt class="py-name">unohelper</tt> </tt>
+<a name="L26"></a><tt class="py-lineno"> 26</tt>  <tt class="py-line"> </tt>
+<a name="L27"></a><tt class="py-lineno"> 27</tt>  <tt class="py-line"><tt class="py-keyword">import</tt> <tt class="py-name">os</tt> </tt>
+<a name="L28"></a><tt class="py-lineno"> 28</tt>  <tt class="py-line"><tt class="py-keyword">import</tt> <tt class="py-name">subprocess</tt> </tt>
+<a name="L29"></a><tt class="py-lineno"> 29</tt>  <tt class="py-line"><tt class="py-keyword">import</tt> <tt class="py-name">time</tt> </tt>
+<a name="L30"></a><tt class="py-lineno"> 30</tt>  <tt class="py-line"> </tt>
+<a name="L31"></a><tt class="py-lineno"> 31</tt>  <tt class="py-line"><tt class="py-comment"># Exceptions</tt> </tt>
+<a name="L32"></a><tt class="py-lineno"> 32</tt>  <tt class="py-line"><tt class="py-keyword">from</tt> <tt class="py-name">com</tt><tt class="py-op">.</tt><tt class="py-name">sun</tt><tt class="py-op">.</tt><tt class="py-name">star</tt><tt class="py-op">.</tt><tt class="py-name">uno</tt> <tt class="py-keyword">import</tt> <tt class="py-name">RuntimeException</tt> </tt>
+<a name="L33"></a><tt class="py-lineno"> 33</tt>  <tt class="py-line"><tt class="py-keyword">from</tt> <tt class="py-name">com</tt><tt class="py-op">.</tt><tt class="py-name">sun</tt><tt class="py-op">.</tt><tt class="py-name">star</tt><tt class="py-op">.</tt><tt class="py-name">lang</tt> <tt class="py-keyword">import</tt> <tt class="py-name">IllegalArgumentException</tt> </tt>
+<a name="L34"></a><tt class="py-lineno"> 34</tt>  <tt class="py-line"><tt class="py-keyword">from</tt> <tt class="py-name">com</tt><tt class="py-op">.</tt><tt class="py-name">sun</tt><tt class="py-op">.</tt><tt class="py-name">star</tt><tt class="py-op">.</tt><tt class="py-name">connection</tt> <tt class="py-keyword">import</tt> <tt class="py-name">NoConnectException</tt> </tt>
+<a name="L35"></a><tt class="py-lineno"> 35</tt>  <tt class="py-line"><tt class="py-keyword">from</tt> <tt class="py-name">com</tt><tt class="py-op">.</tt><tt class="py-name">sun</tt><tt class="py-op">.</tt><tt class="py-name">star</tt><tt class="py-op">.</tt><tt class="py-name">io</tt> <tt class="py-keyword">import</tt> <tt class="py-name">IOException</tt> </tt>
+<a name="L36"></a><tt class="py-lineno"> 36</tt>  <tt class="py-line"> </tt>
+<a name="L37"></a><tt class="py-lineno"> 37</tt>  <tt class="py-line"><tt class="py-comment"># Other office interfaces</tt> </tt>
+<a name="L38"></a><tt class="py-lineno"> 38</tt>  <tt class="py-line"><tt class="py-keyword">from</tt> <tt class="py-name">com</tt><tt class="py-op">.</tt><tt class="py-name">sun</tt><tt class="py-op">.</tt><tt class="py-name">star</tt><tt class="py-op">.</tt><tt class="py-name">table</tt> <tt class="py-keyword">import</tt> <tt class="py-name">CellRangeAddress</tt> </tt>
+<a name="L39"></a><tt class="py-lineno"> 39</tt>  <tt class="py-line"><tt class="py-keyword">from</tt> <tt class="py-name">com</tt><tt class="py-op">.</tt><tt class="py-name">sun</tt><tt class="py-op">.</tt><tt class="py-name">star</tt><tt class="py-op">.</tt><tt class="py-name">beans</tt> <tt class="py-keyword">import</tt> <tt class="py-name">PropertyValue</tt> </tt>
+<a name="L40"></a><tt class="py-lineno"> 40</tt>  <tt class="py-line"> </tt>
+<a name="L41"></a><tt class="py-lineno"> 41</tt>  <tt class="py-line"><tt class="py-comment"># Office eNums</tt> </tt>
+<a name="L42"></a><tt class="py-lineno"> 42</tt>  <tt class="py-line"><tt class="py-keyword">from</tt> <tt class="py-name">com</tt><tt class="py-op">.</tt><tt class="py-name">sun</tt><tt class="py-op">.</tt><tt class="py-name">star</tt><tt class="py-op">.</tt><tt class="py-name">table</tt><tt class="py-op">.</tt><tt class="py-name">CellContentType</tt> <tt class="py-keyword">import</tt> <tt class="py-name">TEXT</tt><tt class="py-op">,</tt> <tt class="py-name">EMPTY</tt><tt class="py-op">,</tt> <tt class="py-name">VALUE</tt><tt class="py-op">,</tt> <tt class="py-name">FORMULA</tt> </tt>
+<a name="L43"></a><tt class="py-lineno"> 43</tt>  <tt class="py-line"> </tt>
+<a name="L44"></a><tt class="py-lineno"> 44</tt>  <tt class="py-line"> </tt>
+<a name="L45"></a><tt class="py-lineno"> 45</tt>  <tt class="py-line"><tt class="py-comment">###############################################################################</tt> </tt>
+<a name="L46"></a><tt class="py-lineno"> 46</tt>  <tt class="py-line"><tt class="py-name">__version__</tt> <tt class="py-op">=</tt> <tt class="py-string">"0.0.3"</tt> </tt>
+<a name="Field"></a><div id="Field-def"><a name="L47"></a><tt class="py-lineno"> 47</tt>  <tt class="py-line"> </tt>
+<a name="L48"></a><tt class="py-lineno"> 48</tt>  <tt class="py-line"><tt class="py-comment">###############################################################################</tt> </tt>
+<a name="L49"></a><tt class="py-lineno"> 49</tt>  <tt class="py-line"><tt class="py-comment">###############################################################################</tt> </tt>
+<a name="L50"></a><tt class="py-lineno"> 50</tt>  <tt class="py-line"><tt class="py-comment">###############################################################################</tt> </tt>
+<a name="L51"></a><tt class="py-lineno"> 51</tt>  <tt class="py-line"> </tt>
+<a name="L52"></a><tt class="py-lineno"> 52</tt>  <tt class="py-line"> </tt>
+<a name="L53"></a><tt class="py-lineno"> 53</tt> <a class="py-toggle" href="#" id="Field-toggle" onclick="return toggle('Field');">-</a><tt class="py-line"><tt class="py-keyword">class</tt> <a class="py-def-name" href="src.pyoocalc.Field-class.html">Field</a><tt class="py-op">:</tt> </tt>
+</div><div id="Field-collapsed" style="display:none;" pad="+++" indent="++++"></div><div id="Field-expanded"><a name="L54"></a><tt class="py-lineno"> 54</tt>  <tt class="py-line"> </tt>
+<a name="L55"></a><tt class="py-lineno"> 55</tt>  <tt class="py-line">    <tt class="py-docstring">"""</tt> </tt>
+<a name="L56"></a><tt class="py-lineno"> 56</tt>  <tt class="py-line"><tt class="py-docstring">    Document field.</tt> </tt>
+<a name="L57"></a><tt class="py-lineno"> 57</tt>  <tt class="py-line"><tt class="py-docstring"></tt> </tt>
+<a name="L58"></a><tt class="py-lineno"> 58</tt>  <tt class="py-line"><tt class="py-docstring">    Operations on the existing field.</tt> </tt>
+<a name="L59"></a><tt class="py-lineno"> 59</tt>  <tt class="py-line"><tt class="py-docstring">    """</tt> </tt>
+<a name="L60"></a><tt class="py-lineno"> 60</tt>  <tt class="py-line"> </tt>
+<a name="Field.__init__"></a><div id="Field.__init__-def"><a name="L61"></a><tt class="py-lineno"> 61</tt> <a class="py-toggle" href="#" id="Field.__init__-toggle" onclick="return toggle('Field.__init__');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="src.pyoocalc.Field-class.html#__init__">__init__</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">,</tt> <tt class="py-param">fields</tt><tt class="py-op">,</tt> <tt class="py-param">name</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="Field.__init__-collapsed" style="display:none;" pad="+++" indent="++++++++"></div><div id="Field.__init__-expanded"><a name="L62"></a><tt class="py-lineno"> 62</tt>  <tt class="py-line">        <tt class="py-docstring">"""</tt> </tt>
+<a name="L63"></a><tt class="py-lineno"> 63</tt>  <tt class="py-line"><tt class="py-docstring">        Constructor</tt> </tt>
+<a name="L64"></a><tt class="py-lineno"> 64</tt>  <tt class="py-line"><tt class="py-docstring"></tt> </tt>
+<a name="L65"></a><tt class="py-lineno"> 65</tt>  <tt class="py-line"><tt class="py-docstring">        @type  fields: Fields</tt> </tt>
+<a name="L66"></a><tt class="py-lineno"> 66</tt>  <tt class="py-line"><tt class="py-docstring">        @param fields: Fields object</tt> </tt>
+<a name="L67"></a><tt class="py-lineno"> 67</tt>  <tt class="py-line"><tt class="py-docstring"></tt> </tt>
+<a name="L68"></a><tt class="py-lineno"> 68</tt>  <tt class="py-line"><tt class="py-docstring">        @type  name: string</tt> </tt>
+<a name="L69"></a><tt class="py-lineno"> 69</tt>  <tt class="py-line"><tt class="py-docstring">        @param name: Field name</tt> </tt>
+<a name="L70"></a><tt class="py-lineno"> 70</tt>  <tt class="py-line"><tt class="py-docstring">        """</tt> </tt>
+<a name="L71"></a><tt class="py-lineno"> 71</tt>  <tt class="py-line">        <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">_fields</tt> <tt class="py-op">=</tt> <tt id="link-0" class="py-name" targets="Method src.pyoocalc.Document.fields()=src.pyoocalc.Document-class.html#fields"><a title="src.pyoocalc.Document.fields" class="py-name" href="#" onclick="return doclink('link-0', 'fields', 'link-0');">fields</a></tt> </tt>
+<a name="L72"></a><tt class="py-lineno"> 72</tt>  <tt class="py-line">        <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">_is_null</tt> <tt class="py-op">=</tt> <tt class="py-name">True</tt> </tt>
+<a name="L73"></a><tt class="py-lineno"> 73</tt>  <tt class="py-line"> </tt>
+<a name="L74"></a><tt class="py-lineno"> 74</tt>  <tt class="py-line"><tt class="py-comment">#         LibreOffice variables.</tt> </tt>
+<a name="L75"></a><tt class="py-lineno"> 75</tt>  <tt class="py-line">        <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">_oSheet</tt> <tt class="py-op">=</tt> <tt class="py-name">None</tt> </tt>
+<a name="L76"></a><tt class="py-lineno"> 76</tt>  <tt class="py-line">        <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">_oNamedRanges</tt> <tt class="py-op">=</tt> <tt class="py-name">None</tt> </tt>
+<a name="L77"></a><tt class="py-lineno"> 77</tt>  <tt class="py-line">        <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">_oRange</tt> <tt class="py-op">=</tt> <tt class="py-name">None</tt> </tt>
+<a name="L78"></a><tt class="py-lineno"> 78</tt>  <tt class="py-line">        <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">_oCell</tt> <tt class="py-op">=</tt> <tt class="py-name">None</tt> </tt>
+<a name="L79"></a><tt class="py-lineno"> 79</tt>  <tt class="py-line">        <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">_oCellAddress</tt> <tt class="py-op">=</tt> <tt class="py-name">None</tt> </tt>
+<a name="L80"></a><tt class="py-lineno"> 80</tt>  <tt class="py-line"> </tt>
+<a name="L81"></a><tt class="py-lineno"> 81</tt>  <tt class="py-line">        <tt class="py-keyword">if</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">_fields</tt><tt class="py-op">:</tt> </tt>
+<a name="L82"></a><tt class="py-lineno"> 82</tt>  <tt class="py-line">            <tt class="py-keyword">if</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">_fields</tt><tt class="py-op">.</tt><tt class="py-name">_oNamedRanges</tt><tt class="py-op">.</tt><tt class="py-name">hasByName</tt><tt class="py-op">(</tt><tt class="py-name">name</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+<a name="L83"></a><tt class="py-lineno"> 83</tt>  <tt class="py-line">                <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">_oRange</tt> <tt class="py-op">=</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">_fields</tt><tt class="py-op">.</tt><tt class="py-name">_oNamedRanges</tt><tt class="py-op">.</tt><tt class="py-name">getByName</tt><tt class="py-op">(</tt><tt class="py-name">name</tt><tt class="py-op">)</tt> </tt>
+<a name="L84"></a><tt class="py-lineno"> 84</tt>  <tt class="py-line">                <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">_oCellAddress</tt> <tt class="py-op">=</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">_oRange</tt><tt class="py-op">.</tt><tt class="py-name">getReferencePosition</tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+<a name="L85"></a><tt class="py-lineno"> 85</tt>  <tt class="py-line">                <tt class="py-name">oSheets</tt> <tt class="py-op">=</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">_fields</tt><tt class="py-op">.</tt><tt id="link-1" class="py-name" targets="Method src.pyoocalc.Fields.document()=src.pyoocalc.Fields-class.html#document"><a title="src.pyoocalc.Fields.document" class="py-name" href="#" onclick="return doclink('link-1', 'document', 'link-1');">document</a></tt><tt class="py-op">.</tt><tt id="link-2" class="py-name" targets="Method src.pyoocalc.Document.o_doc()=src.pyoocalc.Document-class.html#o_doc"><a title="src.pyoocalc.Document.o_doc" class="py-name" href="#" onclick="return doclink('link-2', 'o_doc', 'link-2');">o_doc</a></tt><tt class="py-op">.</tt><tt class="py-name">getSheets</tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+<a name="L86"></a><tt class="py-lineno"> 86</tt>  <tt class="py-line">                <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">_oSheet</tt> <tt class="py-op">=</tt> <tt class="py-name">oSheets</tt><tt class="py-op">.</tt><tt class="py-name">getByIndex</tt><tt class="py-op">(</tt><tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">_oCellAddress</tt><tt class="py-op">.</tt><tt id="link-3" class="py-name" targets="Class src.pyoocalc.Sheet=src.pyoocalc.Sheet-class.html"><a title="src.pyoocalc.Sheet" class="py-name" href="#" onclick="return doclink('link-3', 'Sheet', 'link-3');">Sheet</a></tt><tt class="py-op">)</tt> </tt>
+<a name="L87"></a><tt class="py-lineno"> 87</tt>  <tt class="py-line">                <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">_is_null</tt> <tt class="py-op">=</tt> <tt class="py-name">False</tt> </tt>
+<a name="L88"></a><tt class="py-lineno"> 88</tt>  <tt class="py-line">            <tt class="py-keyword">else</tt><tt class="py-op">:</tt> </tt>
+<a name="L89"></a><tt class="py-lineno"> 89</tt>  <tt class="py-line">                <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">_oRange</tt> <tt class="py-op">=</tt> <tt class="py-name">None</tt> </tt>
+<a name="L90"></a><tt class="py-lineno"> 90</tt>  <tt class="py-line">                <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">_is_null</tt> <tt class="py-op">=</tt> <tt class="py-name">True</tt> </tt>
+</div><a name="L91"></a><tt class="py-lineno"> 91</tt>  <tt class="py-line"> </tt>
+<a name="Field.is_null"></a><div id="Field.is_null-def"><a name="L92"></a><tt class="py-lineno"> 92</tt> <a class="py-toggle" href="#" id="Field.is_null-toggle" onclick="return toggle('Field.is_null');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="src.pyoocalc.Field-class.html#is_null">is_null</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="Field.is_null-collapsed" style="display:none;" pad="+++" indent="++++++++"></div><div id="Field.is_null-expanded"><a name="L93"></a><tt class="py-lineno"> 93</tt>  <tt class="py-line">        <tt class="py-docstring">"""</tt> </tt>
+<a name="L94"></a><tt class="py-lineno"> 94</tt>  <tt class="py-line"><tt class="py-docstring">        Checking if the field is null.</tt> </tt>
+<a name="L95"></a><tt class="py-lineno"> 95</tt>  <tt class="py-line"><tt class="py-docstring"></tt> </tt>
+<a name="L96"></a><tt class="py-lineno"> 96</tt>  <tt class="py-line"><tt class="py-docstring">        @rtype:   bool</tt> </tt>
+<a name="L97"></a><tt class="py-lineno"> 97</tt>  <tt class="py-line"><tt class="py-docstring">        @return:  Value insertion result</tt> </tt>
+<a name="L98"></a><tt class="py-lineno"> 98</tt>  <tt class="py-line"><tt class="py-docstring">        """</tt> </tt>
+<a name="L99"></a><tt class="py-lineno"> 99</tt>  <tt class="py-line">        <tt class="py-keyword">return</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">_is_null</tt> </tt>
+</div><a name="L100"></a><tt class="py-lineno">100</tt>  <tt class="py-line"> </tt>
+<a name="Field.set_value"></a><div id="Field.set_value-def"><a name="L101"></a><tt class="py-lineno">101</tt> <a class="py-toggle" href="#" id="Field.set_value-toggle" onclick="return toggle('Field.set_value');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="src.pyoocalc.Field-class.html#set_value">set_value</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">,</tt> <tt class="py-param">value</tt><tt class="py-op">,</tt> <tt class="py-param">column</tt><tt class="py-op">=</tt><tt class="py-number">0</tt><tt class="py-op">,</tt> <tt class="py-param">row</tt><tt class="py-op">=</tt><tt class="py-number">0</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="Field.set_value-collapsed" style="display:none;" pad="+++" indent="++++++++"></div><div id="Field.set_value-expanded"><a name="L102"></a><tt class="py-lineno">102</tt>  <tt class="py-line">        <tt class="py-docstring">"""</tt> </tt>
+<a name="L103"></a><tt class="py-lineno">103</tt>  <tt class="py-line"><tt class="py-docstring">        Set filed value at position Column/Row</tt> </tt>
+<a name="L104"></a><tt class="py-lineno">104</tt>  <tt class="py-line"><tt class="py-docstring"></tt> </tt>
+<a name="L105"></a><tt class="py-lineno">105</tt>  <tt class="py-line"><tt class="py-docstring">        @type  value: string</tt> </tt>
+<a name="L106"></a><tt class="py-lineno">106</tt>  <tt class="py-line"><tt class="py-docstring">        @param value: Cell value</tt> </tt>
+<a name="L107"></a><tt class="py-lineno">107</tt>  <tt class="py-line"><tt class="py-docstring"></tt> </tt>
+<a name="L108"></a><tt class="py-lineno">108</tt>  <tt class="py-line"><tt class="py-docstring">        @type  column: int</tt> </tt>
+<a name="L109"></a><tt class="py-lineno">109</tt>  <tt class="py-line"><tt class="py-docstring">        @param column: column index</tt> </tt>
+<a name="L110"></a><tt class="py-lineno">110</tt>  <tt class="py-line"><tt class="py-docstring"></tt> </tt>
+<a name="L111"></a><tt class="py-lineno">111</tt>  <tt class="py-line"><tt class="py-docstring">        @type  row: int</tt> </tt>
+<a name="L112"></a><tt class="py-lineno">112</tt>  <tt class="py-line"><tt class="py-docstring">        @param row: row index</tt> </tt>
+<a name="L113"></a><tt class="py-lineno">113</tt>  <tt class="py-line"><tt class="py-docstring"></tt> </tt>
+<a name="L114"></a><tt class="py-lineno">114</tt>  <tt class="py-line"><tt class="py-docstring">        @rtype:   bool</tt> </tt>
+<a name="L115"></a><tt class="py-lineno">115</tt>  <tt class="py-line"><tt class="py-docstring">        @return:  Value insertion result</tt> </tt>
+<a name="L116"></a><tt class="py-lineno">116</tt>  <tt class="py-line"><tt class="py-docstring">        """</tt> </tt>
+<a name="L117"></a><tt class="py-lineno">117</tt>  <tt class="py-line">        <tt class="py-name">result</tt> <tt class="py-op">=</tt> <tt class="py-name">True</tt> </tt>
+<a name="L118"></a><tt class="py-lineno">118</tt>  <tt class="py-line">        <tt class="py-keyword">if</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">_oRange</tt><tt class="py-op">:</tt> </tt>
+<a name="L119"></a><tt class="py-lineno">119</tt>  <tt class="py-line">            <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">_oCell</tt> <tt class="py-op">=</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">_oSheet</tt><tt class="py-op">.</tt><tt class="py-name">getCellByPosition</tt><tt class="py-op">(</tt> </tt>
+<a name="L120"></a><tt class="py-lineno">120</tt>  <tt class="py-line">                <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">_oCellAddress</tt><tt class="py-op">.</tt><tt class="py-name">Column</tt> <tt class="py-op">+</tt> <tt class="py-name">column</tt><tt class="py-op">,</tt> </tt>
+<a name="L121"></a><tt class="py-lineno">121</tt>  <tt class="py-line">                <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">_oCellAddress</tt><tt class="py-op">.</tt><tt class="py-name">Row</tt> <tt class="py-op">+</tt> <tt class="py-name">row</tt><tt class="py-op">)</tt> </tt>
+<a name="L122"></a><tt class="py-lineno">122</tt>  <tt class="py-line">            <tt class="py-keyword">if</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">_oCell</tt><tt class="py-op">:</tt> </tt>
+<a name="L123"></a><tt class="py-lineno">123</tt>  <tt class="py-line">                <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">_oCell</tt><tt class="py-op">.</tt><tt class="py-name">setString</tt><tt class="py-op">(</tt><tt id="link-4" class="py-name" targets="Method src.pyoocalc.Field.value()=src.pyoocalc.Field-class.html#value"><a title="src.pyoocalc.Field.value" class="py-name" href="#" onclick="return doclink('link-4', 'value', 'link-4');">value</a></tt><tt class="py-op">)</tt> </tt>
+<a name="L124"></a><tt class="py-lineno">124</tt>  <tt class="py-line">        <tt class="py-keyword">else</tt><tt class="py-op">:</tt> </tt>
+<a name="L125"></a><tt class="py-lineno">125</tt>  <tt class="py-line">            <tt class="py-name">result</tt> <tt class="py-op">=</tt> <tt class="py-name">False</tt> </tt>
+<a name="L126"></a><tt class="py-lineno">126</tt>  <tt class="py-line">        <tt class="py-keyword">return</tt> <tt class="py-name">result</tt> </tt>
+</div><a name="L127"></a><tt class="py-lineno">127</tt>  <tt class="py-line"> </tt>
+<a name="Field.value"></a><div id="Field.value-def"><a name="L128"></a><tt class="py-lineno">128</tt> <a class="py-toggle" href="#" id="Field.value-toggle" onclick="return toggle('Field.value');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="src.pyoocalc.Field-class.html#value">value</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">,</tt> <tt class="py-param">column</tt><tt class="py-op">=</tt><tt class="py-number">0</tt><tt class="py-op">,</tt> <tt class="py-param">row</tt><tt class="py-op">=</tt><tt class="py-number">0</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="Field.value-collapsed" style="display:none;" pad="+++" indent="++++++++"></div><div id="Field.value-expanded"><a name="L129"></a><tt class="py-lineno">129</tt>  <tt class="py-line">        <tt class="py-docstring">"""</tt> </tt>
+<a name="L130"></a><tt class="py-lineno">130</tt>  <tt class="py-line"><tt class="py-docstring">        Get filed value at position Column/Row</tt> </tt>
+<a name="L131"></a><tt class="py-lineno">131</tt>  <tt class="py-line"><tt class="py-docstring"></tt> </tt>
+<a name="L132"></a><tt class="py-lineno">132</tt>  <tt class="py-line"><tt class="py-docstring">        @type  column: int</tt> </tt>
+<a name="L133"></a><tt class="py-lineno">133</tt>  <tt class="py-line"><tt class="py-docstring">        @param column: column index</tt> </tt>
+<a name="L134"></a><tt class="py-lineno">134</tt>  <tt class="py-line"><tt class="py-docstring"></tt> </tt>
+<a name="L135"></a><tt class="py-lineno">135</tt>  <tt class="py-line"><tt class="py-docstring">        @type  row: int</tt> </tt>
+<a name="L136"></a><tt class="py-lineno">136</tt>  <tt class="py-line"><tt class="py-docstring">        @param row: row index</tt> </tt>
+<a name="L137"></a><tt class="py-lineno">137</tt>  <tt class="py-line"><tt class="py-docstring"></tt> </tt>
+<a name="L138"></a><tt class="py-lineno">138</tt>  <tt class="py-line"><tt class="py-docstring">        @rtype:   string</tt> </tt>
+<a name="L139"></a><tt class="py-lineno">139</tt>  <tt class="py-line"><tt class="py-docstring">        @return: Document cell value in string format. Regardless of document\</tt> </tt>
+<a name="L140"></a><tt class="py-lineno">140</tt>  <tt class="py-line"><tt class="py-docstring">                    cell type.</tt> </tt>
+<a name="L141"></a><tt class="py-lineno">141</tt>  <tt class="py-line"><tt class="py-docstring">        """</tt> </tt>
+<a name="L142"></a><tt class="py-lineno">142</tt>  <tt class="py-line">        <tt id="link-5" class="py-name"><a title="src.pyoocalc.Field.value" class="py-name" href="#" onclick="return doclink('link-5', 'value', 'link-4');">value</a></tt> <tt class="py-op">=</tt> <tt class="py-string">""</tt> </tt>
+<a name="L143"></a><tt class="py-lineno">143</tt>  <tt class="py-line">        <tt class="py-keyword">if</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">_oRange</tt><tt class="py-op">:</tt> </tt>
+<a name="L144"></a><tt class="py-lineno">144</tt>  <tt class="py-line">            <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">_oCell</tt> <tt class="py-op">=</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">_oSheet</tt><tt class="py-op">.</tt><tt class="py-name">getCellByPosition</tt><tt class="py-op">(</tt> </tt>
+<a name="L145"></a><tt class="py-lineno">145</tt>  <tt class="py-line">                <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">_oCellAddress</tt><tt class="py-op">.</tt><tt class="py-name">Column</tt> <tt class="py-op">+</tt> <tt class="py-name">column</tt><tt class="py-op">,</tt> </tt>
+<a name="L146"></a><tt class="py-lineno">146</tt>  <tt class="py-line">                <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">_oCellAddress</tt><tt class="py-op">.</tt><tt class="py-name">Row</tt> <tt class="py-op">+</tt> <tt class="py-name">row</tt><tt class="py-op">)</tt> </tt>
+<a name="L147"></a><tt class="py-lineno">147</tt>  <tt class="py-line">            <tt class="py-keyword">if</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">_oCell</tt><tt class="py-op">:</tt> </tt>
+<a name="L148"></a><tt class="py-lineno">148</tt>  <tt class="py-line">                <tt id="link-6" class="py-name"><a title="src.pyoocalc.Field.value" class="py-name" href="#" onclick="return doclink('link-6', 'value', 'link-4');">value</a></tt> <tt class="py-op">=</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">_oCell</tt><tt class="py-op">.</tt><tt class="py-name">getString</tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+<a name="L149"></a><tt class="py-lineno">149</tt>  <tt class="py-line">        <tt class="py-keyword">return</tt> <tt id="link-7" class="py-name"><a title="src.pyoocalc.Field.value" class="py-name" href="#" onclick="return doclink('link-7', 'value', 'link-4');">value</a></tt> </tt>
+</div><a name="L150"></a><tt class="py-lineno">150</tt>  <tt class="py-line"> </tt>
+<a name="Field.insert_rows"></a><div id="Field.insert_rows-def"><a name="L151"></a><tt class="py-lineno">151</tt> <a class="py-toggle" href="#" id="Field.insert_rows-toggle" onclick="return toggle('Field.insert_rows');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="src.pyoocalc.Field-class.html#insert_rows">insert_rows</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">,</tt> <tt class="py-param">num_rows</tt><tt class="py-op">=</tt><tt class="py-number">1</tt><tt class="py-op">,</tt> <tt class="py-param">step</tt><tt class="py-op">=</tt><tt class="py-number">1</tt><tt class="py-op">,</tt> <tt class="py-param">columns_to_copy</tt><tt class="py-op">=</tt><tt class="py-number">250</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="Field.insert_rows-collapsed" style="display:none;" pad="+++" indent="++++++++"></div><div id="Field.insert_rows-expanded"><a name="L152"></a><tt class="py-lineno">152</tt>  <tt class="py-line">        <tt class="py-docstring">"""</tt> </tt>
+<a name="L153"></a><tt class="py-lineno">153</tt>  <tt class="py-line"><tt class="py-docstring">        Insert rows</tt> </tt>
+<a name="L154"></a><tt class="py-lineno">154</tt>  <tt class="py-line"><tt class="py-docstring"></tt> </tt>
+<a name="L155"></a><tt class="py-lineno">155</tt>  <tt class="py-line"><tt class="py-docstring">        Insert new rows at the specified position relatively to cell.</tt> </tt>
+<a name="L156"></a><tt class="py-lineno">156</tt>  <tt class="py-line"><tt class="py-docstring">        After the new row insertion the content of the current rows is copied</tt> </tt>
+<a name="L157"></a><tt class="py-lineno">157</tt>  <tt class="py-line"><tt class="py-docstring">        to the new rows.</tt> </tt>
+<a name="L158"></a><tt class="py-lineno">158</tt>  <tt class="py-line"><tt class="py-docstring"></tt> </tt>
+<a name="L159"></a><tt class="py-lineno">159</tt>  <tt class="py-line"><tt class="py-docstring">        @type  num_rows: int</tt> </tt>
+<a name="L160"></a><tt class="py-lineno">160</tt>  <tt class="py-line"><tt class="py-docstring">        @param num_rows: Number of rows to insert. Default value=1</tt> </tt>
+<a name="L161"></a><tt class="py-lineno">161</tt>  <tt class="py-line"><tt class="py-docstring"></tt> </tt>
+<a name="L162"></a><tt class="py-lineno">162</tt>  <tt class="py-line"><tt class="py-docstring">        @type  step: int</tt> </tt>
+<a name="L163"></a><tt class="py-lineno">163</tt>  <tt class="py-line"><tt class="py-docstring">        @param step: Step of rows insertion.</tt> </tt>
+<a name="L164"></a><tt class="py-lineno">164</tt>  <tt class="py-line"><tt class="py-docstring"></tt> </tt>
+<a name="L165"></a><tt class="py-lineno">165</tt>  <tt class="py-line"><tt class="py-docstring">        @type  columns_to_copy: bool</tt> </tt>
+<a name="L166"></a><tt class="py-lineno">166</tt>  <tt class="py-line"><tt class="py-docstring">        @param columns_to_copy: Number of a columns to copy on insert.</tt> </tt>
+<a name="L167"></a><tt class="py-lineno">167</tt>  <tt class="py-line"><tt class="py-docstring">                            No copy will be performed if columns_to_copy = 0</tt> </tt>
+<a name="L168"></a><tt class="py-lineno">168</tt>  <tt class="py-line"><tt class="py-docstring"></tt> </tt>
+<a name="L169"></a><tt class="py-lineno">169</tt>  <tt class="py-line"><tt class="py-docstring">        @rtype:   bool</tt> </tt>
+<a name="L170"></a><tt class="py-lineno">170</tt>  <tt class="py-line"><tt class="py-docstring">        @return:  Operation result</tt> </tt>
+<a name="L171"></a><tt class="py-lineno">171</tt>  <tt class="py-line"><tt class="py-docstring">        """</tt> </tt>
+<a name="L172"></a><tt class="py-lineno">172</tt>  <tt class="py-line">        <tt class="py-name">result</tt> <tt class="py-op">=</tt> <tt class="py-name">False</tt> </tt>
+<a name="L173"></a><tt class="py-lineno">173</tt>  <tt class="py-line">        <tt class="py-keyword">if</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">_fields</tt> <tt class="py-keyword">and</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">_oSheet</tt> <tt class="py-keyword">and</tt> <tt class="py-name">num_rows</tt> <tt class="py-op">&gt;</tt> <tt class="py-number">0</tt><tt class="py-op">:</tt> </tt>
+<a name="L174"></a><tt class="py-lineno">174</tt>  <tt class="py-line">            <tt class="py-name">insert_pos_with_step</tt> <tt class="py-op">=</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">_oCellAddress</tt><tt class="py-op">.</tt><tt class="py-name">Row</tt> <tt class="py-op">+</tt> <tt class="py-number">1</tt> <tt class="py-op">+</tt> <tt class="py-name">step</tt> </tt>
+<a name="L175"></a><tt class="py-lineno">175</tt>  <tt class="py-line">            <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">_oSheet</tt><tt class="py-op">.</tt><tt class="py-name">Rows</tt><tt class="py-op">.</tt><tt class="py-name">insertByIndex</tt><tt class="py-op">(</tt> </tt>
+<a name="L176"></a><tt class="py-lineno">176</tt>  <tt class="py-line">                <tt class="py-name">insert_pos_with_step</tt><tt class="py-op">,</tt> <tt class="py-op">(</tt><tt class="py-name">num_rows</tt> <tt class="py-op">*</tt> <tt class="py-name">step</tt><tt class="py-op">)</tt><tt class="py-op">)</tt> </tt>
+<a name="L177"></a><tt class="py-lineno">177</tt>  <tt class="py-line"> </tt>
+<a name="L178"></a><tt class="py-lineno">178</tt>  <tt class="py-line">            <tt class="py-comment"># Copy rows</tt> </tt>
+<a name="L179"></a><tt class="py-lineno">179</tt>  <tt class="py-line">            <tt class="py-keyword">if</tt> <tt class="py-name">columns_to_copy</tt> <tt class="py-op">&gt;</tt> <tt class="py-number">0</tt> <tt class="py-keyword">and</tt> <tt class="py-name">num_rows</tt> <tt class="py-op">&gt;</tt> <tt class="py-number">0</tt><tt class="py-op">:</tt> </tt>
+<a name="L180"></a><tt class="py-lineno">180</tt>  <tt class="py-line">                <tt class="py-comment"># Initialize variable as CellRangeAddress object</tt> </tt>
+<a name="L181"></a><tt class="py-lineno">181</tt>  <tt class="py-line">                <tt class="py-name">oCellRangeAddress_Src</tt> <tt class="py-op">=</tt> <tt class="py-name">CellRangeAddress</tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+<a name="L182"></a><tt class="py-lineno">182</tt>  <tt class="py-line"> </tt>
+<a name="L183"></a><tt class="py-lineno">183</tt>  <tt class="py-line">                <tt class="py-comment"># Source address</tt> </tt>
+<a name="L184"></a><tt class="py-lineno">184</tt>  <tt class="py-line">                <tt class="py-name">oCellRangeAddress_Src</tt><tt class="py-op">.</tt><tt id="link-8" class="py-name"><a title="src.pyoocalc.Sheet" class="py-name" href="#" onclick="return doclink('link-8', 'Sheet', 'link-3');">Sheet</a></tt> <tt class="py-op">=</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">_oCellAddress</tt><tt class="py-op">.</tt><tt id="link-9" class="py-name"><a title="src.pyoocalc.Sheet" class="py-name" href="#" onclick="return doclink('link-9', 'Sheet', 'link-3');">Sheet</a></tt> </tt>
+<a name="L185"></a><tt class="py-lineno">185</tt>  <tt class="py-line">                <tt class="py-name">oCellRangeAddress_Src</tt><tt class="py-op">.</tt><tt class="py-name">StartColumn</tt> <tt class="py-op">=</tt> <tt class="py-number">0</tt> </tt>
+<a name="L186"></a><tt class="py-lineno">186</tt>  <tt class="py-line">                <tt class="py-name">oCellRangeAddress_Src</tt><tt class="py-op">.</tt><tt class="py-name">EndColumn</tt> <tt class="py-op">=</tt> <tt class="py-name">columns_to_copy</tt> </tt>
+<a name="L187"></a><tt class="py-lineno">187</tt>  <tt class="py-line">                <tt class="py-name">oCellRangeAddress_Src</tt><tt class="py-op">.</tt><tt class="py-name">StartRow</tt> <tt class="py-op">=</tt> \ </tt>
+<a name="L188"></a><tt class="py-lineno">188</tt>  <tt class="py-line">                    <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">_oCellAddress</tt><tt class="py-op">.</tt><tt class="py-name">Row</tt> <tt class="py-op">+</tt> <tt class="py-number">1</tt> </tt>
+<a name="L189"></a><tt class="py-lineno">189</tt>  <tt class="py-line">                <tt class="py-name">oCellRangeAddress_Src</tt><tt class="py-op">.</tt><tt class="py-name">EndRow</tt> <tt class="py-op">=</tt> \ </tt>
+<a name="L190"></a><tt class="py-lineno">190</tt>  <tt class="py-line">                    <tt class="py-name">oCellRangeAddress_Src</tt><tt class="py-op">.</tt><tt class="py-name">StartRow</tt> <tt class="py-op">+</tt> <tt class="py-name">step</tt> <tt class="py-op">-</tt> <tt class="py-number">1</tt> </tt>
+<a name="L191"></a><tt class="py-lineno">191</tt>  <tt class="py-line"> </tt>
+<a name="L192"></a><tt class="py-lineno">192</tt>  <tt class="py-line">                <tt class="py-comment"># Destination address</tt> </tt>
+<a name="L193"></a><tt class="py-lineno">193</tt>  <tt class="py-line">                <tt class="py-name">oCellAddress_Dst</tt> <tt class="py-op">=</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">_oCellAddress</tt> </tt>
+<a name="L194"></a><tt class="py-lineno">194</tt>  <tt class="py-line">                <tt class="py-name">oCellAddress_Dst</tt><tt class="py-op">.</tt><tt class="py-name">Column</tt> <tt class="py-op">=</tt> <tt class="py-number">0</tt> </tt>
+<a name="L195"></a><tt class="py-lineno">195</tt>  <tt class="py-line">                <tt class="py-name">oCellAddress_Dst</tt><tt class="py-op">.</tt><tt class="py-name">Row</tt> <tt class="py-op">=</tt> <tt class="py-name">oCellAddress_Dst</tt><tt class="py-op">.</tt><tt class="py-name">Row</tt> <tt class="py-op">+</tt> <tt class="py-number">1</tt> <tt class="py-op">+</tt> <tt class="py-name">step</tt> </tt>
+<a name="L196"></a><tt class="py-lineno">196</tt>  <tt class="py-line"> </tt>
+<a name="L197"></a><tt class="py-lineno">197</tt>  <tt class="py-line">                <tt class="py-keyword">for</tt> <tt class="py-name">i</tt> <tt class="py-keyword">in</tt> <tt class="py-name">range</tt><tt class="py-op">(</tt><tt class="py-number">0</tt><tt class="py-op">,</tt> <tt class="py-name">num_rows</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+<a name="L198"></a><tt class="py-lineno">198</tt>  <tt class="py-line">                    <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">_oSheet</tt><tt class="py-op">.</tt><tt class="py-name">copyRange</tt><tt class="py-op">(</tt><tt class="py-name">oCellAddress_Dst</tt><tt class="py-op">,</tt> </tt>
+<a name="L199"></a><tt class="py-lineno">199</tt>  <tt class="py-line">                                           <tt class="py-name">oCellRangeAddress_Src</tt><tt class="py-op">)</tt> </tt>
+<a name="L200"></a><tt class="py-lineno">200</tt>  <tt class="py-line">                    <tt class="py-name">oCellAddress_Dst</tt><tt class="py-op">.</tt><tt class="py-name">Row</tt> <tt class="py-op">+=</tt> <tt class="py-name">step</tt> </tt>
+<a name="L201"></a><tt class="py-lineno">201</tt>  <tt class="py-line"> </tt>
+<a name="L202"></a><tt class="py-lineno">202</tt>  <tt class="py-line"><tt class="py-comment">#                 Restore cell address variable</tt> </tt>
+<a name="L203"></a><tt class="py-lineno">203</tt>  <tt class="py-line">                <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">_oCellAddress</tt> <tt class="py-op">=</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">_oRange</tt><tt class="py-op">.</tt><tt class="py-name">getReferencePosition</tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+<a name="L204"></a><tt class="py-lineno">204</tt>  <tt class="py-line"> </tt>
+<a name="L205"></a><tt class="py-lineno">205</tt>  <tt class="py-line">            <tt class="py-name">result</tt> <tt class="py-op">=</tt> <tt class="py-name">True</tt> </tt>
+<a name="L206"></a><tt class="py-lineno">206</tt>  <tt class="py-line">        <tt class="py-keyword">return</tt> <tt class="py-name">result</tt> </tt>
+</div></div><a name="L207"></a><tt class="py-lineno">207</tt>  <tt class="py-line"> </tt>
+<a name="Fields"></a><div id="Fields-def"><a name="L208"></a><tt class="py-lineno">208</tt>  <tt class="py-line"><tt class="py-comment">###############################################################################</tt> </tt>
+<a name="L209"></a><tt class="py-lineno">209</tt>  <tt class="py-line"><tt class="py-comment">###############################################################################</tt> </tt>
+<a name="L210"></a><tt class="py-lineno">210</tt>  <tt class="py-line"><tt class="py-comment">###############################################################################</tt> </tt>
+<a name="L211"></a><tt class="py-lineno">211</tt>  <tt class="py-line"> </tt>
+<a name="L212"></a><tt class="py-lineno">212</tt>  <tt class="py-line"> </tt>
+<a name="L213"></a><tt class="py-lineno">213</tt> <a class="py-toggle" href="#" id="Fields-toggle" onclick="return toggle('Fields');">-</a><tt class="py-line"><tt class="py-keyword">class</tt> <a class="py-def-name" href="src.pyoocalc.Fields-class.html">Fields</a><tt class="py-op">:</tt> </tt>
+</div><div id="Fields-collapsed" style="display:none;" pad="+++" indent="++++"></div><div id="Fields-expanded"><a name="L214"></a><tt class="py-lineno">214</tt>  <tt class="py-line"> </tt>
+<a name="L215"></a><tt class="py-lineno">215</tt>  <tt class="py-line">    <tt class="py-docstring">"""</tt> </tt>
+<a name="L216"></a><tt class="py-lineno">216</tt>  <tt class="py-line"><tt class="py-docstring">    Document fields.</tt> </tt>
+<a name="L217"></a><tt class="py-lineno">217</tt>  <tt class="py-line"><tt class="py-docstring">    Search and manage fields (name ranges).</tt> </tt>
+<a name="L218"></a><tt class="py-lineno">218</tt>  <tt class="py-line"><tt class="py-docstring">    """</tt> </tt>
+<a name="L219"></a><tt class="py-lineno">219</tt>  <tt class="py-line"> </tt>
+<a name="Fields.__init__"></a><div id="Fields.__init__-def"><a name="L220"></a><tt class="py-lineno">220</tt> <a class="py-toggle" href="#" id="Fields.__init__-toggle" onclick="return toggle('Fields.__init__');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="src.pyoocalc.Fields-class.html#__init__">__init__</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">,</tt> <tt class="py-param">document</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="Fields.__init__-collapsed" style="display:none;" pad="+++" indent="++++++++"></div><div id="Fields.__init__-expanded"><a name="L221"></a><tt class="py-lineno">221</tt>  <tt class="py-line">        <tt class="py-docstring">"""</tt> </tt>
+<a name="L222"></a><tt class="py-lineno">222</tt>  <tt class="py-line"><tt class="py-docstring">        Constructor</tt> </tt>
+<a name="L223"></a><tt class="py-lineno">223</tt>  <tt class="py-line"><tt class="py-docstring"></tt> </tt>
+<a name="L224"></a><tt class="py-lineno">224</tt>  <tt class="py-line"><tt class="py-docstring">        @type  document: Document</tt> </tt>
+<a name="L225"></a><tt class="py-lineno">225</tt>  <tt class="py-line"><tt class="py-docstring">        @param document: Document object</tt> </tt>
+<a name="L226"></a><tt class="py-lineno">226</tt>  <tt class="py-line"><tt class="py-docstring">        """</tt> </tt>
+<a name="L227"></a><tt class="py-lineno">227</tt>  <tt class="py-line">        <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">_document</tt> <tt class="py-op">=</tt> <tt id="link-10" class="py-name"><a title="src.pyoocalc.Fields.document" class="py-name" href="#" onclick="return doclink('link-10', 'document', 'link-1');">document</a></tt> </tt>
+<a name="L228"></a><tt class="py-lineno">228</tt>  <tt class="py-line">        <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">_field</tt> <tt class="py-op">=</tt> <tt class="py-name">None</tt> </tt>
+<a name="L229"></a><tt class="py-lineno">229</tt>  <tt class="py-line">        <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">_is_null</tt> <tt class="py-op">=</tt> <tt class="py-name">True</tt> </tt>
+<a name="L230"></a><tt class="py-lineno">230</tt>  <tt class="py-line"> </tt>
+<a name="L231"></a><tt class="py-lineno">231</tt>  <tt class="py-line"><tt class="py-comment">#         LibreOffice variables.</tt> </tt>
+<a name="L232"></a><tt class="py-lineno">232</tt>  <tt class="py-line">        <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">_oNamedRanges</tt> <tt class="py-op">=</tt> <tt class="py-name">None</tt> </tt>
+<a name="L233"></a><tt class="py-lineno">233</tt>  <tt class="py-line">        <tt class="py-keyword">if</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">_document</tt><tt class="py-op">:</tt> </tt>
+<a name="L234"></a><tt class="py-lineno">234</tt>  <tt class="py-line">            <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">_oNamedRanges</tt> <tt class="py-op">=</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">_document</tt><tt class="py-op">.</tt><tt id="link-11" class="py-name"><a title="src.pyoocalc.Document.o_doc" class="py-name" href="#" onclick="return doclink('link-11', 'o_doc', 'link-2');">o_doc</a></tt><tt class="py-op">.</tt><tt class="py-name">NamedRanges</tt> </tt>
+<a name="L235"></a><tt class="py-lineno">235</tt>  <tt class="py-line">            <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">_is_null</tt> <tt class="py-op">=</tt> <tt class="py-name">False</tt> </tt>
+</div><a name="L236"></a><tt class="py-lineno">236</tt>  <tt class="py-line"> </tt>
+<a name="Fields.is_null"></a><div id="Fields.is_null-def"><a name="L237"></a><tt class="py-lineno">237</tt> <a class="py-toggle" href="#" id="Fields.is_null-toggle" onclick="return toggle('Fields.is_null');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="src.pyoocalc.Fields-class.html#is_null">is_null</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="Fields.is_null-collapsed" style="display:none;" pad="+++" indent="++++++++"></div><div id="Fields.is_null-expanded"><a name="L238"></a><tt class="py-lineno">238</tt>  <tt class="py-line">        <tt class="py-docstring">"""</tt> </tt>
+<a name="L239"></a><tt class="py-lineno">239</tt>  <tt class="py-line"><tt class="py-docstring">        Checking if the fields (NamedRanges) object is initialized</tt> </tt>
+<a name="L240"></a><tt class="py-lineno">240</tt>  <tt class="py-line"><tt class="py-docstring"></tt> </tt>
+<a name="L241"></a><tt class="py-lineno">241</tt>  <tt class="py-line"><tt class="py-docstring">        @rtype:   bool</tt> </tt>
+<a name="L242"></a><tt class="py-lineno">242</tt>  <tt class="py-line"><tt class="py-docstring">        @return:  Fields object state</tt> </tt>
+<a name="L243"></a><tt class="py-lineno">243</tt>  <tt class="py-line"><tt class="py-docstring">        """</tt> </tt>
+<a name="L244"></a><tt class="py-lineno">244</tt>  <tt class="py-line">        <tt class="py-keyword">return</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">_is_null</tt> </tt>
+</div><a name="L245"></a><tt class="py-lineno">245</tt>  <tt class="py-line"> </tt>
+<a name="Fields.count"></a><div id="Fields.count-def"><a name="L246"></a><tt class="py-lineno">246</tt> <a class="py-toggle" href="#" id="Fields.count-toggle" onclick="return toggle('Fields.count');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="src.pyoocalc.Fields-class.html#count">count</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="Fields.count-collapsed" style="display:none;" pad="+++" indent="++++++++"></div><div id="Fields.count-expanded"><a name="L247"></a><tt class="py-lineno">247</tt>  <tt class="py-line">        <tt class="py-docstring">"""</tt> </tt>
+<a name="L248"></a><tt class="py-lineno">248</tt>  <tt class="py-line"><tt class="py-docstring">        Get number of fields (named ranges) in the document.</tt> </tt>
+<a name="L249"></a><tt class="py-lineno">249</tt>  <tt class="py-line"><tt class="py-docstring"></tt> </tt>
+<a name="L250"></a><tt class="py-lineno">250</tt>  <tt class="py-line"><tt class="py-docstring">        @rtype:   int</tt> </tt>
+<a name="L251"></a><tt class="py-lineno">251</tt>  <tt class="py-line"><tt class="py-docstring">        @return:  the number of fields in the document.</tt> </tt>
+<a name="L252"></a><tt class="py-lineno">252</tt>  <tt class="py-line"><tt class="py-docstring">        """</tt> </tt>
+<a name="L253"></a><tt class="py-lineno">253</tt>  <tt class="py-line">        <tt id="link-12" class="py-name" targets="Method src.pyoocalc.Fields.count()=src.pyoocalc.Fields-class.html#count,Method src.pyoocalc.Sheets.count()=src.pyoocalc.Sheets-class.html#count"><a title="src.pyoocalc.Fields.count
+src.pyoocalc.Sheets.count" class="py-name" href="#" onclick="return doclink('link-12', 'count', 'link-12');">count</a></tt> <tt class="py-op">=</tt> <tt class="py-number">0</tt> </tt>
+<a name="L254"></a><tt class="py-lineno">254</tt>  <tt class="py-line">        <tt class="py-keyword">if</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">_oNamedRanges</tt><tt class="py-op">:</tt> </tt>
+<a name="L255"></a><tt class="py-lineno">255</tt>  <tt class="py-line">            <tt id="link-13" class="py-name"><a title="src.pyoocalc.Fields.count
+src.pyoocalc.Sheets.count" class="py-name" href="#" onclick="return doclink('link-13', 'count', 'link-12');">count</a></tt> <tt class="py-op">=</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">_oNamedRanges</tt><tt class="py-op">.</tt><tt class="py-name">getCount</tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+<a name="L256"></a><tt class="py-lineno">256</tt>  <tt class="py-line">        <tt class="py-keyword">return</tt> <tt id="link-14" class="py-name"><a title="src.pyoocalc.Fields.count
+src.pyoocalc.Sheets.count" class="py-name" href="#" onclick="return doclink('link-14', 'count', 'link-12');">count</a></tt> </tt>
+</div><a name="L257"></a><tt class="py-lineno">257</tt>  <tt class="py-line"> </tt>
+<a name="L258"></a><tt class="py-lineno">258</tt>  <tt class="py-line">    <tt class="py-decorator">@</tt><tt class="py-decorator">property</tt> </tt>
+<a name="Fields.document"></a><div id="Fields.document-def"><a name="L259"></a><tt class="py-lineno">259</tt> <a class="py-toggle" href="#" id="Fields.document-toggle" onclick="return toggle('Fields.document');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="src.pyoocalc.Fields-class.html#document">document</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="Fields.document-collapsed" style="display:none;" pad="+++" indent="++++++++"></div><div id="Fields.document-expanded"><a name="L260"></a><tt class="py-lineno">260</tt>  <tt class="py-line">        <tt class="py-docstring">"""</tt> </tt>
+<a name="L261"></a><tt class="py-lineno">261</tt>  <tt class="py-line"><tt class="py-docstring">        Get document object.</tt> </tt>
+<a name="L262"></a><tt class="py-lineno">262</tt>  <tt class="py-line"><tt class="py-docstring"></tt> </tt>
+<a name="L263"></a><tt class="py-lineno">263</tt>  <tt class="py-line"><tt class="py-docstring">        @rtype:   Template</tt> </tt>
+<a name="L264"></a><tt class="py-lineno">264</tt>  <tt class="py-line"><tt class="py-docstring">        @return:  Template object</tt> </tt>
+<a name="L265"></a><tt class="py-lineno">265</tt>  <tt class="py-line"><tt class="py-docstring">        """</tt> </tt>
+<a name="L266"></a><tt class="py-lineno">266</tt>  <tt class="py-line">        <tt class="py-keyword">return</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">_document</tt> </tt>
+</div><a name="L267"></a><tt class="py-lineno">267</tt>  <tt class="py-line"> </tt>
+<a name="Fields.field"></a><div id="Fields.field-def"><a name="L268"></a><tt class="py-lineno">268</tt> <a class="py-toggle" href="#" id="Fields.field-toggle" onclick="return toggle('Fields.field');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="src.pyoocalc.Fields-class.html#field">field</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">,</tt> <tt class="py-param">name</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="Fields.field-collapsed" style="display:none;" pad="+++" indent="++++++++"></div><div id="Fields.field-expanded"><a name="L269"></a><tt class="py-lineno">269</tt>  <tt class="py-line">        <tt class="py-docstring">"""</tt> </tt>
+<a name="L270"></a><tt class="py-lineno">270</tt>  <tt class="py-line"><tt class="py-docstring">        Get document field by name</tt> </tt>
+<a name="L271"></a><tt class="py-lineno">271</tt>  <tt class="py-line"><tt class="py-docstring"></tt> </tt>
+<a name="L272"></a><tt class="py-lineno">272</tt>  <tt class="py-line"><tt class="py-docstring">        @type  name: string</tt> </tt>
+<a name="L273"></a><tt class="py-lineno">273</tt>  <tt class="py-line"><tt class="py-docstring">        @param name: Field name</tt> </tt>
+<a name="L274"></a><tt class="py-lineno">274</tt>  <tt class="py-line"><tt class="py-docstring"></tt> </tt>
+<a name="L275"></a><tt class="py-lineno">275</tt>  <tt class="py-line"><tt class="py-docstring">        @rtype:   Field object</tt> </tt>
+<a name="L276"></a><tt class="py-lineno">276</tt>  <tt class="py-line"><tt class="py-docstring">        @return:  Field object</tt> </tt>
+<a name="L277"></a><tt class="py-lineno">277</tt>  <tt class="py-line"><tt class="py-docstring">        """</tt> </tt>
+<a name="L278"></a><tt class="py-lineno">278</tt>  <tt class="py-line">        <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">_field</tt> <tt class="py-op">=</tt> <tt id="link-15" class="py-name" targets="Class src.pyoocalc.Field=src.pyoocalc.Field-class.html"><a title="src.pyoocalc.Field" class="py-name" href="#" onclick="return doclink('link-15', 'Field', 'link-15');">Field</a></tt><tt class="py-op">(</tt><tt class="py-name">self</tt><tt class="py-op">,</tt> <tt class="py-name">name</tt><tt class="py-op">)</tt> </tt>
+<a name="L279"></a><tt class="py-lineno">279</tt>  <tt class="py-line">        <tt class="py-keyword">if</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">_field</tt><tt class="py-op">.</tt><tt id="link-16" class="py-name" targets="Method src.pyoocalc.Document.is_null()=src.pyoocalc.Document-class.html#is_null,Method src.pyoocalc.Field.is_null()=src.pyoocalc.Field-class.html#is_null,Method src.pyoocalc.Fields.is_null()=src.pyoocalc.Fields-class.html#is_null,Method src.pyoocalc.Sheet.is_null()=src.pyoocalc.Sheet-class.html#is_null,Method src.pyoocalc.Sheets.is_null()=src.pyoocalc.Sheets-class.html#is_null"><a title="src.pyoocalc.Document.is_null
+src.pyoocalc.Field.is_null
+src.pyoocalc.Fields.is_null
+src.pyoocalc.Sheet.is_null
+src.pyoocalc.Sheets.is_null" class="py-name" href="#" onclick="return doclink('link-16', 'is_null', 'link-16');">is_null</a></tt> <tt class="py-keyword">is</tt> <tt class="py-name">None</tt><tt class="py-op">:</tt> </tt>
+<a name="L280"></a><tt class="py-lineno">280</tt>  <tt class="py-line">            <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">_field</tt> <tt class="py-op">=</tt> <tt class="py-name">None</tt> </tt>
+<a name="L281"></a><tt class="py-lineno">281</tt>  <tt class="py-line">        <tt class="py-keyword">return</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">_field</tt> </tt>
+</div><a name="L282"></a><tt class="py-lineno">282</tt>  <tt class="py-line"> </tt>
+<a name="Fields.add"></a><div id="Fields.add-def"><a name="L283"></a><tt class="py-lineno">283</tt> <a class="py-toggle" href="#" id="Fields.add-toggle" onclick="return toggle('Fields.add');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="src.pyoocalc.Fields-class.html#add">add</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">,</tt> <tt class="py-param">name</tt><tt class="py-op">,</tt> <tt class="py-param">value</tt><tt class="py-op">,</tt> <tt class="py-param">sheet</tt><tt class="py-op">,</tt> <tt class="py-param">column</tt><tt class="py-op">,</tt> <tt class="py-param">row</tt><tt class="py-op">,</tt> <tt class="py-param">type</tt><tt class="py-op">=</tt><tt class="py-number">0</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="Fields.add-collapsed" style="display:none;" pad="+++" indent="++++++++"></div><div id="Fields.add-expanded"><a name="L284"></a><tt class="py-lineno">284</tt>  <tt class="py-line">        <tt class="py-docstring">"""</tt> </tt>
+<a name="L285"></a><tt class="py-lineno">285</tt>  <tt class="py-line"><tt class="py-docstring">        Not implemented yet. FIXME</tt> </tt>
+<a name="L286"></a><tt class="py-lineno">286</tt>  <tt class="py-line"><tt class="py-docstring">        Adds a new field (named range) to the collection.</tt> </tt>
+<a name="L287"></a><tt class="py-lineno">287</tt>  <tt class="py-line"><tt class="py-docstring"></tt> </tt>
+<a name="L288"></a><tt class="py-lineno">288</tt>  <tt class="py-line"><tt class="py-docstring">        @type  name: string</tt> </tt>
+<a name="L289"></a><tt class="py-lineno">289</tt>  <tt class="py-line"><tt class="py-docstring">        @param name: the new name of the named range.</tt> </tt>
+<a name="L290"></a><tt class="py-lineno">290</tt>  <tt class="py-line"><tt class="py-docstring"></tt> </tt>
+<a name="L291"></a><tt class="py-lineno">291</tt>  <tt class="py-line"><tt class="py-docstring">        @type  value: string</tt> </tt>
+<a name="L292"></a><tt class="py-lineno">292</tt>  <tt class="py-line"><tt class="py-docstring">        @param value: the formula expression.</tt> </tt>
+<a name="L293"></a><tt class="py-lineno">293</tt>  <tt class="py-line"><tt class="py-docstring"></tt> </tt>
+<a name="L294"></a><tt class="py-lineno">294</tt>  <tt class="py-line"><tt class="py-docstring">        @type  sheet: int</tt> </tt>
+<a name="L295"></a><tt class="py-lineno">295</tt>  <tt class="py-line"><tt class="py-docstring">        @param sheet: the formula expression.</tt> </tt>
+<a name="L296"></a><tt class="py-lineno">296</tt>  <tt class="py-line"><tt class="py-docstring"></tt> </tt>
+<a name="L297"></a><tt class="py-lineno">297</tt>  <tt class="py-line"><tt class="py-docstring">        @type  column: int</tt> </tt>
+<a name="L298"></a><tt class="py-lineno">298</tt>  <tt class="py-line"><tt class="py-docstring">        @param column: the formula expression.</tt> </tt>
+<a name="L299"></a><tt class="py-lineno">299</tt>  <tt class="py-line"><tt class="py-docstring"></tt> </tt>
+<a name="L300"></a><tt class="py-lineno">300</tt>  <tt class="py-line"><tt class="py-docstring">        @type  row: int</tt> </tt>
+<a name="L301"></a><tt class="py-lineno">301</tt>  <tt class="py-line"><tt class="py-docstring">        @param row: the formula expression.</tt> </tt>
+<a name="L302"></a><tt class="py-lineno">302</tt>  <tt class="py-line"><tt class="py-docstring"></tt> </tt>
+<a name="L303"></a><tt class="py-lineno">303</tt>  <tt class="py-line"><tt class="py-docstring">        @type  type: int</tt> </tt>
+<a name="L304"></a><tt class="py-lineno">304</tt>  <tt class="py-line"><tt class="py-docstring">        @param type: a combination of flags that specify the type of a named \</tt> </tt>
+<a name="L305"></a><tt class="py-lineno">305</tt>  <tt class="py-line"><tt class="py-docstring">                    range, as defined in NamedRangeFlag. This parameter \</tt> </tt>
+<a name="L306"></a><tt class="py-lineno">306</tt>  <tt class="py-line"><tt class="py-docstring">                    will be zero for any common named range.</tt> </tt>
+<a name="L307"></a><tt class="py-lineno">307</tt>  <tt class="py-line"><tt class="py-docstring"></tt> </tt>
+<a name="L308"></a><tt class="py-lineno">308</tt>  <tt class="py-line"><tt class="py-docstring">        @rtype:   bool</tt> </tt>
+<a name="L309"></a><tt class="py-lineno">309</tt>  <tt class="py-line"><tt class="py-docstring">        @return:  Operation result</tt> </tt>
+<a name="L310"></a><tt class="py-lineno">310</tt>  <tt class="py-line"><tt class="py-docstring">        """</tt> </tt>
+<a name="L311"></a><tt class="py-lineno">311</tt>  <tt class="py-line">        <tt class="py-name">cell_address</tt> <tt class="py-op">=</tt> <tt class="py-name">uno</tt><tt class="py-op">.</tt><tt class="py-name">createUnoStruct</tt><tt class="py-op">(</tt><tt class="py-string">"com.sun.star.table.CellAddress"</tt><tt class="py-op">)</tt> </tt>
+<a name="L312"></a><tt class="py-lineno">312</tt>  <tt class="py-line">        <tt class="py-name">cell_address</tt><tt class="py-op">.</tt><tt id="link-17" class="py-name"><a title="src.pyoocalc.Sheet" class="py-name" href="#" onclick="return doclink('link-17', 'Sheet', 'link-3');">Sheet</a></tt> <tt class="py-op">=</tt> <tt id="link-18" class="py-name" targets="Method src.pyoocalc.Sheets.sheet()=src.pyoocalc.Sheets-class.html#sheet"><a title="src.pyoocalc.Sheets.sheet" class="py-name" href="#" onclick="return doclink('link-18', 'sheet', 'link-18');">sheet</a></tt> </tt>
+<a name="L313"></a><tt class="py-lineno">313</tt>  <tt class="py-line">        <tt class="py-name">cell_address</tt><tt class="py-op">.</tt><tt class="py-name">Column</tt> <tt class="py-op">=</tt> <tt class="py-name">column</tt> </tt>
+<a name="L314"></a><tt class="py-lineno">314</tt>  <tt class="py-line">        <tt class="py-name">cell_address</tt><tt class="py-op">.</tt><tt class="py-name">Row</tt> <tt class="py-op">=</tt> <tt class="py-name">row</tt> </tt>
+<a name="L315"></a><tt class="py-lineno">315</tt>  <tt class="py-line">        <tt class="py-keyword">if</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">_oNamedRanges</tt><tt class="py-op">:</tt> </tt>
+<a name="L316"></a><tt class="py-lineno">316</tt>  <tt class="py-line">            <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">_oNamedRanges</tt><tt class="py-op">.</tt><tt class="py-name">addNewByName</tt><tt class="py-op">(</tt><tt class="py-name">name</tt><tt class="py-op">,</tt> <tt id="link-19" class="py-name"><a title="src.pyoocalc.Field.value" class="py-name" href="#" onclick="return doclink('link-19', 'value', 'link-4');">value</a></tt><tt class="py-op">,</tt> <tt class="py-name">cell_address</tt><tt class="py-op">,</tt> <tt class="py-number">0</tt><tt class="py-op">)</tt> </tt>
+<a name="L317"></a><tt class="py-lineno">317</tt>  <tt class="py-line">        <tt class="py-keyword">return</tt> <tt class="py-name">None</tt> </tt>
+</div><a name="L318"></a><tt class="py-lineno">318</tt>  <tt class="py-line"> </tt>
+<a name="Fields.remove"></a><div id="Fields.remove-def"><a name="L319"></a><tt class="py-lineno">319</tt> <a class="py-toggle" href="#" id="Fields.remove-toggle" onclick="return toggle('Fields.remove');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="src.pyoocalc.Fields-class.html#remove">remove</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">,</tt> <tt class="py-param">name</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="Fields.remove-collapsed" style="display:none;" pad="+++" indent="++++++++"></div><div id="Fields.remove-expanded"><a name="L320"></a><tt class="py-lineno">320</tt>  <tt class="py-line">        <tt class="py-docstring">"""</tt> </tt>
+<a name="L321"></a><tt class="py-lineno">321</tt>  <tt class="py-line"><tt class="py-docstring">        Not implemented yet. FIXME</tt> </tt>
+<a name="L322"></a><tt class="py-lineno">322</tt>  <tt class="py-line"><tt class="py-docstring">        Removes a field (named range) from the collection.</tt> </tt>
+<a name="L323"></a><tt class="py-lineno">323</tt>  <tt class="py-line"><tt class="py-docstring"></tt> </tt>
+<a name="L324"></a><tt class="py-lineno">324</tt>  <tt class="py-line"><tt class="py-docstring">        @type  name: string</tt> </tt>
+<a name="L325"></a><tt class="py-lineno">325</tt>  <tt class="py-line"><tt class="py-docstring">        @param name: the new name of the named range.</tt> </tt>
+<a name="L326"></a><tt class="py-lineno">326</tt>  <tt class="py-line"><tt class="py-docstring"></tt> </tt>
+<a name="L327"></a><tt class="py-lineno">327</tt>  <tt class="py-line"><tt class="py-docstring">        @rtype:   bool</tt> </tt>
+<a name="L328"></a><tt class="py-lineno">328</tt>  <tt class="py-line"><tt class="py-docstring">        @return:  Operation result</tt> </tt>
+<a name="L329"></a><tt class="py-lineno">329</tt>  <tt class="py-line"><tt class="py-docstring">        """</tt> </tt>
+<a name="L330"></a><tt class="py-lineno">330</tt>  <tt class="py-line">        <tt class="py-name">result</tt> <tt class="py-op">=</tt> <tt class="py-name">False</tt> </tt>
+<a name="L331"></a><tt class="py-lineno">331</tt>  <tt class="py-line">        <tt class="py-keyword">if</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">_oNamedRanges</tt><tt class="py-op">:</tt> </tt>
+<a name="L332"></a><tt class="py-lineno">332</tt>  <tt class="py-line">            <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">_oNamedRanges</tt><tt class="py-op">.</tt><tt class="py-name">removeByName</tt><tt class="py-op">(</tt><tt class="py-name">name</tt><tt class="py-op">)</tt> </tt>
+<a name="L333"></a><tt class="py-lineno">333</tt>  <tt class="py-line">            <tt class="py-name">result</tt> <tt class="py-op">=</tt> <tt class="py-name">True</tt> </tt>
+<a name="L334"></a><tt class="py-lineno">334</tt>  <tt class="py-line">        <tt class="py-keyword">return</tt> <tt class="py-name">result</tt> </tt>
+</div></div><a name="L335"></a><tt class="py-lineno">335</tt>  <tt class="py-line"> </tt>
+<a name="Sheet"></a><div id="Sheet-def"><a name="L336"></a><tt class="py-lineno">336</tt>  <tt class="py-line"><tt class="py-comment">###############################################################################</tt> </tt>
+<a name="L337"></a><tt class="py-lineno">337</tt>  <tt class="py-line"><tt class="py-comment">###############################################################################</tt> </tt>
+<a name="L338"></a><tt class="py-lineno">338</tt>  <tt class="py-line"><tt class="py-comment">###############################################################################</tt> </tt>
+<a name="L339"></a><tt class="py-lineno">339</tt>  <tt class="py-line"> </tt>
+<a name="L340"></a><tt class="py-lineno">340</tt>  <tt class="py-line"> </tt>
+<a name="L341"></a><tt class="py-lineno">341</tt> <a class="py-toggle" href="#" id="Sheet-toggle" onclick="return toggle('Sheet');">-</a><tt class="py-line"><tt class="py-keyword">class</tt> <a class="py-def-name" href="src.pyoocalc.Sheet-class.html">Sheet</a><tt class="py-op">:</tt> </tt>
+</div><div id="Sheet-collapsed" style="display:none;" pad="+++" indent="++++"></div><div id="Sheet-expanded"><a name="L342"></a><tt class="py-lineno">342</tt>  <tt class="py-line"> </tt>
+<a name="L343"></a><tt class="py-lineno">343</tt>  <tt class="py-line">    <tt class="py-docstring">"""</tt> </tt>
+<a name="L344"></a><tt class="py-lineno">344</tt>  <tt class="py-line"><tt class="py-docstring">    Document sheet.</tt> </tt>
+<a name="L345"></a><tt class="py-lineno">345</tt>  <tt class="py-line"><tt class="py-docstring">    Manage sheet and cells.</tt> </tt>
+<a name="L346"></a><tt class="py-lineno">346</tt>  <tt class="py-line"><tt class="py-docstring">    """</tt> </tt>
+<a name="L347"></a><tt class="py-lineno">347</tt>  <tt class="py-line"> </tt>
+<a name="Sheet.__init__"></a><div id="Sheet.__init__-def"><a name="L348"></a><tt class="py-lineno">348</tt> <a class="py-toggle" href="#" id="Sheet.__init__-toggle" onclick="return toggle('Sheet.__init__');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="src.pyoocalc.Sheet-class.html#__init__">__init__</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">,</tt> <tt class="py-param">sheets</tt><tt class="py-op">,</tt> <tt class="py-param">index_or_name</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="Sheet.__init__-collapsed" style="display:none;" pad="+++" indent="++++++++"></div><div id="Sheet.__init__-expanded"><a name="L349"></a><tt class="py-lineno">349</tt>  <tt class="py-line">        <tt class="py-docstring">"""</tt> </tt>
+<a name="L350"></a><tt class="py-lineno">350</tt>  <tt class="py-line"><tt class="py-docstring">        Constructor</tt> </tt>
+<a name="L351"></a><tt class="py-lineno">351</tt>  <tt class="py-line"><tt class="py-docstring"></tt> </tt>
+<a name="L352"></a><tt class="py-lineno">352</tt>  <tt class="py-line"><tt class="py-docstring">        @type  sheets: Sheets</tt> </tt>
+<a name="L353"></a><tt class="py-lineno">353</tt>  <tt class="py-line"><tt class="py-docstring">        @param sheets: Sheets object</tt> </tt>
+<a name="L354"></a><tt class="py-lineno">354</tt>  <tt class="py-line"><tt class="py-docstring"></tt> </tt>
+<a name="L355"></a><tt class="py-lineno">355</tt>  <tt class="py-line"><tt class="py-docstring">        @type  index_or_name: int or string</tt> </tt>
+<a name="L356"></a><tt class="py-lineno">356</tt>  <tt class="py-line"><tt class="py-docstring">        @param index_or_name: Sheet index or sheet name</tt> </tt>
+<a name="L357"></a><tt class="py-lineno">357</tt>  <tt class="py-line"><tt class="py-docstring">        """</tt> </tt>
+<a name="L358"></a><tt class="py-lineno">358</tt>  <tt class="py-line">        <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">_sheets</tt> <tt class="py-op">=</tt> <tt id="link-20" class="py-name" targets="Method src.pyoocalc.Document.sheets()=src.pyoocalc.Document-class.html#sheets"><a title="src.pyoocalc.Document.sheets" class="py-name" href="#" onclick="return doclink('link-20', 'sheets', 'link-20');">sheets</a></tt> </tt>
+<a name="L359"></a><tt class="py-lineno">359</tt>  <tt class="py-line">        <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">_is_null</tt> <tt class="py-op">=</tt> <tt class="py-name">True</tt> </tt>
+<a name="L360"></a><tt class="py-lineno">360</tt>  <tt class="py-line"> </tt>
+<a name="L361"></a><tt class="py-lineno">361</tt>  <tt class="py-line"><tt class="py-comment">#         LibreOffice variables.</tt> </tt>
+<a name="L362"></a><tt class="py-lineno">362</tt>  <tt class="py-line">        <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">_oSheet</tt> <tt class="py-op">=</tt> <tt class="py-name">None</tt> </tt>
+<a name="L363"></a><tt class="py-lineno">363</tt>  <tt class="py-line"> </tt>
+<a name="L364"></a><tt class="py-lineno">364</tt>  <tt class="py-line">        <tt class="py-keyword">if</tt> <tt class="py-name">isinstance</tt><tt class="py-op">(</tt><tt class="py-name">index_or_name</tt><tt class="py-op">,</tt> <tt class="py-name">int</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+<a name="L365"></a><tt class="py-lineno">365</tt>  <tt class="py-line">            <tt class="py-comment"># get by index</tt> </tt>
+<a name="L366"></a><tt class="py-lineno">366</tt>  <tt class="py-line">            <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">_oSheet</tt> <tt class="py-op">=</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">_sheets</tt><tt class="py-op">.</tt><tt id="link-21" class="py-name" targets="Method src.pyoocalc.Sheets.o_sheets()=src.pyoocalc.Sheets-class.html#o_sheets"><a title="src.pyoocalc.Sheets.o_sheets" class="py-name" href="#" onclick="return doclink('link-21', 'o_sheets', 'link-21');">o_sheets</a></tt><tt class="py-op">.</tt><tt class="py-name">getByIndex</tt><tt class="py-op">(</tt><tt class="py-name">index_or_name</tt><tt class="py-op">)</tt> </tt>
+<a name="L367"></a><tt class="py-lineno">367</tt>  <tt class="py-line">            <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">_is_null</tt> <tt class="py-op">=</tt> <tt class="py-name">False</tt> </tt>
+<a name="L368"></a><tt class="py-lineno">368</tt>  <tt class="py-line">        <tt class="py-keyword">else</tt><tt class="py-op">:</tt> </tt>
+<a name="L369"></a><tt class="py-lineno">369</tt>  <tt class="py-line">            <tt class="py-comment"># get by name</tt> </tt>
+<a name="L370"></a><tt class="py-lineno">370</tt>  <tt class="py-line">            <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">_oSheet</tt> <tt class="py-op">=</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">_sheets</tt><tt class="py-op">.</tt><tt id="link-22" class="py-name"><a title="src.pyoocalc.Sheets.o_sheets" class="py-name" href="#" onclick="return doclink('link-22', 'o_sheets', 'link-21');">o_sheets</a></tt><tt class="py-op">.</tt><tt class="py-name">getByName</tt><tt class="py-op">(</tt><tt class="py-name">index_or_name</tt><tt class="py-op">)</tt> </tt>
+<a name="L371"></a><tt class="py-lineno">371</tt>  <tt class="py-line">            <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">_is_null</tt> <tt class="py-op">=</tt> <tt class="py-name">False</tt> </tt>
+</div><a name="L372"></a><tt class="py-lineno">372</tt>  <tt class="py-line"> </tt>
+<a name="Sheet.is_null"></a><div id="Sheet.is_null-def"><a name="L373"></a><tt class="py-lineno">373</tt> <a class="py-toggle" href="#" id="Sheet.is_null-toggle" onclick="return toggle('Sheet.is_null');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="src.pyoocalc.Sheet-class.html#is_null">is_null</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="Sheet.is_null-collapsed" style="display:none;" pad="+++" indent="++++++++"></div><div id="Sheet.is_null-expanded"><a name="L374"></a><tt class="py-lineno">374</tt>  <tt class="py-line">        <tt class="py-docstring">"""</tt> </tt>
+<a name="L375"></a><tt class="py-lineno">375</tt>  <tt class="py-line"><tt class="py-docstring">        Checking if the sheet is null.</tt> </tt>
+<a name="L376"></a><tt class="py-lineno">376</tt>  <tt class="py-line"><tt class="py-docstring"></tt> </tt>
+<a name="L377"></a><tt class="py-lineno">377</tt>  <tt class="py-line"><tt class="py-docstring">        @rtype:   bool</tt> </tt>
+<a name="L378"></a><tt class="py-lineno">378</tt>  <tt class="py-line"><tt class="py-docstring">        @return:  Value insertion result</tt> </tt>
+<a name="L379"></a><tt class="py-lineno">379</tt>  <tt class="py-line"><tt class="py-docstring">        """</tt> </tt>
+<a name="L380"></a><tt class="py-lineno">380</tt>  <tt class="py-line">        <tt class="py-keyword">return</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">_is_null</tt> </tt>
+</div><a name="L381"></a><tt class="py-lineno">381</tt>  <tt class="py-line"> </tt>
+<a name="Sheet.set_cell_value_by_index"></a><div id="Sheet.set_cell_value_by_index-def"><a name="L382"></a><tt class="py-lineno">382</tt> <a class="py-toggle" href="#" id="Sheet.set_cell_value_by_index-toggle" onclick="return toggle('Sheet.set_cell_value_by_index');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="src.pyoocalc.Sheet-class.html#set_cell_value_by_index">set_cell_value_by_index</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">,</tt> <tt class="py-param">value</tt><tt class="py-op">,</tt> <tt class="py-param">col</tt><tt class="py-op">,</tt> <tt class="py-param">row</tt><tt class="py-op">,</tt> <tt class="py-param">is_formula</tt><tt class="py-op">=</tt><tt class="py-name">False</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="Sheet.set_cell_value_by_index-collapsed" style="display:none;" pad="+++" indent="++++++++"></div><div id="Sheet.set_cell_value_by_index-expanded"><a name="L383"></a><tt class="py-lineno">383</tt>  <tt class="py-line">        <tt class="py-docstring">"""</tt> </tt>
+<a name="L384"></a><tt class="py-lineno">384</tt>  <tt class="py-line"><tt class="py-docstring">        Set cell value.</tt> </tt>
+<a name="L385"></a><tt class="py-lineno">385</tt>  <tt class="py-line"><tt class="py-docstring"></tt> </tt>
+<a name="L386"></a><tt class="py-lineno">386</tt>  <tt class="py-line"><tt class="py-docstring">        @type  value: string</tt> </tt>
+<a name="L387"></a><tt class="py-lineno">387</tt>  <tt class="py-line"><tt class="py-docstring">        @param value: Cell value</tt> </tt>
+<a name="L388"></a><tt class="py-lineno">388</tt>  <tt class="py-line"><tt class="py-docstring"></tt> </tt>
+<a name="L389"></a><tt class="py-lineno">389</tt>  <tt class="py-line"><tt class="py-docstring">        @type  col: int</tt> </tt>
+<a name="L390"></a><tt class="py-lineno">390</tt>  <tt class="py-line"><tt class="py-docstring">        @param col: Cell column index</tt> </tt>
+<a name="L391"></a><tt class="py-lineno">391</tt>  <tt class="py-line"><tt class="py-docstring"></tt> </tt>
+<a name="L392"></a><tt class="py-lineno">392</tt>  <tt class="py-line"><tt class="py-docstring">        @type  row: int</tt> </tt>
+<a name="L393"></a><tt class="py-lineno">393</tt>  <tt class="py-line"><tt class="py-docstring">        @param row: Cell row index</tt> </tt>
+<a name="L394"></a><tt class="py-lineno">394</tt>  <tt class="py-line"><tt class="py-docstring"></tt> </tt>
+<a name="L395"></a><tt class="py-lineno">395</tt>  <tt class="py-line"><tt class="py-docstring">        @type  is_formula: bool</tt> </tt>
+<a name="L396"></a><tt class="py-lineno">396</tt>  <tt class="py-line"><tt class="py-docstring">        @param is_formula: Not supported yet</tt> </tt>
+<a name="L397"></a><tt class="py-lineno">397</tt>  <tt class="py-line"><tt class="py-docstring"></tt> </tt>
+<a name="L398"></a><tt class="py-lineno">398</tt>  <tt class="py-line"><tt class="py-docstring">        @rtype:   bool</tt> </tt>
+<a name="L399"></a><tt class="py-lineno">399</tt>  <tt class="py-line"><tt class="py-docstring">        @return:  Operation result</tt> </tt>
+<a name="L400"></a><tt class="py-lineno">400</tt>  <tt class="py-line"><tt class="py-docstring">        """</tt> </tt>
+<a name="L401"></a><tt class="py-lineno">401</tt>  <tt class="py-line">        <tt class="py-name">result</tt> <tt class="py-op">=</tt> <tt class="py-name">False</tt> </tt>
+<a name="L402"></a><tt class="py-lineno">402</tt>  <tt class="py-line">        <tt class="py-name">oCell</tt> <tt class="py-op">=</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">_oSheet</tt><tt class="py-op">.</tt><tt class="py-name">getCellByPosition</tt><tt class="py-op">(</tt><tt class="py-name">col</tt><tt class="py-op">,</tt> <tt class="py-name">row</tt><tt class="py-op">)</tt> </tt>
+<a name="L403"></a><tt class="py-lineno">403</tt>  <tt class="py-line">        <tt class="py-keyword">if</tt> <tt class="py-name">is_formula</tt><tt class="py-op">:</tt> </tt>
+<a name="L404"></a><tt class="py-lineno">404</tt>  <tt class="py-line">            <tt class="py-name">oCell</tt><tt class="py-op">.</tt><tt class="py-name">setFormula</tt><tt class="py-op">(</tt><tt id="link-23" class="py-name"><a title="src.pyoocalc.Field.value" class="py-name" href="#" onclick="return doclink('link-23', 'value', 'link-4');">value</a></tt><tt class="py-op">)</tt> </tt>
+<a name="L405"></a><tt class="py-lineno">405</tt>  <tt class="py-line">            <tt class="py-name">result</tt> <tt class="py-op">=</tt> <tt class="py-name">True</tt> </tt>
+<a name="L406"></a><tt class="py-lineno">406</tt>  <tt class="py-line">        <tt class="py-keyword">elif</tt> <tt class="py-name">isinstance</tt><tt class="py-op">(</tt><tt id="link-24" class="py-name"><a title="src.pyoocalc.Field.value" class="py-name" href="#" onclick="return doclink('link-24', 'value', 'link-4');">value</a></tt><tt class="py-op">,</tt> <tt class="py-name">int</tt><tt class="py-op">)</tt>\ </tt>
+<a name="L407"></a><tt class="py-lineno">407</tt>  <tt class="py-line">                <tt class="py-keyword">or</tt> <tt class="py-name">isinstance</tt><tt class="py-op">(</tt><tt id="link-25" class="py-name"><a title="src.pyoocalc.Field.value" class="py-name" href="#" onclick="return doclink('link-25', 'value', 'link-4');">value</a></tt><tt class="py-op">,</tt> <tt class="py-name">float</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+<a name="L408"></a><tt class="py-lineno">408</tt>  <tt class="py-line">            <tt class="py-name">oCell</tt><tt class="py-op">.</tt><tt class="py-name">setValue</tt><tt class="py-op">(</tt><tt id="link-26" class="py-name"><a title="src.pyoocalc.Field.value" class="py-name" href="#" onclick="return doclink('link-26', 'value', 'link-4');">value</a></tt><tt class="py-op">)</tt> </tt>
+<a name="L409"></a><tt class="py-lineno">409</tt>  <tt class="py-line">            <tt class="py-name">result</tt> <tt class="py-op">=</tt> <tt class="py-name">True</tt> </tt>
+<a name="L410"></a><tt class="py-lineno">410</tt>  <tt class="py-line">        <tt class="py-keyword">else</tt><tt class="py-op">:</tt> </tt>
+<a name="L411"></a><tt class="py-lineno">411</tt>  <tt class="py-line">            <tt class="py-name">oCell</tt><tt class="py-op">.</tt><tt class="py-name">setString</tt><tt class="py-op">(</tt><tt id="link-27" class="py-name"><a title="src.pyoocalc.Field.value" class="py-name" href="#" onclick="return doclink('link-27', 'value', 'link-4');">value</a></tt><tt class="py-op">)</tt> </tt>
+<a name="L412"></a><tt class="py-lineno">412</tt>  <tt class="py-line">            <tt class="py-name">result</tt> <tt class="py-op">=</tt> <tt class="py-name">True</tt> </tt>
+<a name="L413"></a><tt class="py-lineno">413</tt>  <tt class="py-line">        <tt class="py-keyword">return</tt> <tt class="py-name">result</tt> </tt>
+</div><a name="L414"></a><tt class="py-lineno">414</tt>  <tt class="py-line"> </tt>
+<a name="Sheet.cell_value_by_index"></a><div id="Sheet.cell_value_by_index-def"><a name="L415"></a><tt class="py-lineno">415</tt> <a class="py-toggle" href="#" id="Sheet.cell_value_by_index-toggle" onclick="return toggle('Sheet.cell_value_by_index');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="src.pyoocalc.Sheet-class.html#cell_value_by_index">cell_value_by_index</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">,</tt> <tt class="py-param">col</tt><tt class="py-op">,</tt> <tt class="py-param">row</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="Sheet.cell_value_by_index-collapsed" style="display:none;" pad="+++" indent="++++++++"></div><div id="Sheet.cell_value_by_index-expanded"><a name="L416"></a><tt class="py-lineno">416</tt>  <tt class="py-line">        <tt class="py-docstring">"""</tt> </tt>
+<a name="L417"></a><tt class="py-lineno">417</tt>  <tt class="py-line"><tt class="py-docstring">        Get cell value.</tt> </tt>
+<a name="L418"></a><tt class="py-lineno">418</tt>  <tt class="py-line"><tt class="py-docstring"></tt> </tt>
+<a name="L419"></a><tt class="py-lineno">419</tt>  <tt class="py-line"><tt class="py-docstring">        @type  col: int</tt> </tt>
+<a name="L420"></a><tt class="py-lineno">420</tt>  <tt class="py-line"><tt class="py-docstring">        @param col: Cell column index</tt> </tt>
+<a name="L421"></a><tt class="py-lineno">421</tt>  <tt class="py-line"><tt class="py-docstring"></tt> </tt>
+<a name="L422"></a><tt class="py-lineno">422</tt>  <tt class="py-line"><tt class="py-docstring">        @type  row: int</tt> </tt>
+<a name="L423"></a><tt class="py-lineno">423</tt>  <tt class="py-line"><tt class="py-docstring">        @param row: Cell row index</tt> </tt>
+<a name="L424"></a><tt class="py-lineno">424</tt>  <tt class="py-line"><tt class="py-docstring"></tt> </tt>
+<a name="L425"></a><tt class="py-lineno">425</tt>  <tt class="py-line"><tt class="py-docstring">        @rtype:   long, int, float or string</tt> </tt>
+<a name="L426"></a><tt class="py-lineno">426</tt>  <tt class="py-line"><tt class="py-docstring">        @return:  Value. Value type depends on document cell value.</tt> </tt>
+<a name="L427"></a><tt class="py-lineno">427</tt>  <tt class="py-line"><tt class="py-docstring">        """</tt> </tt>
+<a name="L428"></a><tt class="py-lineno">428</tt>  <tt class="py-line">        <tt id="link-28" class="py-name"><a title="src.pyoocalc.Field.value" class="py-name" href="#" onclick="return doclink('link-28', 'value', 'link-4');">value</a></tt> <tt class="py-op">=</tt> <tt class="py-name">None</tt> </tt>
+<a name="L429"></a><tt class="py-lineno">429</tt>  <tt class="py-line">        <tt class="py-name">oCell</tt> <tt class="py-op">=</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">_oSheet</tt><tt class="py-op">.</tt><tt class="py-name">getCellByPosition</tt><tt class="py-op">(</tt><tt class="py-name">col</tt><tt class="py-op">,</tt> <tt class="py-name">row</tt><tt class="py-op">)</tt> </tt>
+<a name="L430"></a><tt class="py-lineno">430</tt>  <tt class="py-line">        <tt class="py-name">value_type</tt> <tt class="py-op">=</tt> <tt class="py-name">oCell</tt><tt class="py-op">.</tt><tt class="py-name">getType</tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+<a name="L431"></a><tt class="py-lineno">431</tt>  <tt class="py-line">        <tt class="py-keyword">if</tt> <tt class="py-name">VALUE</tt> <tt class="py-op">==</tt> <tt class="py-name">value_type</tt><tt class="py-op">:</tt> </tt>
+<a name="L432"></a><tt class="py-lineno">432</tt>  <tt class="py-line">            <tt id="link-29" class="py-name"><a title="src.pyoocalc.Field.value" class="py-name" href="#" onclick="return doclink('link-29', 'value', 'link-4');">value</a></tt> <tt class="py-op">=</tt> <tt class="py-name">oCell</tt><tt class="py-op">.</tt><tt class="py-name">getValue</tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+<a name="L433"></a><tt class="py-lineno">433</tt>  <tt class="py-line">        <tt class="py-keyword">if</tt> <tt class="py-name">FORMULA</tt> <tt class="py-op">==</tt> <tt class="py-name">value_type</tt><tt class="py-op">:</tt> </tt>
+<a name="L434"></a><tt class="py-lineno">434</tt>  <tt class="py-line">            <tt id="link-30" class="py-name"><a title="src.pyoocalc.Field.value" class="py-name" href="#" onclick="return doclink('link-30', 'value', 'link-4');">value</a></tt> <tt class="py-op">=</tt> <tt class="py-name">oCell</tt><tt class="py-op">.</tt><tt class="py-name">getFormula</tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+<a name="L435"></a><tt class="py-lineno">435</tt>  <tt class="py-line">        <tt class="py-keyword">if</tt> <tt class="py-name">TEXT</tt> <tt class="py-op">==</tt> <tt class="py-name">value_type</tt><tt class="py-op">:</tt> </tt>
+<a name="L436"></a><tt class="py-lineno">436</tt>  <tt class="py-line">            <tt id="link-31" class="py-name"><a title="src.pyoocalc.Field.value" class="py-name" href="#" onclick="return doclink('link-31', 'value', 'link-4');">value</a></tt> <tt class="py-op">=</tt> <tt class="py-name">oCell</tt><tt class="py-op">.</tt><tt class="py-name">getString</tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+<a name="L437"></a><tt class="py-lineno">437</tt>  <tt class="py-line"> </tt>
+<a name="L438"></a><tt class="py-lineno">438</tt>  <tt class="py-line">        <tt class="py-keyword">return</tt> <tt id="link-32" class="py-name"><a title="src.pyoocalc.Field.value" class="py-name" href="#" onclick="return doclink('link-32', 'value', 'link-4');">value</a></tt> </tt>
+</div></div><a name="L439"></a><tt class="py-lineno">439</tt>  <tt class="py-line"> </tt>
+<a name="Sheets"></a><div id="Sheets-def"><a name="L440"></a><tt class="py-lineno">440</tt>  <tt class="py-line"><tt class="py-comment">###############################################################################</tt> </tt>
+<a name="L441"></a><tt class="py-lineno">441</tt>  <tt class="py-line"><tt class="py-comment">###############################################################################</tt> </tt>
+<a name="L442"></a><tt class="py-lineno">442</tt>  <tt class="py-line"><tt class="py-comment">###############################################################################</tt> </tt>
+<a name="L443"></a><tt class="py-lineno">443</tt>  <tt class="py-line"> </tt>
+<a name="L444"></a><tt class="py-lineno">444</tt>  <tt class="py-line"> </tt>
+<a name="L445"></a><tt class="py-lineno">445</tt> <a class="py-toggle" href="#" id="Sheets-toggle" onclick="return toggle('Sheets');">-</a><tt class="py-line"><tt class="py-keyword">class</tt> <a class="py-def-name" href="src.pyoocalc.Sheets-class.html">Sheets</a><tt class="py-op">:</tt> </tt>
+</div><div id="Sheets-collapsed" style="display:none;" pad="+++" indent="++++"></div><div id="Sheets-expanded"><a name="L446"></a><tt class="py-lineno">446</tt>  <tt class="py-line"> </tt>
+<a name="L447"></a><tt class="py-lineno">447</tt>  <tt class="py-line">    <tt class="py-docstring">"""</tt> </tt>
+<a name="L448"></a><tt class="py-lineno">448</tt>  <tt class="py-line"><tt class="py-docstring">    Document sheets.</tt> </tt>
+<a name="L449"></a><tt class="py-lineno">449</tt>  <tt class="py-line"><tt class="py-docstring">    Search and manage sheets.</tt> </tt>
+<a name="L450"></a><tt class="py-lineno">450</tt>  <tt class="py-line"><tt class="py-docstring">    """</tt> </tt>
+<a name="L451"></a><tt class="py-lineno">451</tt>  <tt class="py-line"> </tt>
+<a name="Sheets.__init__"></a><div id="Sheets.__init__-def"><a name="L452"></a><tt class="py-lineno">452</tt> <a class="py-toggle" href="#" id="Sheets.__init__-toggle" onclick="return toggle('Sheets.__init__');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="src.pyoocalc.Sheets-class.html#__init__">__init__</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">,</tt> <tt class="py-param">document</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="Sheets.__init__-collapsed" style="display:none;" pad="+++" indent="++++++++"></div><div id="Sheets.__init__-expanded"><a name="L453"></a><tt class="py-lineno">453</tt>  <tt class="py-line">        <tt class="py-docstring">"""</tt> </tt>
+<a name="L454"></a><tt class="py-lineno">454</tt>  <tt class="py-line"><tt class="py-docstring">        Constructor</tt> </tt>
+<a name="L455"></a><tt class="py-lineno">455</tt>  <tt class="py-line"><tt class="py-docstring"></tt> </tt>
+<a name="L456"></a><tt class="py-lineno">456</tt>  <tt class="py-line"><tt class="py-docstring">        @type  document: Document</tt> </tt>
+<a name="L457"></a><tt class="py-lineno">457</tt>  <tt class="py-line"><tt class="py-docstring">        @param document: Document object</tt> </tt>
+<a name="L458"></a><tt class="py-lineno">458</tt>  <tt class="py-line"><tt class="py-docstring">        """</tt> </tt>
+<a name="L459"></a><tt class="py-lineno">459</tt>  <tt class="py-line">        <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">_document</tt> <tt class="py-op">=</tt> <tt id="link-33" class="py-name"><a title="src.pyoocalc.Fields.document" class="py-name" href="#" onclick="return doclink('link-33', 'document', 'link-1');">document</a></tt> </tt>
+<a name="L460"></a><tt class="py-lineno">460</tt>  <tt class="py-line">        <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">_sheet</tt> <tt class="py-op">=</tt> <tt class="py-name">None</tt> </tt>
+<a name="L461"></a><tt class="py-lineno">461</tt>  <tt class="py-line"> </tt>
+<a name="L462"></a><tt class="py-lineno">462</tt>  <tt class="py-line"><tt class="py-comment">#         LibreOffice variables.</tt> </tt>
+<a name="L463"></a><tt class="py-lineno">463</tt>  <tt class="py-line">        <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">_oSheets</tt> <tt class="py-op">=</tt> <tt class="py-name">None</tt> </tt>
+<a name="L464"></a><tt class="py-lineno">464</tt>  <tt class="py-line">        <tt class="py-keyword">if</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">_document</tt><tt class="py-op">:</tt> </tt>
+<a name="L465"></a><tt class="py-lineno">465</tt>  <tt class="py-line">            <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">_oSheets</tt> <tt class="py-op">=</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">_document</tt><tt class="py-op">.</tt><tt id="link-34" class="py-name"><a title="src.pyoocalc.Document.o_doc" class="py-name" href="#" onclick="return doclink('link-34', 'o_doc', 'link-2');">o_doc</a></tt><tt class="py-op">.</tt><tt class="py-name">getSheets</tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+</div><a name="L466"></a><tt class="py-lineno">466</tt>  <tt class="py-line"> </tt>
+<a name="Sheets.is_null"></a><div id="Sheets.is_null-def"><a name="L467"></a><tt class="py-lineno">467</tt> <a class="py-toggle" href="#" id="Sheets.is_null-toggle" onclick="return toggle('Sheets.is_null');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="src.pyoocalc.Sheets-class.html#is_null">is_null</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="Sheets.is_null-collapsed" style="display:none;" pad="+++" indent="++++++++"></div><div id="Sheets.is_null-expanded"><a name="L468"></a><tt class="py-lineno">468</tt>  <tt class="py-line">        <tt class="py-docstring">"""</tt> </tt>
+<a name="L469"></a><tt class="py-lineno">469</tt>  <tt class="py-line"><tt class="py-docstring">        Checking if the document object is initialized</tt> </tt>
+<a name="L470"></a><tt class="py-lineno">470</tt>  <tt class="py-line"><tt class="py-docstring"></tt> </tt>
+<a name="L471"></a><tt class="py-lineno">471</tt>  <tt class="py-line"><tt class="py-docstring">        @rtype:   bool</tt> </tt>
+<a name="L472"></a><tt class="py-lineno">472</tt>  <tt class="py-line"><tt class="py-docstring">        @return:  Document object state</tt> </tt>
+<a name="L473"></a><tt class="py-lineno">473</tt>  <tt class="py-line"><tt class="py-docstring">        """</tt> </tt>
+<a name="L474"></a><tt class="py-lineno">474</tt>  <tt class="py-line">        <tt class="py-name">result</tt> <tt class="py-op">=</tt> <tt class="py-name">False</tt> </tt>
+<a name="L475"></a><tt class="py-lineno">475</tt>  <tt class="py-line">        <tt class="py-keyword">if</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">_oSheets</tt> <tt class="py-keyword">is</tt> <tt class="py-name">None</tt><tt class="py-op">:</tt> </tt>
+<a name="L476"></a><tt class="py-lineno">476</tt>  <tt class="py-line">            <tt class="py-name">result</tt> <tt class="py-op">=</tt> <tt class="py-name">True</tt> </tt>
+<a name="L477"></a><tt class="py-lineno">477</tt>  <tt class="py-line">        <tt class="py-keyword">return</tt> <tt class="py-name">result</tt> </tt>
+</div><a name="L478"></a><tt class="py-lineno">478</tt>  <tt class="py-line"> </tt>
+<a name="Sheets.sheet"></a><div id="Sheets.sheet-def"><a name="L479"></a><tt class="py-lineno">479</tt> <a class="py-toggle" href="#" id="Sheets.sheet-toggle" onclick="return toggle('Sheets.sheet');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="src.pyoocalc.Sheets-class.html#sheet">sheet</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">,</tt> <tt class="py-param">index_or_name</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="Sheets.sheet-collapsed" style="display:none;" pad="+++" indent="++++++++"></div><div id="Sheets.sheet-expanded"><a name="L480"></a><tt class="py-lineno">480</tt>  <tt class="py-line">        <tt class="py-docstring">"""</tt> </tt>
+<a name="L481"></a><tt class="py-lineno">481</tt>  <tt class="py-line"><tt class="py-docstring">        Get sheet by index or name.</tt> </tt>
+<a name="L482"></a><tt class="py-lineno">482</tt>  <tt class="py-line"><tt class="py-docstring"></tt> </tt>
+<a name="L483"></a><tt class="py-lineno">483</tt>  <tt class="py-line"><tt class="py-docstring">        @type  value: int, string</tt> </tt>
+<a name="L484"></a><tt class="py-lineno">484</tt>  <tt class="py-line"><tt class="py-docstring">        @param value: Sheet index or name</tt> </tt>
+<a name="L485"></a><tt class="py-lineno">485</tt>  <tt class="py-line"><tt class="py-docstring"></tt> </tt>
+<a name="L486"></a><tt class="py-lineno">486</tt>  <tt class="py-line"><tt class="py-docstring">        @rtype:   Sheet</tt> </tt>
+<a name="L487"></a><tt class="py-lineno">487</tt>  <tt class="py-line"><tt class="py-docstring">        @return:  Sheet object</tt> </tt>
+<a name="L488"></a><tt class="py-lineno">488</tt>  <tt class="py-line"><tt class="py-docstring">        """</tt> </tt>
+<a name="L489"></a><tt class="py-lineno">489</tt>  <tt class="py-line">        <tt class="py-keyword">return</tt> <tt id="link-35" class="py-name"><a title="src.pyoocalc.Sheet" class="py-name" href="#" onclick="return doclink('link-35', 'Sheet', 'link-3');">Sheet</a></tt><tt class="py-op">(</tt><tt class="py-name">self</tt><tt class="py-op">,</tt> <tt class="py-name">index_or_name</tt><tt class="py-op">)</tt> </tt>
+</div><a name="L490"></a><tt class="py-lineno">490</tt>  <tt class="py-line"> </tt>
+<a name="Sheets.count"></a><div id="Sheets.count-def"><a name="L491"></a><tt class="py-lineno">491</tt> <a class="py-toggle" href="#" id="Sheets.count-toggle" onclick="return toggle('Sheets.count');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="src.pyoocalc.Sheets-class.html#count">count</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="Sheets.count-collapsed" style="display:none;" pad="+++" indent="++++++++"></div><div id="Sheets.count-expanded"><a name="L492"></a><tt class="py-lineno">492</tt>  <tt class="py-line">        <tt class="py-docstring">"""</tt> </tt>
+<a name="L493"></a><tt class="py-lineno">493</tt>  <tt class="py-line"><tt class="py-docstring">        Get number of sheets in document.</tt> </tt>
+<a name="L494"></a><tt class="py-lineno">494</tt>  <tt class="py-line"><tt class="py-docstring"></tt> </tt>
+<a name="L495"></a><tt class="py-lineno">495</tt>  <tt class="py-line"><tt class="py-docstring">        @rtype:   int</tt> </tt>
+<a name="L496"></a><tt class="py-lineno">496</tt>  <tt class="py-line"><tt class="py-docstring">        @return:  the number of sheets in document.</tt> </tt>
+<a name="L497"></a><tt class="py-lineno">497</tt>  <tt class="py-line"><tt class="py-docstring">        """</tt> </tt>
+<a name="L498"></a><tt class="py-lineno">498</tt>  <tt class="py-line">        <tt id="link-36" class="py-name"><a title="src.pyoocalc.Fields.count
+src.pyoocalc.Sheets.count" class="py-name" href="#" onclick="return doclink('link-36', 'count', 'link-12');">count</a></tt> <tt class="py-op">=</tt> <tt class="py-number">0</tt> </tt>
+<a name="L499"></a><tt class="py-lineno">499</tt>  <tt class="py-line">        <tt class="py-keyword">if</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">_oSheets</tt><tt class="py-op">:</tt> </tt>
+<a name="L500"></a><tt class="py-lineno">500</tt>  <tt class="py-line">            <tt id="link-37" class="py-name"><a title="src.pyoocalc.Fields.count
+src.pyoocalc.Sheets.count" class="py-name" href="#" onclick="return doclink('link-37', 'count', 'link-12');">count</a></tt> <tt class="py-op">=</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">_oSheets</tt><tt class="py-op">.</tt><tt class="py-name">getCount</tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+<a name="L501"></a><tt class="py-lineno">501</tt>  <tt class="py-line">        <tt class="py-keyword">return</tt> <tt id="link-38" class="py-name"><a title="src.pyoocalc.Fields.count
+src.pyoocalc.Sheets.count" class="py-name" href="#" onclick="return doclink('link-38', 'count', 'link-12');">count</a></tt> </tt>
+</div><a name="L502"></a><tt class="py-lineno">502</tt>  <tt class="py-line"> </tt>
+<a name="L503"></a><tt class="py-lineno">503</tt>  <tt class="py-line">    <tt class="py-decorator">@</tt><tt class="py-decorator">property</tt> </tt>
+<a name="Sheets.o_sheets"></a><div id="Sheets.o_sheets-def"><a name="L504"></a><tt class="py-lineno">504</tt> <a class="py-toggle" href="#" id="Sheets.o_sheets-toggle" onclick="return toggle('Sheets.o_sheets');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="src.pyoocalc.Sheets-class.html#o_sheets">o_sheets</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="Sheets.o_sheets-collapsed" style="display:none;" pad="+++" indent="++++++++"></div><div id="Sheets.o_sheets-expanded"><a name="L505"></a><tt class="py-lineno">505</tt>  <tt class="py-line">        <tt class="py-docstring">"""</tt> </tt>
+<a name="L506"></a><tt class="py-lineno">506</tt>  <tt class="py-line"><tt class="py-docstring">        LibreOffice/OpenOffice Calc Spreadsheets object.</tt> </tt>
+<a name="L507"></a><tt class="py-lineno">507</tt>  <tt class="py-line"><tt class="py-docstring"></tt> </tt>
+<a name="L508"></a><tt class="py-lineno">508</tt>  <tt class="py-line"><tt class="py-docstring">        Required for Fields and Field classes. Not recommended use it directly.</tt> </tt>
+<a name="L509"></a><tt class="py-lineno">509</tt>  <tt class="py-line"><tt class="py-docstring"></tt> </tt>
+<a name="L510"></a><tt class="py-lineno">510</tt>  <tt class="py-line"><tt class="py-docstring">        @rtype:   com::sun::star::sheet::XSpreadsheets</tt> </tt>
+<a name="L511"></a><tt class="py-lineno">511</tt>  <tt class="py-line"><tt class="py-docstring">        @return:  Libre/Open office Spreadsheets object</tt> </tt>
+<a name="L512"></a><tt class="py-lineno">512</tt>  <tt class="py-line"><tt class="py-docstring">        """</tt> </tt>
+<a name="L513"></a><tt class="py-lineno">513</tt>  <tt class="py-line">        <tt class="py-keyword">return</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">_oSheets</tt> </tt>
+</div><a name="L514"></a><tt class="py-lineno">514</tt>  <tt class="py-line"> </tt>
+<a name="Sheets.insert_spreadsheet"></a><div id="Sheets.insert_spreadsheet-def"><a name="L515"></a><tt class="py-lineno">515</tt> <a class="py-toggle" href="#" id="Sheets.insert_spreadsheet-toggle" onclick="return toggle('Sheets.insert_spreadsheet');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="src.pyoocalc.Sheets-class.html#insert_spreadsheet">insert_spreadsheet</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">,</tt> <tt class="py-param">name</tt><tt class="py-op">,</tt> <tt class="py-param">index</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="Sheets.insert_spreadsheet-collapsed" style="display:none;" pad="+++" indent="++++++++"></div><div id="Sheets.insert_spreadsheet-expanded"><a name="L516"></a><tt class="py-lineno">516</tt>  <tt class="py-line">        <tt class="py-docstring">"""</tt> </tt>
+<a name="L517"></a><tt class="py-lineno">517</tt>  <tt class="py-line"><tt class="py-docstring">        Inserts a new sheet into the collection.</tt> </tt>
+<a name="L518"></a><tt class="py-lineno">518</tt>  <tt class="py-line"><tt class="py-docstring"></tt> </tt>
+<a name="L519"></a><tt class="py-lineno">519</tt>  <tt class="py-line"><tt class="py-docstring">        @type  name: string</tt> </tt>
+<a name="L520"></a><tt class="py-lineno">520</tt>  <tt class="py-line"><tt class="py-docstring">        @param name: The name of the new spreadsheet.</tt> </tt>
+<a name="L521"></a><tt class="py-lineno">521</tt>  <tt class="py-line"><tt class="py-docstring"></tt> </tt>
+<a name="L522"></a><tt class="py-lineno">522</tt>  <tt class="py-line"><tt class="py-docstring">        @type  index: int</tt> </tt>
+<a name="L523"></a><tt class="py-lineno">523</tt>  <tt class="py-line"><tt class="py-docstring">        @param index: The index of the new spreadsheet in the collection.</tt> </tt>
+<a name="L524"></a><tt class="py-lineno">524</tt>  <tt class="py-line"><tt class="py-docstring"></tt> </tt>
+<a name="L525"></a><tt class="py-lineno">525</tt>  <tt class="py-line"><tt class="py-docstring">        @rtype:   bool</tt> </tt>
+<a name="L526"></a><tt class="py-lineno">526</tt>  <tt class="py-line"><tt class="py-docstring">        @return:  Operation result</tt> </tt>
+<a name="L527"></a><tt class="py-lineno">527</tt>  <tt class="py-line"><tt class="py-docstring">        """</tt> </tt>
+<a name="L528"></a><tt class="py-lineno">528</tt>  <tt class="py-line">        <tt class="py-name">result</tt> <tt class="py-op">=</tt> <tt class="py-name">False</tt> </tt>
+<a name="L529"></a><tt class="py-lineno">529</tt>  <tt class="py-line">        <tt class="py-keyword">if</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt id="link-39" class="py-name"><a title="src.pyoocalc.Sheets.o_sheets" class="py-name" href="#" onclick="return doclink('link-39', 'o_sheets', 'link-21');">o_sheets</a></tt><tt class="py-op">:</tt> </tt>
+<a name="L530"></a><tt class="py-lineno">530</tt>  <tt class="py-line">            <tt class="py-name">self</tt><tt class="py-op">.</tt><tt id="link-40" class="py-name"><a title="src.pyoocalc.Sheets.o_sheets" class="py-name" href="#" onclick="return doclink('link-40', 'o_sheets', 'link-21');">o_sheets</a></tt><tt class="py-op">.</tt><tt class="py-name">insertNewByName</tt><tt class="py-op">(</tt><tt class="py-name">name</tt><tt class="py-op">,</tt> <tt class="py-name">index</tt><tt class="py-op">)</tt> </tt>
+<a name="L531"></a><tt class="py-lineno">531</tt>  <tt class="py-line">            <tt class="py-name">result</tt> <tt class="py-op">=</tt> <tt class="py-name">True</tt> </tt>
+<a name="L532"></a><tt class="py-lineno">532</tt>  <tt class="py-line">        <tt class="py-keyword">return</tt> <tt class="py-name">result</tt> </tt>
+</div><a name="L533"></a><tt class="py-lineno">533</tt>  <tt class="py-line"> </tt>
+<a name="Sheets.remove_spreadsheet"></a><div id="Sheets.remove_spreadsheet-def"><a name="L534"></a><tt class="py-lineno">534</tt> <a class="py-toggle" href="#" id="Sheets.remove_spreadsheet-toggle" onclick="return toggle('Sheets.remove_spreadsheet');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="src.pyoocalc.Sheets-class.html#remove_spreadsheet">remove_spreadsheet</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">,</tt> <tt class="py-param">name</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="Sheets.remove_spreadsheet-collapsed" style="display:none;" pad="+++" indent="++++++++"></div><div id="Sheets.remove_spreadsheet-expanded"><a name="L535"></a><tt class="py-lineno">535</tt>  <tt class="py-line">        <tt class="py-docstring">"""</tt> </tt>
+<a name="L536"></a><tt class="py-lineno">536</tt>  <tt class="py-line"><tt class="py-docstring">        Inserts a new sheet into the collection.</tt> </tt>
+<a name="L537"></a><tt class="py-lineno">537</tt>  <tt class="py-line"><tt class="py-docstring"></tt> </tt>
+<a name="L538"></a><tt class="py-lineno">538</tt>  <tt class="py-line"><tt class="py-docstring">        @type  name: string</tt> </tt>
+<a name="L539"></a><tt class="py-lineno">539</tt>  <tt class="py-line"><tt class="py-docstring">        @param name: The name of the removing spreadsheet.</tt> </tt>
+<a name="L540"></a><tt class="py-lineno">540</tt>  <tt class="py-line"><tt class="py-docstring"></tt> </tt>
+<a name="L541"></a><tt class="py-lineno">541</tt>  <tt class="py-line"><tt class="py-docstring">        @rtype:   bool</tt> </tt>
+<a name="L542"></a><tt class="py-lineno">542</tt>  <tt class="py-line"><tt class="py-docstring">        @return:  Operation result</tt> </tt>
+<a name="L543"></a><tt class="py-lineno">543</tt>  <tt class="py-line"><tt class="py-docstring">        """</tt> </tt>
+<a name="L544"></a><tt class="py-lineno">544</tt>  <tt class="py-line">        <tt class="py-name">result</tt> <tt class="py-op">=</tt> <tt class="py-name">False</tt> </tt>
+<a name="L545"></a><tt class="py-lineno">545</tt>  <tt class="py-line">        <tt class="py-keyword">if</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt id="link-41" class="py-name"><a title="src.pyoocalc.Sheets.o_sheets" class="py-name" href="#" onclick="return doclink('link-41', 'o_sheets', 'link-21');">o_sheets</a></tt><tt class="py-op">:</tt> </tt>
+<a name="L546"></a><tt class="py-lineno">546</tt>  <tt class="py-line">            <tt class="py-name">self</tt><tt class="py-op">.</tt><tt id="link-42" class="py-name"><a title="src.pyoocalc.Sheets.o_sheets" class="py-name" href="#" onclick="return doclink('link-42', 'o_sheets', 'link-21');">o_sheets</a></tt><tt class="py-op">.</tt><tt class="py-name">removeByName</tt><tt class="py-op">(</tt><tt class="py-name">name</tt><tt class="py-op">)</tt> </tt>
+<a name="L547"></a><tt class="py-lineno">547</tt>  <tt class="py-line">            <tt class="py-name">result</tt> <tt class="py-op">=</tt> <tt class="py-name">True</tt> </tt>
+<a name="L548"></a><tt class="py-lineno">548</tt>  <tt class="py-line">        <tt class="py-keyword">return</tt> <tt class="py-name">result</tt> </tt>
+</div></div><a name="L549"></a><tt class="py-lineno">549</tt>  <tt class="py-line"> </tt>
+<a name="Document"></a><div id="Document-def"><a name="L550"></a><tt class="py-lineno">550</tt>  <tt class="py-line"><tt class="py-comment">###############################################################################</tt> </tt>
+<a name="L551"></a><tt class="py-lineno">551</tt>  <tt class="py-line"><tt class="py-comment">###############################################################################</tt> </tt>
+<a name="L552"></a><tt class="py-lineno">552</tt>  <tt class="py-line"><tt class="py-comment">###############################################################################</tt> </tt>
+<a name="L553"></a><tt class="py-lineno">553</tt>  <tt class="py-line"> </tt>
+<a name="L554"></a><tt class="py-lineno">554</tt>  <tt class="py-line"> </tt>
+<a name="L555"></a><tt class="py-lineno">555</tt> <a class="py-toggle" href="#" id="Document-toggle" onclick="return toggle('Document');">-</a><tt class="py-line"><tt class="py-keyword">class</tt> <a class="py-def-name" href="src.pyoocalc.Document-class.html">Document</a><tt class="py-op">:</tt> </tt>
+</div><div id="Document-collapsed" style="display:none;" pad="+++" indent="++++"></div><div id="Document-expanded"><a name="L556"></a><tt class="py-lineno">556</tt>  <tt class="py-line"> </tt>
+<a name="Document.__init__"></a><div id="Document.__init__-def"><a name="L557"></a><tt class="py-lineno">557</tt> <a class="py-toggle" href="#" id="Document.__init__-toggle" onclick="return toggle('Document.__init__');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="src.pyoocalc.Document-class.html#__init__">__init__</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">,</tt> </tt>
+<a name="L558"></a><tt class="py-lineno">558</tt>  <tt class="py-line">                 <tt class="py-param">autostart</tt><tt class="py-op">=</tt><tt class="py-name">False</tt><tt class="py-op">,</tt> </tt>
+<a name="L559"></a><tt class="py-lineno">559</tt>  <tt class="py-line">                 <tt class="py-param">office</tt><tt class="py-op">=</tt><tt class="py-string">'soffice \</tt> </tt>
+<a name="L560"></a><tt class="py-lineno">560</tt>  <tt class="py-line"><tt class="py-string">--accept="socket,host=localhost,port=2002;urp;"'</tt><tt class="py-op">,</tt> </tt>
+<a name="L561"></a><tt class="py-lineno">561</tt>  <tt class="py-line">                 <tt class="py-param">connection_string</tt><tt class="py-op">=</tt><tt class="py-string">"\</tt> </tt>
+<a name="L562"></a><tt class="py-lineno">562</tt>  <tt class="py-line"><tt class="py-string">uno:socket,host=localhost,port=2002;urp;StarOffice.ComponentContext"</tt><tt class="py-op">,</tt> </tt>
+<a name="L563"></a><tt class="py-lineno">563</tt>  <tt class="py-line">                 <tt class="py-param">timeout</tt><tt class="py-op">=</tt><tt class="py-number">30</tt><tt class="py-op">,</tt> </tt>
+<a name="L564"></a><tt class="py-lineno">564</tt>  <tt class="py-line">                 <tt class="py-param">attempt_period</tt><tt class="py-op">=</tt><tt class="py-number">0.1</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="Document.__init__-collapsed" style="display:none;" pad="+++" indent="++++++++"></div><div id="Document.__init__-expanded"><a name="L565"></a><tt class="py-lineno">565</tt>  <tt class="py-line">        <tt class="py-docstring">"""</tt> </tt>
+<a name="L566"></a><tt class="py-lineno">566</tt>  <tt class="py-line"><tt class="py-docstring">        Constructor</tt> </tt>
+<a name="L567"></a><tt class="py-lineno">567</tt>  <tt class="py-line"><tt class="py-docstring"></tt> </tt>
+<a name="L568"></a><tt class="py-lineno">568</tt>  <tt class="py-line"><tt class="py-docstring">        @type  autostart: bool</tt> </tt>
+<a name="L569"></a><tt class="py-lineno">569</tt>  <tt class="py-line"><tt class="py-docstring">        @param autostart: Auto Starts Libre/Open Office with a listening socket</tt> </tt>
+<a name="L570"></a><tt class="py-lineno">570</tt>  <tt class="py-line"><tt class="py-docstring"></tt> </tt>
+<a name="L571"></a><tt class="py-lineno">571</tt>  <tt class="py-line"><tt class="py-docstring">        @type  office: string</tt> </tt>
+<a name="L572"></a><tt class="py-lineno">572</tt>  <tt class="py-line"><tt class="py-docstring">        @param office: Libre/Open Office startup string</tt> </tt>
+<a name="L573"></a><tt class="py-lineno">573</tt>  <tt class="py-line"><tt class="py-docstring"></tt> </tt>
+<a name="L574"></a><tt class="py-lineno">574</tt>  <tt class="py-line"><tt class="py-docstring">        @type  connection_string: string</tt> </tt>
+<a name="L575"></a><tt class="py-lineno">575</tt>  <tt class="py-line"><tt class="py-docstring">        @param connection_string: Libre/Open office initialization string</tt> </tt>
+<a name="L576"></a><tt class="py-lineno">576</tt>  <tt class="py-line"><tt class="py-docstring"></tt> </tt>
+<a name="L577"></a><tt class="py-lineno">577</tt>  <tt class="py-line"><tt class="py-docstring">        @type  timeout: int</tt> </tt>
+<a name="L578"></a><tt class="py-lineno">578</tt>  <tt class="py-line"><tt class="py-docstring">        @param timeout: Timeout for starting Libre/Open Office in seconds</tt> </tt>
+<a name="L579"></a><tt class="py-lineno">579</tt>  <tt class="py-line"><tt class="py-docstring"></tt> </tt>
+<a name="L580"></a><tt class="py-lineno">580</tt>  <tt class="py-line"><tt class="py-docstring">        @type  attempt_period: int</tt> </tt>
+<a name="L581"></a><tt class="py-lineno">581</tt>  <tt class="py-line"><tt class="py-docstring">        @param attempt_period: Timeout between attempts in seconds</tt> </tt>
+<a name="L582"></a><tt class="py-lineno">582</tt>  <tt class="py-line"><tt class="py-docstring">        """</tt> </tt>
+<a name="L583"></a><tt class="py-lineno">583</tt>  <tt class="py-line">        <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">_sheets</tt> <tt class="py-op">=</tt> <tt class="py-name">None</tt> </tt>
+<a name="L584"></a><tt class="py-lineno">584</tt>  <tt class="py-line">        <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">_fields</tt> <tt class="py-op">=</tt> <tt class="py-name">None</tt> </tt>
+<a name="L585"></a><tt class="py-lineno">585</tt>  <tt class="py-line">        <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">_connection_string</tt> <tt class="py-op">=</tt> <tt class="py-name">connection_string</tt> </tt>
+<a name="L586"></a><tt class="py-lineno">586</tt>  <tt class="py-line"> </tt>
+<a name="L587"></a><tt class="py-lineno">587</tt>  <tt class="py-line"><tt class="py-comment">#         LibreOffice variables.</tt> </tt>
+<a name="L588"></a><tt class="py-lineno">588</tt>  <tt class="py-line">        <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">_oResolver</tt> <tt class="py-op">=</tt> <tt class="py-name">None</tt> </tt>
+<a name="L589"></a><tt class="py-lineno">589</tt>  <tt class="py-line">        <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">_oContext</tt> <tt class="py-op">=</tt> <tt class="py-name">None</tt> </tt>
+<a name="L590"></a><tt class="py-lineno">590</tt>  <tt class="py-line">        <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">_oDesktop</tt> <tt class="py-op">=</tt> <tt class="py-name">None</tt> </tt>
+<a name="L591"></a><tt class="py-lineno">591</tt>  <tt class="py-line">        <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">_oDoc</tt> <tt class="py-op">=</tt> <tt class="py-name">None</tt> </tt>
+<a name="L592"></a><tt class="py-lineno">592</tt>  <tt class="py-line">        <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">_oLocal</tt> <tt class="py-op">=</tt> <tt class="py-name">uno</tt><tt class="py-op">.</tt><tt class="py-name">getComponentContext</tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+<a name="L593"></a><tt class="py-lineno">593</tt>  <tt class="py-line"> </tt>
+<a name="L594"></a><tt class="py-lineno">594</tt>  <tt class="py-line">        <tt class="py-keyword">if</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">_oLocal</tt><tt class="py-op">:</tt> </tt>
+<a name="L595"></a><tt class="py-lineno">595</tt>  <tt class="py-line">            <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">_oResolver</tt> <tt class="py-op">=</tt> \ </tt>
+<a name="L596"></a><tt class="py-lineno">596</tt>  <tt class="py-line">                <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">_oLocal</tt><tt class="py-op">.</tt><tt class="py-name">ServiceManager</tt><tt class="py-op">.</tt><tt class="py-name">createInstanceWithContext</tt><tt class="py-op">(</tt> </tt>
+<a name="L597"></a><tt class="py-lineno">597</tt>  <tt class="py-line">                    <tt class="py-string">"com.sun.star.bridge.UnoUrlResolver"</tt><tt class="py-op">,</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">_oLocal</tt><tt class="py-op">)</tt> </tt>
+<a name="L598"></a><tt class="py-lineno">598</tt>  <tt class="py-line">            <tt class="py-keyword">if</tt> <tt class="py-name">autostart</tt><tt class="py-op">:</tt> </tt>
+<a name="L599"></a><tt class="py-lineno">599</tt>  <tt class="py-line">                <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">_autostart_office</tt><tt class="py-op">(</tt><tt class="py-name">office</tt><tt class="py-op">,</tt> <tt class="py-name">timeout</tt><tt class="py-op">,</tt> <tt class="py-name">attempt_period</tt><tt class="py-op">)</tt> </tt>
+<a name="L600"></a><tt class="py-lineno">600</tt>  <tt class="py-line">            <tt class="py-keyword">else</tt><tt class="py-op">:</tt> </tt>
+<a name="L601"></a><tt class="py-lineno">601</tt>  <tt class="py-line">                <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">_init_doc</tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+</div><a name="L602"></a><tt class="py-lineno">602</tt>  <tt class="py-line"> </tt>
+<a name="Document._autostart_office"></a><div id="Document._autostart_office-def"><a name="L603"></a><tt class="py-lineno">603</tt> <a class="py-toggle" href="#" id="Document._autostart_office-toggle" onclick="return toggle('Document._autostart_office');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="src.pyoocalc.Document-class.html#_autostart_office">_autostart_office</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">,</tt> <tt class="py-param">office</tt><tt class="py-op">,</tt> <tt class="py-param">timeout</tt><tt class="py-op">,</tt> <tt class="py-param">attempt_period</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="Document._autostart_office-collapsed" style="display:none;" pad="+++" indent="++++++++"></div><div id="Document._autostart_office-expanded"><a name="L604"></a><tt class="py-lineno">604</tt>  <tt class="py-line">        <tt class="py-docstring">"""</tt> </tt>
+<a name="L605"></a><tt class="py-lineno">605</tt>  <tt class="py-line"><tt class="py-docstring">        Starts Libre/Open Office with a listening socket.</tt> </tt>
+<a name="L606"></a><tt class="py-lineno">606</tt>  <tt class="py-line"><tt class="py-docstring"></tt> </tt>
+<a name="L607"></a><tt class="py-lineno">607</tt>  <tt class="py-line"><tt class="py-docstring">        @type  timeout: int</tt> </tt>
+<a name="L608"></a><tt class="py-lineno">608</tt>  <tt class="py-line"><tt class="py-docstring">        @param timeout: Timeout for starting Libre/Open Office in seconds</tt> </tt>
+<a name="L609"></a><tt class="py-lineno">609</tt>  <tt class="py-line"><tt class="py-docstring"></tt> </tt>
+<a name="L610"></a><tt class="py-lineno">610</tt>  <tt class="py-line"><tt class="py-docstring">        @type  attempt_period: int</tt> </tt>
+<a name="L611"></a><tt class="py-lineno">611</tt>  <tt class="py-line"><tt class="py-docstring">        @param attempt_period: Timeout between attempts in seconds</tt> </tt>
+<a name="L612"></a><tt class="py-lineno">612</tt>  <tt class="py-line"><tt class="py-docstring"></tt> </tt>
+<a name="L613"></a><tt class="py-lineno">613</tt>  <tt class="py-line"><tt class="py-docstring">        @type  office: string</tt> </tt>
+<a name="L614"></a><tt class="py-lineno">614</tt>  <tt class="py-line"><tt class="py-docstring">        @param office: Libre/Open Office startup string</tt> </tt>
+<a name="L615"></a><tt class="py-lineno">615</tt>  <tt class="py-line"><tt class="py-docstring">        """</tt> </tt>
+<a name="L616"></a><tt class="py-lineno">616</tt>  <tt class="py-line">        <tt class="py-comment">#######################################################################</tt> </tt>
+<a name="L617"></a><tt class="py-lineno">617</tt>  <tt class="py-line">        <tt class="py-keyword">def</tt> <tt class="py-def-name">start_office_instance</tt><tt class="py-op">(</tt><tt class="py-param">office</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+<a name="L618"></a><tt class="py-lineno">618</tt>  <tt class="py-line">            <tt class="py-docstring">"""</tt> </tt>
+<a name="L619"></a><tt class="py-lineno">619</tt>  <tt class="py-line"><tt class="py-docstring">            Starts Libre/Open Office with a listening socket.</tt> </tt>
+<a name="L620"></a><tt class="py-lineno">620</tt>  <tt class="py-line"><tt class="py-docstring"></tt> </tt>
+<a name="L621"></a><tt class="py-lineno">621</tt>  <tt class="py-line"><tt class="py-docstring">            @type  office: string</tt> </tt>
+<a name="L622"></a><tt class="py-lineno">622</tt>  <tt class="py-line"><tt class="py-docstring">            @param office: Libre/Open Office startup string</tt> </tt>
+<a name="L623"></a><tt class="py-lineno">623</tt>  <tt class="py-line"><tt class="py-docstring">            """</tt> </tt>
+<a name="L624"></a><tt class="py-lineno">624</tt>  <tt class="py-line">            <tt class="py-comment"># Fork to execute Office</tt> </tt>
+<a name="L625"></a><tt class="py-lineno">625</tt>  <tt class="py-line">            <tt class="py-keyword">if</tt> <tt class="py-name">os</tt><tt class="py-op">.</tt><tt class="py-name">fork</tt><tt class="py-op">(</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+<a name="L626"></a><tt class="py-lineno">626</tt>  <tt class="py-line">                <tt class="py-keyword">return</tt> </tt>
+<a name="L627"></a><tt class="py-lineno">627</tt>  <tt class="py-line"> </tt>
+<a name="L628"></a><tt class="py-lineno">628</tt>  <tt class="py-line">            <tt class="py-comment"># Start OpenOffice.org and report any errors that occur.</tt> </tt>
+<a name="L629"></a><tt class="py-lineno">629</tt>  <tt class="py-line">            <tt class="py-keyword">try</tt><tt class="py-op">:</tt> </tt>
+<a name="L630"></a><tt class="py-lineno">630</tt>  <tt class="py-line">                <tt class="py-name">retcode</tt> <tt class="py-op">=</tt> <tt class="py-name">subprocess</tt><tt class="py-op">.</tt><tt class="py-name">call</tt><tt class="py-op">(</tt><tt class="py-name">office</tt><tt class="py-op">,</tt> <tt class="py-name">shell</tt><tt class="py-op">=</tt><tt class="py-name">True</tt><tt class="py-op">)</tt> </tt>
+<a name="L631"></a><tt class="py-lineno">631</tt>  <tt class="py-line">                <tt class="py-keyword">if</tt> <tt class="py-name">retcode</tt> <tt class="py-op">&lt;</tt> <tt class="py-number">0</tt><tt class="py-op">:</tt> </tt>
+<a name="L632"></a><tt class="py-lineno">632</tt>  <tt class="py-line">                    <tt class="py-keyword">print</tt> <tt class="py-op">(</tt><tt class="py-name">sys</tt><tt class="py-op">.</tt><tt class="py-name">stderr</tt><tt class="py-op">,</tt> </tt>
+<a name="L633"></a><tt class="py-lineno">633</tt>  <tt class="py-line">                           <tt class="py-string">"Office was terminated by signal"</tt><tt class="py-op">,</tt> </tt>
+<a name="L634"></a><tt class="py-lineno">634</tt>  <tt class="py-line">                           <tt class="py-op">-</tt><tt class="py-name">retcode</tt><tt class="py-op">)</tt> </tt>
+<a name="L635"></a><tt class="py-lineno">635</tt>  <tt class="py-line">                <tt class="py-keyword">elif</tt> <tt class="py-name">retcode</tt> <tt class="py-op">&gt;</tt> <tt class="py-number">0</tt><tt class="py-op">:</tt> </tt>
+<a name="L636"></a><tt class="py-lineno">636</tt>  <tt class="py-line">                    <tt class="py-keyword">print</tt> <tt class="py-op">(</tt><tt class="py-name">sys</tt><tt class="py-op">.</tt><tt class="py-name">stderr</tt><tt class="py-op">,</tt> </tt>
+<a name="L637"></a><tt class="py-lineno">637</tt>  <tt class="py-line">                           <tt class="py-string">"Office returned"</tt><tt class="py-op">,</tt> </tt>
+<a name="L638"></a><tt class="py-lineno">638</tt>  <tt class="py-line">                           <tt class="py-name">retcode</tt><tt class="py-op">)</tt> </tt>
+<a name="L639"></a><tt class="py-lineno">639</tt>  <tt class="py-line">            <tt class="py-keyword">except</tt> <tt class="py-name">OSError</tt> <tt class="py-keyword">as</tt> <tt class="py-name">e</tt><tt class="py-op">:</tt> </tt>
+<a name="L640"></a><tt class="py-lineno">640</tt>  <tt class="py-line">                <tt class="py-keyword">print</tt> <tt class="py-op">(</tt><tt class="py-name">sys</tt><tt class="py-op">.</tt><tt class="py-name">stderr</tt><tt class="py-op">,</tt> <tt class="py-string">"Execution failed:"</tt><tt class="py-op">,</tt> <tt class="py-name">e</tt><tt class="py-op">)</tt> </tt>
+<a name="L641"></a><tt class="py-lineno">641</tt>  <tt class="py-line"> </tt>
+<a name="L642"></a><tt class="py-lineno">642</tt>  <tt class="py-line">            <tt class="py-comment"># Terminate this process when Office has closed.</tt> </tt>
+<a name="L643"></a><tt class="py-lineno">643</tt>  <tt class="py-line">            <tt class="py-keyword">raise</tt> <tt class="py-name">SystemExit</tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+</div><a name="L644"></a><tt class="py-lineno">644</tt>  <tt class="py-line"> </tt>
+<a name="L645"></a><tt class="py-lineno">645</tt>  <tt class="py-line">        <tt class="py-comment">#######################################################################</tt> </tt>
+<a name="L646"></a><tt class="py-lineno">646</tt>  <tt class="py-line">        <tt class="py-name">waiting</tt> <tt class="py-op">=</tt> <tt class="py-name">False</tt> </tt>
+<a name="L647"></a><tt class="py-lineno">647</tt>  <tt class="py-line">        <tt class="py-keyword">try</tt><tt class="py-op">:</tt> </tt>
+<a name="L648"></a><tt class="py-lineno">648</tt>  <tt class="py-line">            <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">_init_doc</tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+<a name="L649"></a><tt class="py-lineno">649</tt>  <tt class="py-line">        <tt class="py-keyword">except</tt> <tt class="py-name">NoConnectException</tt> <tt class="py-keyword">as</tt> <tt class="py-name">e</tt><tt class="py-op">:</tt> </tt>
+<a name="L650"></a><tt class="py-lineno">650</tt>  <tt class="py-line">            <tt class="py-name">waiting</tt> <tt class="py-op">=</tt> <tt class="py-name">True</tt> </tt>
+<a name="L651"></a><tt class="py-lineno">651</tt>  <tt class="py-line">            <tt class="py-name">start_office_instance</tt><tt class="py-op">(</tt><tt class="py-name">office</tt><tt class="py-op">)</tt> </tt>
+<a name="L652"></a><tt class="py-lineno">652</tt>  <tt class="py-line"> </tt>
+<a name="L653"></a><tt class="py-lineno">653</tt>  <tt class="py-line">        <tt class="py-keyword">if</tt> <tt class="py-name">waiting</tt><tt class="py-op">:</tt> </tt>
+<a name="L654"></a><tt class="py-lineno">654</tt>  <tt class="py-line">            <tt class="py-name">exception</tt> <tt class="py-op">=</tt> <tt class="py-name">None</tt> </tt>
+<a name="L655"></a><tt class="py-lineno">655</tt>  <tt class="py-line">            <tt class="py-name">steps</tt> <tt class="py-op">=</tt> <tt class="py-name">int</tt><tt class="py-op">(</tt><tt class="py-name">timeout</tt><tt class="py-op">/</tt><tt class="py-name">attempt_period</tt><tt class="py-op">)</tt> </tt>
+<a name="L656"></a><tt class="py-lineno">656</tt>  <tt class="py-line">            <tt class="py-keyword">for</tt> <tt class="py-name">i</tt> <tt class="py-keyword">in</tt> <tt class="py-name">range</tt><tt class="py-op">(</tt><tt class="py-name">steps</tt> <tt class="py-op">+</tt> <tt class="py-number">1</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+<a name="L657"></a><tt class="py-lineno">657</tt>  <tt class="py-line">                <tt class="py-keyword">try</tt><tt class="py-op">:</tt> </tt>
+<a name="L658"></a><tt class="py-lineno">658</tt>  <tt class="py-line">                    <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">_init_doc</tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+<a name="L659"></a><tt class="py-lineno">659</tt>  <tt class="py-line">                    <tt class="py-keyword">break</tt> </tt>
+<a name="L660"></a><tt class="py-lineno">660</tt>  <tt class="py-line">                <tt class="py-keyword">except</tt> <tt class="py-name">NoConnectException</tt> <tt class="py-keyword">as</tt> <tt class="py-name">e</tt><tt class="py-op">:</tt> </tt>
+<a name="L661"></a><tt class="py-lineno">661</tt>  <tt class="py-line">                    <tt class="py-name">exception</tt> <tt class="py-op">=</tt> <tt class="py-name">e</tt> </tt>
+<a name="L662"></a><tt class="py-lineno">662</tt>  <tt class="py-line">                    <tt class="py-name">time</tt><tt class="py-op">.</tt><tt class="py-name">sleep</tt><tt class="py-op">(</tt><tt class="py-name">attempt_period</tt><tt class="py-op">)</tt> </tt>
+<a name="L663"></a><tt class="py-lineno">663</tt>  <tt class="py-line">            <tt class="py-keyword">else</tt><tt class="py-op">:</tt> </tt>
+<a name="L664"></a><tt class="py-lineno">664</tt>  <tt class="py-line">                <tt class="py-keyword">if</tt> <tt class="py-name">exception</tt><tt class="py-op">:</tt> </tt>
+<a name="L665"></a><tt class="py-lineno">665</tt>  <tt class="py-line">                    <tt class="py-keyword">raise</tt> <tt class="py-name">NoConnectException</tt><tt class="py-op">(</tt><tt class="py-name">exception</tt><tt class="py-op">)</tt> </tt>
+<a name="L666"></a><tt class="py-lineno">666</tt>  <tt class="py-line">                <tt class="py-keyword">else</tt><tt class="py-op">:</tt> </tt>
+<a name="L667"></a><tt class="py-lineno">667</tt>  <tt class="py-line">                    <tt class="py-keyword">raise</tt> <tt class="py-name">NoConnectException</tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+</div><a name="L668"></a><tt class="py-lineno">668</tt>  <tt class="py-line"> </tt>
+<a name="Document._init_doc"></a><div id="Document._init_doc-def"><a name="L669"></a><tt class="py-lineno">669</tt> <a class="py-toggle" href="#" id="Document._init_doc-toggle" onclick="return toggle('Document._init_doc');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="src.pyoocalc.Document-class.html#_init_doc">_init_doc</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="Document._init_doc-collapsed" style="display:none;" pad="+++" indent="++++++++"></div><div id="Document._init_doc-expanded"><a name="L670"></a><tt class="py-lineno">670</tt>  <tt class="py-line">        <tt class="py-docstring">"""</tt> </tt>
+<a name="L671"></a><tt class="py-lineno">671</tt>  <tt class="py-line"><tt class="py-docstring">        Initialize Libre/Open Office connection</tt> </tt>
+<a name="L672"></a><tt class="py-lineno">672</tt>  <tt class="py-line"><tt class="py-docstring">        """</tt> </tt>
+<a name="L673"></a><tt class="py-lineno">673</tt>  <tt class="py-line">        <tt class="py-keyword">try</tt><tt class="py-op">:</tt> </tt>
+<a name="L674"></a><tt class="py-lineno">674</tt>  <tt class="py-line">            <tt class="py-keyword">if</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">_oResolver</tt><tt class="py-op">:</tt> </tt>
+<a name="L675"></a><tt class="py-lineno">675</tt>  <tt class="py-line">                <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">_oContext</tt> <tt class="py-op">=</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">_oResolver</tt><tt class="py-op">.</tt><tt class="py-name">resolve</tt><tt class="py-op">(</tt> </tt>
+<a name="L676"></a><tt class="py-lineno">676</tt>  <tt class="py-line">                    <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">_connection_string</tt><tt class="py-op">)</tt> </tt>
+<a name="L677"></a><tt class="py-lineno">677</tt>  <tt class="py-line">                <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">_oDesktop</tt> <tt class="py-op">=</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">_oContext</tt><tt class="py-op">.</tt><tt class="py-name">ServiceManager</tt><tt class="py-op">.</tt>\ </tt>
+<a name="L678"></a><tt class="py-lineno">678</tt>  <tt class="py-line">                    <tt class="py-name">createInstanceWithContext</tt><tt class="py-op">(</tt> </tt>
+<a name="L679"></a><tt class="py-lineno">679</tt>  <tt class="py-line">                                        <tt class="py-string">"com.sun.star.frame.Desktop"</tt><tt class="py-op">,</tt> </tt>
+<a name="L680"></a><tt class="py-lineno">680</tt>  <tt class="py-line">                                        <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">_oContext</tt><tt class="py-op">)</tt> </tt>
+<a name="L681"></a><tt class="py-lineno">681</tt>  <tt class="py-line">        <tt class="py-keyword">except</tt> <tt class="py-name">NoConnectException</tt> <tt class="py-keyword">as</tt> <tt class="py-name">e</tt><tt class="py-op">:</tt> </tt>
+<a name="L682"></a><tt class="py-lineno">682</tt>  <tt class="py-line">            <tt class="py-keyword">raise</tt> <tt class="py-op">(</tt><tt class="py-name">e</tt><tt class="py-op">)</tt> </tt>
+<a name="L683"></a><tt class="py-lineno">683</tt>  <tt class="py-line">        <tt class="py-keyword">except</tt> <tt class="py-name">IllegalArgumentException</tt> <tt class="py-keyword">as</tt> <tt class="py-name">e</tt><tt class="py-op">:</tt> </tt>
+<a name="L684"></a><tt class="py-lineno">684</tt>  <tt class="py-line">            <tt class="py-keyword">raise</tt> <tt class="py-op">(</tt><tt class="py-name">e</tt><tt class="py-op">)</tt> </tt>
+<a name="L685"></a><tt class="py-lineno">685</tt>  <tt class="py-line">        <tt class="py-keyword">except</tt> <tt class="py-name">RuntimeException</tt> <tt class="py-keyword">as</tt> <tt class="py-name">e</tt><tt class="py-op">:</tt> </tt>
+<a name="L686"></a><tt class="py-lineno">686</tt>  <tt class="py-line">            <tt class="py-keyword">raise</tt> <tt class="py-op">(</tt><tt class="py-name">e</tt><tt class="py-op">)</tt> </tt>
+</div><a name="L687"></a><tt class="py-lineno">687</tt>  <tt class="py-line"> </tt>
+<a name="Document.is_null"></a><div id="Document.is_null-def"><a name="L688"></a><tt class="py-lineno">688</tt> <a class="py-toggle" href="#" id="Document.is_null-toggle" onclick="return toggle('Document.is_null');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="src.pyoocalc.Document-class.html#is_null">is_null</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="Document.is_null-collapsed" style="display:none;" pad="+++" indent="++++++++"></div><div id="Document.is_null-expanded"><a name="L689"></a><tt class="py-lineno">689</tt>  <tt class="py-line">        <tt class="py-docstring">"""</tt> </tt>
+<a name="L690"></a><tt class="py-lineno">690</tt>  <tt class="py-line"><tt class="py-docstring">        Checking if the document object is initialized</tt> </tt>
+<a name="L691"></a><tt class="py-lineno">691</tt>  <tt class="py-line"><tt class="py-docstring"></tt> </tt>
+<a name="L692"></a><tt class="py-lineno">692</tt>  <tt class="py-line"><tt class="py-docstring">        @rtype:   bool</tt> </tt>
+<a name="L693"></a><tt class="py-lineno">693</tt>  <tt class="py-line"><tt class="py-docstring">        @return:  Document object state</tt> </tt>
+<a name="L694"></a><tt class="py-lineno">694</tt>  <tt class="py-line"><tt class="py-docstring">        """</tt> </tt>
+<a name="L695"></a><tt class="py-lineno">695</tt>  <tt class="py-line">        <tt class="py-name">result</tt> <tt class="py-op">=</tt> <tt class="py-name">False</tt> </tt>
+<a name="L696"></a><tt class="py-lineno">696</tt>  <tt class="py-line">        <tt class="py-keyword">if</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">_oDesktop</tt> <tt class="py-keyword">is</tt> <tt class="py-name">None</tt><tt class="py-op">:</tt> </tt>
+<a name="L697"></a><tt class="py-lineno">697</tt>  <tt class="py-line">            <tt class="py-name">result</tt> <tt class="py-op">=</tt> <tt class="py-name">True</tt> </tt>
+<a name="L698"></a><tt class="py-lineno">698</tt>  <tt class="py-line">        <tt class="py-keyword">return</tt> <tt class="py-name">result</tt> </tt>
+</div><a name="L699"></a><tt class="py-lineno">699</tt>  <tt class="py-line"> </tt>
+<a name="Document._to_properties"></a><div id="Document._to_properties-def"><a name="L700"></a><tt class="py-lineno">700</tt> <a class="py-toggle" href="#" id="Document._to_properties-toggle" onclick="return toggle('Document._to_properties');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="src.pyoocalc.Document-class.html#_to_properties">_to_properties</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">,</tt> <tt class="py-op">**</tt><tt class="py-param">args</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="Document._to_properties-collapsed" style="display:none;" pad="+++" indent="++++++++"></div><div id="Document._to_properties-expanded"><a name="L701"></a><tt class="py-lineno">701</tt>  <tt class="py-line">        <tt class="py-docstring">"""</tt> </tt>
+<a name="L702"></a><tt class="py-lineno">702</tt>  <tt class="py-line"><tt class="py-docstring">        Converts '**args' arguments to the tuple of 'PropertyValue's</tt> </tt>
+<a name="L703"></a><tt class="py-lineno">703</tt>  <tt class="py-line"><tt class="py-docstring"></tt> </tt>
+<a name="L704"></a><tt class="py-lineno">704</tt>  <tt class="py-line"><tt class="py-docstring">        @rtype:   tuple</tt> </tt>
+<a name="L705"></a><tt class="py-lineno">705</tt>  <tt class="py-line"><tt class="py-docstring">        @return:  Fields object</tt> </tt>
+<a name="L706"></a><tt class="py-lineno">706</tt>  <tt class="py-line"><tt class="py-docstring">        """</tt> </tt>
+<a name="L707"></a><tt class="py-lineno">707</tt>  <tt class="py-line">        <tt class="py-name">props</tt> <tt class="py-op">=</tt> <tt class="py-op">[</tt><tt class="py-op">]</tt> </tt>
+<a name="L708"></a><tt class="py-lineno">708</tt>  <tt class="py-line">        <tt class="py-keyword">for</tt> <tt class="py-name">key</tt> <tt class="py-keyword">in</tt> <tt class="py-name">args</tt><tt class="py-op">:</tt> </tt>
+<a name="L709"></a><tt class="py-lineno">709</tt>  <tt class="py-line">            <tt class="py-name">prop</tt> <tt class="py-op">=</tt> <tt class="py-name">PropertyValue</tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+<a name="L710"></a><tt class="py-lineno">710</tt>  <tt class="py-line">            <tt class="py-name">prop</tt><tt class="py-op">.</tt><tt class="py-name">Name</tt> <tt class="py-op">=</tt> <tt class="py-name">key</tt> </tt>
+<a name="L711"></a><tt class="py-lineno">711</tt>  <tt class="py-line">            <tt class="py-name">prop</tt><tt class="py-op">.</tt><tt class="py-name">Value</tt> <tt class="py-op">=</tt> <tt class="py-name">args</tt><tt class="py-op">[</tt><tt class="py-name">key</tt><tt class="py-op">]</tt> </tt>
+<a name="L712"></a><tt class="py-lineno">712</tt>  <tt class="py-line">            <tt class="py-name">props</tt><tt class="py-op">.</tt><tt class="py-name">append</tt><tt class="py-op">(</tt><tt class="py-name">prop</tt><tt class="py-op">)</tt> </tt>
+<a name="L713"></a><tt class="py-lineno">713</tt>  <tt class="py-line">        <tt class="py-keyword">return</tt> <tt class="py-name">tuple</tt><tt class="py-op">(</tt><tt class="py-name">props</tt><tt class="py-op">)</tt> </tt>
+</div><a name="L714"></a><tt class="py-lineno">714</tt>  <tt class="py-line"> </tt>
+<a name="L715"></a><tt class="py-lineno">715</tt>  <tt class="py-line">    <tt class="py-decorator">@</tt><tt class="py-decorator">property</tt> </tt>
+<a name="Document.o_doc"></a><div id="Document.o_doc-def"><a name="L716"></a><tt class="py-lineno">716</tt> <a class="py-toggle" href="#" id="Document.o_doc-toggle" onclick="return toggle('Document.o_doc');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="src.pyoocalc.Document-class.html#o_doc">o_doc</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="Document.o_doc-collapsed" style="display:none;" pad="+++" indent="++++++++"></div><div id="Document.o_doc-expanded"><a name="L717"></a><tt class="py-lineno">717</tt>  <tt class="py-line">        <tt class="py-docstring">"""</tt> </tt>
+<a name="L718"></a><tt class="py-lineno">718</tt>  <tt class="py-line"><tt class="py-docstring">        LibreOffice/OpenOffice Calc document object.</tt> </tt>
+<a name="L719"></a><tt class="py-lineno">719</tt>  <tt class="py-line"><tt class="py-docstring"></tt> </tt>
+<a name="L720"></a><tt class="py-lineno">720</tt>  <tt class="py-line"><tt class="py-docstring">        Required for Fields and Field classes. Not recommended use it directly.</tt> </tt>
+<a name="L721"></a><tt class="py-lineno">721</tt>  <tt class="py-line"><tt class="py-docstring"></tt> </tt>
+<a name="L722"></a><tt class="py-lineno">722</tt>  <tt class="py-line"><tt class="py-docstring">        @rtype:   com::sun::star::lang::XComponent</tt> </tt>
+<a name="L723"></a><tt class="py-lineno">723</tt>  <tt class="py-line"><tt class="py-docstring">        @return:  Libre/Open office document object</tt> </tt>
+<a name="L724"></a><tt class="py-lineno">724</tt>  <tt class="py-line"><tt class="py-docstring">        """</tt> </tt>
+<a name="L725"></a><tt class="py-lineno">725</tt>  <tt class="py-line">        <tt class="py-keyword">return</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">_oDoc</tt> </tt>
+</div><a name="L726"></a><tt class="py-lineno">726</tt>  <tt class="py-line"> </tt>
+<a name="Document._open_document"></a><div id="Document._open_document-def"><a name="L727"></a><tt class="py-lineno">727</tt> <a class="py-toggle" href="#" id="Document._open_document-toggle" onclick="return toggle('Document._open_document');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="src.pyoocalc.Document-class.html#_open_document">_open_document</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">,</tt> <tt class="py-param">doc_name</tt><tt class="py-op">=</tt><tt class="py-string">""</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="Document._open_document-collapsed" style="display:none;" pad="+++" indent="++++++++"></div><div id="Document._open_document-expanded"><a name="L728"></a><tt class="py-lineno">728</tt>  <tt class="py-line">        <tt class="py-docstring">"""</tt> </tt>
+<a name="L729"></a><tt class="py-lineno">729</tt>  <tt class="py-line"><tt class="py-docstring">        Open document.</tt> </tt>
+<a name="L730"></a><tt class="py-lineno">730</tt>  <tt class="py-line"><tt class="py-docstring"></tt> </tt>
+<a name="L731"></a><tt class="py-lineno">731</tt>  <tt class="py-line"><tt class="py-docstring">        @type  doc_name: string</tt> </tt>
+<a name="L732"></a><tt class="py-lineno">732</tt>  <tt class="py-line"><tt class="py-docstring">        @param doc_name: Document name.</tt> </tt>
+<a name="L733"></a><tt class="py-lineno">733</tt>  <tt class="py-line"><tt class="py-docstring"></tt> </tt>
+<a name="L734"></a><tt class="py-lineno">734</tt>  <tt class="py-line"><tt class="py-docstring">        @rtype:   bool</tt> </tt>
+<a name="L735"></a><tt class="py-lineno">735</tt>  <tt class="py-line"><tt class="py-docstring">        @return:  Operation result</tt> </tt>
+<a name="L736"></a><tt class="py-lineno">736</tt>  <tt class="py-line"><tt class="py-docstring">        """</tt> </tt>
+<a name="L737"></a><tt class="py-lineno">737</tt>  <tt class="py-line">        <tt class="py-name">result</tt> <tt class="py-op">=</tt> <tt class="py-name">False</tt> </tt>
+<a name="L738"></a><tt class="py-lineno">738</tt>  <tt class="py-line">        <tt class="py-keyword">if</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">_oDesktop</tt><tt class="py-op">:</tt> </tt>
+<a name="L739"></a><tt class="py-lineno">739</tt>  <tt class="py-line">            <tt class="py-keyword">try</tt><tt class="py-op">:</tt> </tt>
+<a name="L740"></a><tt class="py-lineno">740</tt>  <tt class="py-line">                <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">_oDoc</tt> <tt class="py-op">=</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">_oDesktop</tt><tt class="py-op">.</tt><tt class="py-name">loadComponentFromURL</tt><tt class="py-op">(</tt> </tt>
+<a name="L741"></a><tt class="py-lineno">741</tt>  <tt class="py-line">                    <tt class="py-name">doc_name</tt><tt class="py-op">,</tt> <tt class="py-string">"_blank"</tt><tt class="py-op">,</tt> <tt class="py-number">0</tt><tt class="py-op">,</tt> <tt class="py-op">(</tt><tt class="py-op">)</tt><tt class="py-op">)</tt> </tt>
+<a name="L742"></a><tt class="py-lineno">742</tt>  <tt class="py-line">                <tt class="py-name">result</tt> <tt class="py-op">=</tt> <tt class="py-name">True</tt> </tt>
+<a name="L743"></a><tt class="py-lineno">743</tt>  <tt class="py-line">            <tt class="py-keyword">except</tt> <tt class="py-name">IllegalArgumentException</tt> <tt class="py-keyword">as</tt> <tt class="py-name">e</tt><tt class="py-op">:</tt> </tt>
+<a name="L744"></a><tt class="py-lineno">744</tt>  <tt class="py-line">                <tt class="py-keyword">raise</tt> <tt class="py-op">(</tt><tt class="py-name">e</tt><tt class="py-op">)</tt> </tt>
+<a name="L745"></a><tt class="py-lineno">745</tt>  <tt class="py-line">            <tt class="py-keyword">except</tt> <tt class="py-name">IOException</tt> <tt class="py-keyword">as</tt> <tt class="py-name">e</tt><tt class="py-op">:</tt> </tt>
+<a name="L746"></a><tt class="py-lineno">746</tt>  <tt class="py-line">                <tt class="py-keyword">raise</tt> <tt class="py-op">(</tt><tt class="py-name">e</tt><tt class="py-op">)</tt> </tt>
+<a name="L747"></a><tt class="py-lineno">747</tt>  <tt class="py-line">        <tt class="py-keyword">return</tt> <tt class="py-name">result</tt> </tt>
+</div><a name="L748"></a><tt class="py-lineno">748</tt>  <tt class="py-line"> </tt>
+<a name="Document.new_document"></a><div id="Document.new_document-def"><a name="L749"></a><tt class="py-lineno">749</tt> <a class="py-toggle" href="#" id="Document.new_document-toggle" onclick="return toggle('Document.new_document');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="src.pyoocalc.Document-class.html#new_document">new_document</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="Document.new_document-collapsed" style="display:none;" pad="+++" indent="++++++++"></div><div id="Document.new_document-expanded"><a name="L750"></a><tt class="py-lineno">750</tt>  <tt class="py-line">        <tt class="py-docstring">"""</tt> </tt>
+<a name="L751"></a><tt class="py-lineno">751</tt>  <tt class="py-line"><tt class="py-docstring">        Create new document.</tt> </tt>
+<a name="L752"></a><tt class="py-lineno">752</tt>  <tt class="py-line"><tt class="py-docstring"></tt> </tt>
+<a name="L753"></a><tt class="py-lineno">753</tt>  <tt class="py-line"><tt class="py-docstring">        @rtype:   bool</tt> </tt>
+<a name="L754"></a><tt class="py-lineno">754</tt>  <tt class="py-line"><tt class="py-docstring">        @return:  Operation result</tt> </tt>
+<a name="L755"></a><tt class="py-lineno">755</tt>  <tt class="py-line"><tt class="py-docstring">        """</tt> </tt>
+<a name="L756"></a><tt class="py-lineno">756</tt>  <tt class="py-line">        <tt class="py-keyword">return</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">_open_document</tt><tt class="py-op">(</tt><tt class="py-string">"private:factory/scalc"</tt><tt class="py-op">)</tt> </tt>
+</div><a name="L757"></a><tt class="py-lineno">757</tt>  <tt class="py-line"> </tt>
+<a name="Document.open_document"></a><div id="Document.open_document-def"><a name="L758"></a><tt class="py-lineno">758</tt> <a class="py-toggle" href="#" id="Document.open_document-toggle" onclick="return toggle('Document.open_document');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="src.pyoocalc.Document-class.html#open_document">open_document</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">,</tt> <tt class="py-param">doc_name</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="Document.open_document-collapsed" style="display:none;" pad="+++" indent="++++++++"></div><div id="Document.open_document-expanded"><a name="L759"></a><tt class="py-lineno">759</tt>  <tt class="py-line">        <tt class="py-docstring">"""</tt> </tt>
+<a name="L760"></a><tt class="py-lineno">760</tt>  <tt class="py-line"><tt class="py-docstring">        Open document.</tt> </tt>
+<a name="L761"></a><tt class="py-lineno">761</tt>  <tt class="py-line"><tt class="py-docstring"></tt> </tt>
+<a name="L762"></a><tt class="py-lineno">762</tt>  <tt class="py-line"><tt class="py-docstring">        @type  doc_name: string</tt> </tt>
+<a name="L763"></a><tt class="py-lineno">763</tt>  <tt class="py-line"><tt class="py-docstring">        @param doc_name: Document name.</tt> </tt>
+<a name="L764"></a><tt class="py-lineno">764</tt>  <tt class="py-line"><tt class="py-docstring"></tt> </tt>
+<a name="L765"></a><tt class="py-lineno">765</tt>  <tt class="py-line"><tt class="py-docstring">        @rtype:   bool</tt> </tt>
+<a name="L766"></a><tt class="py-lineno">766</tt>  <tt class="py-line"><tt class="py-docstring">        @return:  Operation result</tt> </tt>
+<a name="L767"></a><tt class="py-lineno">767</tt>  <tt class="py-line"><tt class="py-docstring">        """</tt> </tt>
+<a name="L768"></a><tt class="py-lineno">768</tt>  <tt class="py-line">        <tt class="py-name">result</tt> <tt class="py-op">=</tt> <tt class="py-name">False</tt> </tt>
+<a name="L769"></a><tt class="py-lineno">769</tt>  <tt class="py-line">        <tt class="py-keyword">if</tt> <tt class="py-name">len</tt><tt class="py-op">(</tt><tt class="py-name">doc_name</tt><tt class="py-op">)</tt> <tt class="py-op">&gt;</tt> <tt class="py-number">0</tt><tt class="py-op">:</tt> </tt>
+<a name="L770"></a><tt class="py-lineno">770</tt>  <tt class="py-line">            <tt class="py-name">doc_name</tt> <tt class="py-op">=</tt> <tt class="py-name">unohelper</tt><tt class="py-op">.</tt><tt class="py-name">systemPathToFileUrl</tt><tt class="py-op">(</tt><tt class="py-name">doc_name</tt><tt class="py-op">)</tt> </tt>
+<a name="L771"></a><tt class="py-lineno">771</tt>  <tt class="py-line">            <tt class="py-name">result</tt> <tt class="py-op">=</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">_open_document</tt><tt class="py-op">(</tt><tt class="py-name">doc_name</tt><tt class="py-op">)</tt> </tt>
+<a name="L772"></a><tt class="py-lineno">772</tt>  <tt class="py-line">        <tt class="py-keyword">return</tt> <tt class="py-name">result</tt> </tt>
+</div><a name="L773"></a><tt class="py-lineno">773</tt>  <tt class="py-line"> </tt>
+<a name="Document.save_document"></a><div id="Document.save_document-def"><a name="L774"></a><tt class="py-lineno">774</tt> <a class="py-toggle" href="#" id="Document.save_document-toggle" onclick="return toggle('Document.save_document');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="src.pyoocalc.Document-class.html#save_document">save_document</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">,</tt> <tt class="py-param">doc_name</tt><tt class="py-op">=</tt><tt class="py-string">""</tt><tt class="py-op">,</tt> <tt class="py-param">filter_name</tt><tt class="py-op">=</tt><tt class="py-string">""</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="Document.save_document-collapsed" style="display:none;" pad="+++" indent="++++++++"></div><div id="Document.save_document-expanded"><a name="L775"></a><tt class="py-lineno">775</tt>  <tt class="py-line">        <tt class="py-docstring">"""</tt> </tt>
+<a name="L776"></a><tt class="py-lineno">776</tt>  <tt class="py-line"><tt class="py-docstring">        Save document.</tt> </tt>
+<a name="L777"></a><tt class="py-lineno">777</tt>  <tt class="py-line"><tt class="py-docstring"></tt> </tt>
+<a name="L778"></a><tt class="py-lineno">778</tt>  <tt class="py-line"><tt class="py-docstring">        @type  doc_name: string</tt> </tt>
+<a name="L779"></a><tt class="py-lineno">779</tt>  <tt class="py-line"><tt class="py-docstring">        @param doc_name: Document name. If no document name defined the current</tt> </tt>
+<a name="L780"></a><tt class="py-lineno">780</tt>  <tt class="py-line"><tt class="py-docstring">                        name is used.</tt> </tt>
+<a name="L781"></a><tt class="py-lineno">781</tt>  <tt class="py-line"><tt class="py-docstring"></tt> </tt>
+<a name="L782"></a><tt class="py-lineno">782</tt>  <tt class="py-line"><tt class="py-docstring">        @type  filter_name: string</tt> </tt>
+<a name="L783"></a><tt class="py-lineno">783</tt>  <tt class="py-line"><tt class="py-docstring">        @param filter_name: file type:</tt> </tt>
+<a name="L784"></a><tt class="py-lineno">784</tt>  <tt class="py-line"><tt class="py-docstring">                            # ods=""</tt> </tt>
+<a name="L785"></a><tt class="py-lineno">785</tt>  <tt class="py-line"><tt class="py-docstring">                            # pdf="calc_pdf_Export"</tt> </tt>
+<a name="L786"></a><tt class="py-lineno">786</tt>  <tt class="py-line"><tt class="py-docstring">                            # csv="Text - txt - csv (StarCalc)"</tt> </tt>
+<a name="L787"></a><tt class="py-lineno">787</tt>  <tt class="py-line"><tt class="py-docstring">                            # xls="calc_MS_Excel_40"</tt> </tt>
+<a name="L788"></a><tt class="py-lineno">788</tt>  <tt class="py-line"><tt class="py-docstring">                            # xlsx="Calc Office Open XML"</tt> </tt>
+<a name="L789"></a><tt class="py-lineno">789</tt>  <tt class="py-line"><tt class="py-docstring"></tt> </tt>
+<a name="L790"></a><tt class="py-lineno">790</tt>  <tt class="py-line"><tt class="py-docstring">        @rtype:   bool</tt> </tt>
+<a name="L791"></a><tt class="py-lineno">791</tt>  <tt class="py-line"><tt class="py-docstring">        @return:  Operation result</tt> </tt>
+<a name="L792"></a><tt class="py-lineno">792</tt>  <tt class="py-line"><tt class="py-docstring">        """</tt> </tt>
+<a name="L793"></a><tt class="py-lineno">793</tt>  <tt class="py-line">        <tt class="py-name">result</tt> <tt class="py-op">=</tt> <tt class="py-name">False</tt> </tt>
+<a name="L794"></a><tt class="py-lineno">794</tt>  <tt class="py-line">        <tt class="py-keyword">if</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">_oDoc</tt><tt class="py-op">:</tt> </tt>
+<a name="L795"></a><tt class="py-lineno">795</tt>  <tt class="py-line">            <tt class="py-keyword">if</tt> <tt class="py-number">0</tt> <tt class="py-op">==</tt> <tt class="py-name">len</tt><tt class="py-op">(</tt><tt class="py-name">doc_name</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+<a name="L796"></a><tt class="py-lineno">796</tt>  <tt class="py-line">                <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">_oDoc</tt><tt class="py-op">.</tt><tt class="py-name">store</tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+<a name="L797"></a><tt class="py-lineno">797</tt>  <tt class="py-line">            <tt class="py-keyword">else</tt><tt class="py-op">:</tt> </tt>
+<a name="L798"></a><tt class="py-lineno">798</tt>  <tt class="py-line">                <tt class="py-name">full_file_name</tt> <tt class="py-op">=</tt> <tt class="py-name">unohelper</tt><tt class="py-op">.</tt><tt class="py-name">systemPathToFileUrl</tt><tt class="py-op">(</tt><tt class="py-name">doc_name</tt><tt class="py-op">)</tt> </tt>
+<a name="L799"></a><tt class="py-lineno">799</tt>  <tt class="py-line">                <tt class="py-keyword">try</tt><tt class="py-op">:</tt> </tt>
+<a name="L800"></a><tt class="py-lineno">800</tt>  <tt class="py-line">                    <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">_oDoc</tt><tt class="py-op">.</tt><tt class="py-name">storeToURL</tt><tt class="py-op">(</tt> </tt>
+<a name="L801"></a><tt class="py-lineno">801</tt>  <tt class="py-line">                                <tt class="py-name">full_file_name</tt><tt class="py-op">,</tt> </tt>
+<a name="L802"></a><tt class="py-lineno">802</tt>  <tt class="py-line">                                <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">_to_properties</tt><tt class="py-op">(</tt><tt class="py-name">FilterName</tt><tt class="py-op">=</tt><tt class="py-name">filter_name</tt><tt class="py-op">)</tt><tt class="py-op">)</tt> </tt>
+<a name="L803"></a><tt class="py-lineno">803</tt>  <tt class="py-line">                    <tt class="py-name">result</tt> <tt class="py-op">=</tt> <tt class="py-name">True</tt> </tt>
+<a name="L804"></a><tt class="py-lineno">804</tt>  <tt class="py-line">                <tt class="py-keyword">except</tt> <tt class="py-name">IllegalArgumentException</tt> <tt class="py-keyword">as</tt> <tt class="py-name">e</tt><tt class="py-op">:</tt> </tt>
+<a name="L805"></a><tt class="py-lineno">805</tt>  <tt class="py-line">                    <tt class="py-keyword">raise</tt> <tt class="py-op">(</tt><tt class="py-name">e</tt><tt class="py-op">)</tt> </tt>
+<a name="L806"></a><tt class="py-lineno">806</tt>  <tt class="py-line">                <tt class="py-keyword">except</tt> <tt class="py-name">ErrorCodeIOException</tt> <tt class="py-keyword">as</tt> <tt class="py-name">e</tt><tt class="py-op">:</tt> </tt>
+<a name="L807"></a><tt class="py-lineno">807</tt>  <tt class="py-line">                    <tt class="py-keyword">raise</tt> <tt class="py-op">(</tt><tt class="py-name">e</tt><tt class="py-op">)</tt> </tt>
+<a name="L808"></a><tt class="py-lineno">808</tt>  <tt class="py-line">                <tt class="py-keyword">except</tt> <tt class="py-name">IOException</tt> <tt class="py-keyword">as</tt> <tt class="py-name">e</tt><tt class="py-op">:</tt> </tt>
+<a name="L809"></a><tt class="py-lineno">809</tt>  <tt class="py-line">                    <tt class="py-keyword">raise</tt> <tt class="py-op">(</tt><tt class="py-name">e</tt><tt class="py-op">)</tt> </tt>
+<a name="L810"></a><tt class="py-lineno">810</tt>  <tt class="py-line">        <tt class="py-keyword">return</tt> <tt class="py-name">result</tt> </tt>
+</div><a name="L811"></a><tt class="py-lineno">811</tt>  <tt class="py-line"> </tt>
+<a name="Document.close_document"></a><div id="Document.close_document-def"><a name="L812"></a><tt class="py-lineno">812</tt> <a class="py-toggle" href="#" id="Document.close_document-toggle" onclick="return toggle('Document.close_document');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="src.pyoocalc.Document-class.html#close_document">close_document</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="Document.close_document-collapsed" style="display:none;" pad="+++" indent="++++++++"></div><div id="Document.close_document-expanded"><a name="L813"></a><tt class="py-lineno">813</tt>  <tt class="py-line">        <tt class="py-docstring">"""</tt> </tt>
+<a name="L814"></a><tt class="py-lineno">814</tt>  <tt class="py-line"><tt class="py-docstring">        Close document.</tt> </tt>
+<a name="L815"></a><tt class="py-lineno">815</tt>  <tt class="py-line"><tt class="py-docstring"></tt> </tt>
+<a name="L816"></a><tt class="py-lineno">816</tt>  <tt class="py-line"><tt class="py-docstring">        Close current document.</tt> </tt>
+<a name="L817"></a><tt class="py-lineno">817</tt>  <tt class="py-line"><tt class="py-docstring"></tt> </tt>
+<a name="L818"></a><tt class="py-lineno">818</tt>  <tt class="py-line"><tt class="py-docstring">        @rtype:   bool</tt> </tt>
+<a name="L819"></a><tt class="py-lineno">819</tt>  <tt class="py-line"><tt class="py-docstring">        @return:  Operation result</tt> </tt>
+<a name="L820"></a><tt class="py-lineno">820</tt>  <tt class="py-line"><tt class="py-docstring">        """</tt> </tt>
+<a name="L821"></a><tt class="py-lineno">821</tt>  <tt class="py-line">        <tt class="py-name">result</tt> <tt class="py-op">=</tt> <tt class="py-name">False</tt> </tt>
+<a name="L822"></a><tt class="py-lineno">822</tt>  <tt class="py-line">        <tt class="py-keyword">try</tt><tt class="py-op">:</tt> </tt>
+<a name="L823"></a><tt class="py-lineno">823</tt>  <tt class="py-line">            <tt class="py-keyword">if</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">_oDoc</tt><tt class="py-op">:</tt> </tt>
+<a name="L824"></a><tt class="py-lineno">824</tt>  <tt class="py-line">                <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">_oDoc</tt><tt class="py-op">.</tt><tt class="py-name">close</tt><tt class="py-op">(</tt><tt class="py-name">True</tt><tt class="py-op">)</tt> </tt>
+<a name="L825"></a><tt class="py-lineno">825</tt>  <tt class="py-line">                <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">_oDoc</tt> <tt class="py-op">=</tt> <tt class="py-name">None</tt> </tt>
+<a name="L826"></a><tt class="py-lineno">826</tt>  <tt class="py-line">                <tt class="py-name">result</tt> <tt class="py-op">=</tt> <tt class="py-name">True</tt> </tt>
+<a name="L827"></a><tt class="py-lineno">827</tt>  <tt class="py-line">        <tt class="py-keyword">except</tt> <tt class="py-name">ErrorCodeIOException</tt> <tt class="py-keyword">as</tt> <tt class="py-name">e</tt><tt class="py-op">:</tt> </tt>
+<a name="L828"></a><tt class="py-lineno">828</tt>  <tt class="py-line">            <tt class="py-keyword">raise</tt> <tt class="py-op">(</tt><tt class="py-name">e</tt><tt class="py-op">)</tt> </tt>
+<a name="L829"></a><tt class="py-lineno">829</tt>  <tt class="py-line">        <tt class="py-keyword">except</tt> <tt class="py-name">IOException</tt> <tt class="py-keyword">as</tt> <tt class="py-name">e</tt><tt class="py-op">:</tt> </tt>
+<a name="L830"></a><tt class="py-lineno">830</tt>  <tt class="py-line">            <tt class="py-keyword">raise</tt> <tt class="py-op">(</tt><tt class="py-name">e</tt><tt class="py-op">)</tt> </tt>
+<a name="L831"></a><tt class="py-lineno">831</tt>  <tt class="py-line">        <tt class="py-keyword">return</tt> <tt class="py-name">result</tt> </tt>
+</div><a name="L832"></a><tt class="py-lineno">832</tt>  <tt class="py-line"> </tt>
+<a name="L833"></a><tt class="py-lineno">833</tt>  <tt class="py-line">    <tt class="py-decorator">@</tt><tt class="py-decorator">property</tt> </tt>
+<a name="Document.sheets"></a><div id="Document.sheets-def"><a name="L834"></a><tt class="py-lineno">834</tt> <a class="py-toggle" href="#" id="Document.sheets-toggle" onclick="return toggle('Document.sheets');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="src.pyoocalc.Document-class.html#sheets">sheets</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="Document.sheets-collapsed" style="display:none;" pad="+++" indent="++++++++"></div><div id="Document.sheets-expanded"><a name="L835"></a><tt class="py-lineno">835</tt>  <tt class="py-line">        <tt class="py-docstring">"""</tt> </tt>
+<a name="L836"></a><tt class="py-lineno">836</tt>  <tt class="py-line"><tt class="py-docstring">        Get Sheets document's object.</tt> </tt>
+<a name="L837"></a><tt class="py-lineno">837</tt>  <tt class="py-line"><tt class="py-docstring"></tt> </tt>
+<a name="L838"></a><tt class="py-lineno">838</tt>  <tt class="py-line"><tt class="py-docstring">        @rtype:   Sheets</tt> </tt>
+<a name="L839"></a><tt class="py-lineno">839</tt>  <tt class="py-line"><tt class="py-docstring">        @return:  Sheets object</tt> </tt>
+<a name="L840"></a><tt class="py-lineno">840</tt>  <tt class="py-line"><tt class="py-docstring">        """</tt> </tt>
+<a name="L841"></a><tt class="py-lineno">841</tt>  <tt class="py-line"> </tt>
+<a name="L842"></a><tt class="py-lineno">842</tt>  <tt class="py-line">        <tt class="py-keyword">if</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">_sheets</tt> <tt class="py-keyword">is</tt> <tt class="py-name">None</tt><tt class="py-op">:</tt> </tt>
+<a name="L843"></a><tt class="py-lineno">843</tt>  <tt class="py-line">            <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">_sheets</tt> <tt class="py-op">=</tt> <tt id="link-43" class="py-name" targets="Class src.pyoocalc.Sheets=src.pyoocalc.Sheets-class.html"><a title="src.pyoocalc.Sheets" class="py-name" href="#" onclick="return doclink('link-43', 'Sheets', 'link-43');">Sheets</a></tt><tt class="py-op">(</tt><tt class="py-name">self</tt><tt class="py-op">)</tt> </tt>
+<a name="L844"></a><tt class="py-lineno">844</tt>  <tt class="py-line">        <tt class="py-keyword">return</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">_sheets</tt> </tt>
+</div><a name="L845"></a><tt class="py-lineno">845</tt>  <tt class="py-line"> </tt>
+<a name="L846"></a><tt class="py-lineno">846</tt>  <tt class="py-line">    <tt class="py-decorator">@</tt><tt class="py-decorator">property</tt> </tt>
+<a name="Document.fields"></a><div id="Document.fields-def"><a name="L847"></a><tt class="py-lineno">847</tt> <a class="py-toggle" href="#" id="Document.fields-toggle" onclick="return toggle('Document.fields');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="src.pyoocalc.Document-class.html#fields">fields</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="Document.fields-collapsed" style="display:none;" pad="+++" indent="++++++++"></div><div id="Document.fields-expanded"><a name="L848"></a><tt class="py-lineno">848</tt>  <tt class="py-line">        <tt class="py-docstring">"""</tt> </tt>
+<a name="L849"></a><tt class="py-lineno">849</tt>  <tt class="py-line"><tt class="py-docstring">        Get Fields document's object.</tt> </tt>
+<a name="L850"></a><tt class="py-lineno">850</tt>  <tt class="py-line"><tt class="py-docstring"></tt> </tt>
+<a name="L851"></a><tt class="py-lineno">851</tt>  <tt class="py-line"><tt class="py-docstring">        @rtype:   Fields</tt> </tt>
+<a name="L852"></a><tt class="py-lineno">852</tt>  <tt class="py-line"><tt class="py-docstring">        @return:  Fields object</tt> </tt>
+<a name="L853"></a><tt class="py-lineno">853</tt>  <tt class="py-line"><tt class="py-docstring">        """</tt> </tt>
+<a name="L854"></a><tt class="py-lineno">854</tt>  <tt class="py-line">        <tt class="py-keyword">if</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">_fields</tt> <tt class="py-keyword">is</tt> <tt class="py-name">None</tt><tt class="py-op">:</tt> </tt>
+<a name="L855"></a><tt class="py-lineno">855</tt>  <tt class="py-line">            <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">_fields</tt> <tt class="py-op">=</tt> <tt id="link-44" class="py-name" targets="Class src.pyoocalc.Fields=src.pyoocalc.Fields-class.html"><a title="src.pyoocalc.Fields" class="py-name" href="#" onclick="return doclink('link-44', 'Fields', 'link-44');">Fields</a></tt><tt class="py-op">(</tt><tt class="py-name">self</tt><tt class="py-op">)</tt> </tt>
+<a name="L856"></a><tt class="py-lineno">856</tt>  <tt class="py-line">        <tt class="py-keyword">return</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">_fields</tt> </tt>
+</div><a name="L857"></a><tt class="py-lineno">857</tt>  <tt class="py-line"> </tt>
+<a name="Document.version"></a><div id="Document.version-def"><a name="L858"></a><tt class="py-lineno">858</tt> <a class="py-toggle" href="#" id="Document.version-toggle" onclick="return toggle('Document.version');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="src.pyoocalc.Document-class.html#version">version</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="Document.version-collapsed" style="display:none;" pad="+++" indent="++++++++"></div><div id="Document.version-expanded"><a name="L859"></a><tt class="py-lineno">859</tt>  <tt class="py-line">        <tt class="py-docstring">"""</tt> </tt>
+<a name="L860"></a><tt class="py-lineno">860</tt>  <tt class="py-line"><tt class="py-docstring">        Get library version.</tt> </tt>
+<a name="L861"></a><tt class="py-lineno">861</tt>  <tt class="py-line"><tt class="py-docstring"></tt> </tt>
+<a name="L862"></a><tt class="py-lineno">862</tt>  <tt class="py-line"><tt class="py-docstring">        @rtype:   string</tt> </tt>
+<a name="L863"></a><tt class="py-lineno">863</tt>  <tt class="py-line"><tt class="py-docstring">        @return:  library version</tt> </tt>
+<a name="L864"></a><tt class="py-lineno">864</tt>  <tt class="py-line"><tt class="py-docstring">        """</tt> </tt>
+<a name="L865"></a><tt class="py-lineno">865</tt>  <tt class="py-line">        <tt class="py-keyword">return</tt> <tt class="py-name">__version__</tt> </tt>
+</div></div><a name="L866"></a><tt class="py-lineno">866</tt>  <tt class="py-line"> </tt><script type="text/javascript">
+<!--
+expandto(location.href);
+// -->
+</script>
+</pre>
+<br />
+<!-- ==================== NAVIGATION BAR ==================== -->
+<table class="navbar" border="0" width="100%" cellpadding="0"
+       bgcolor="#a0c0ff" cellspacing="0">
+  <tr valign="middle">
+  <!-- Home link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="src-module.html">Home</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Tree link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="module-tree.html">Trees</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Index link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="identifier-index.html">Indices</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Help link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="help.html">Help</a>&nbsp;&nbsp;&nbsp;</th>
+
+      <th class="navbar" width="100%"></th>
+  </tr>
+</table>
+<table border="0" cellpadding="0" cellspacing="0" width="100%%">
+  <tr>
+    <td align="left" class="footer">
+    Generated by Epydoc 3.0.1
+    on Sun Jan 10 11:12:36 2016
+    </td>
+    <td align="right" class="footer">
+      <a target="mainFrame" href="http://epydoc.sourceforge.net"
+        >http://epydoc.sourceforge.net</a>
+    </td>
+  </tr>
+</table>
+
+<script type="text/javascript">
+  <!--
+  // Private objects are initially displayed (because if
+  // javascript is turned off then we want them to be
+  // visible); but by default, we want to hide them.  So hide
+  // them unless we have a cookie that says to show them.
+  checkCookie();
+  // -->
+</script>
+</body>
+</html>

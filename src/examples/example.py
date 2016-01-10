@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 """
-PyLOO - Python Libre/Open Office interface API (UNO)
+PyOOCalc - Python Libre/Open Office Calc interface API (UNO)
 
 Requirements for Ubuntu users:
 
@@ -23,14 +23,14 @@ import os
 import sys
 
 sys.path.append('./../')
-import pyloo
+import pyoocalc
 
 # open document
 doc = None
 try:
-    doc = pyloo.Document(autostart=True)
+    doc = pyoocalc.Document(autostart=True)
     print ("version: ", doc.version())
-except pyloo.NoConnectException as e:
+except pyoocalc.NoConnectException as e:
     print ("Error: The OpenOffice.org process is not started or \
 does not listen on the resource (" + e.Message + ")\n\
 Start LibreOffice/OpenOffice in listening mode, \
