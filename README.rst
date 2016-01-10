@@ -129,7 +129,7 @@ $ ./src/unit-tests/test.py
 
 Run tests: ::
 
-$ python3 test_pyoocalc.py
+$ python3 test.py
 
 
 
