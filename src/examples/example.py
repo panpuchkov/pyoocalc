@@ -19,26 +19,20 @@ Copyright (c) 2015
 @contact: panpuchkov@gmail.com
 """
 
-import logging
 import os
 import sys
 
 sys.path.append('./../')
 import pyoocalc
 
-logging.basicConfig(stream=sys.stdout,
-                    level=logging.INFO,
-                    format='%(message)s')
-logger = logging.getLogger("example")
-
 # open document
 doc = None
 try:
     doc = pyoocalc.Document(autostart=True)
 except OSError as e:
-    logger.error("ERROR: {0} - {1}", e.errno, e.strerror)
+    print("ERROR:", e.errno, e.strerror)
 except pyoocalc.NoConnectException as e:
-    logger.error("ERROR: The OpenOffice.org process is not started or does \
+    print("ERROR: The OpenOffice.org process is not started or does \
 not listen on the resource.\n\
 {0}\n\n\
 Start LibreOffice/OpenOffice in listening mode, \
@@ -48,23 +42,23 @@ example:\n\
 
 if doc:
     # Get PyOOCalc version
-    logger.info("PyOOCalc version: {0}".format(doc.version))
+    print("PyOOCalc version:", doc.version)
 
     # Open document
     doc.open_document(os.getcwd() + "/example.ods")
 
     # Get document fields
     fields = doc.fields
-    logger.info("Fields count: {0}".format(fields.count))
+    print("Fields count:", fields.count)
 
     # Get field "HEADER"
     field = fields.field("HEADER")
-    logger.info("Document header is: {0}".format(field.is_null))
+    print("Document header is:", field.is_null)
 
     # Set values
     field = fields.field("TABLE_NAME")
     field.set_value("Test table name")
-    logger.info("New table name is: {0}".format(field.value()))
+    print("New table name is:", field.value())
 
     ########################################
     # Get table column fields
@@ -94,9 +88,9 @@ if doc:
     # Get sheet by index and set and get cell value
     sheet = doc.sheets.sheet(0)
     sheet.set_cell_value_by_index("value1", 1, 0,)
-    logger.info("Cell 'value1' : {0}".format(sheet.cell_value_by_index(1, 0)))
+    print("Cell 'value1':", sheet.cell_value_by_index(1, 0))
 
     # Get sheet by name and set and get cell value
     sheet = doc.sheets.sheet("Test1")
     sheet.set_cell_value_by_index("value2", 0, 1,)
-    logger.info("Cell 'value2' : {0}".format(sheet.cell_value_by_index(0, 1)))
+    print("Cell 'value2'", sheet.cell_value_by_index(0, 1))
