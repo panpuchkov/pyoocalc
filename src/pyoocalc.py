@@ -667,8 +667,6 @@ uno:socket,host=localhost,port=2002;urp;StarOffice.ComponentContext",
                  attempt_period=0.1):
         """
         Constructor
-        
-        :undocumented: version
 
         @type  autostart: bool
         @param autostart: Auto Starts Libre/Open Office with a listening socket
@@ -1025,4 +1023,3 @@ uno:socket,host=localhost,port=2002;urp;StarOffice.ComponentContext",
         Side-effect protection. Raising an exception 'ValueError'.
         """
         raise ValueError("Assigning a value to the 'version' is not allowed.")
-
