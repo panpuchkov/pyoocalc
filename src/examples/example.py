@@ -48,24 +48,24 @@ if doc:
     doc.open_document(os.getcwd() + "/example.ods")
 
     # Get document fields
-    fields = doc.fields
-    print("Fields count:", fields.count)
+#     doc.fields = 1
+    print("Fields count:", doc.fields.count)
 
     # Get field "HEADER"
-    field = fields.field("HEADER")
+    field = doc.fields.field("HEADER")
     print("Document header is:", field.is_null)
 
     # Set values
-    field = fields.field("TABLE_NAME")
+    field = doc.fields.field("TABLE_NAME")
     field.set_value("Test table name")
     print("New table name is:", field.value())
 
     ########################################
     # Get table column fields
-    field1 = fields.field("FIELD_1")
-    field2 = fields.field("FIELD_2")
-    field3 = fields.field("FIELD_3")
-    field4 = fields.field("FIELD_4")
+    field1 = doc.fields.field("FIELD_1")
+    field2 = doc.fields.field("FIELD_2")
+    field3 = doc.fields.field("FIELD_3")
+    field4 = doc.fields.field("FIELD_4")
 
     # Set number of rows and step
     num_rows = 5

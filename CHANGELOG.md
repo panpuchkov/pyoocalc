@@ -3,6 +3,7 @@ All notable changes to this project will be documented in this file.
 
 ## [0.0.4] - 2016-01-11
 ### Added
+- No more ``Side-effect`` for a ``@property`` methods.
 - Check function arguments and raise a ``ValueError`` on errors.
 - New ``__enter__`` and ``__exit__`` methods in the ``Document`` class 
 according to [PEP 0343](https://www.python.org/dev/peps/pep-0343/) (the “with” 

@@ -103,6 +103,13 @@ class Field:
         """
         return self._is_null
 
+    @is_null.setter
+    def is_null(self, value):
+        """
+        Side-effect protection. Raising an exception 'ValueError'.
+        """
+        raise ValueError("Assigning a value to the 'is_null' is not allowed.")
+
     def set_value(self, value, column=0, row=0):
         """
         Set filed value at position Column/Row
@@ -257,6 +264,13 @@ class Fields:
         """
         return self._is_null
 
+    @is_null.setter
+    def is_null(self, value):
+        """
+        Side-effect protection. Raising an exception 'ValueError'.
+        """
+        raise ValueError("Assigning a value to the 'is_null' is not allowed.")
+
     @property
     def count(self):
         """
@@ -270,6 +284,13 @@ class Fields:
             count = self._oNamedRanges.getCount()
         return count
 
+    @count.setter
+    def count(self, value):
+        """
+        Side-effect protection. Raising an exception 'ValueError'.
+        """
+        raise ValueError("Assigning a value to the 'count' is not allowed.")
+
     @property
     def document(self):
         """
@@ -279,6 +300,13 @@ class Fields:
         @return:  Template object
         """
         return self._document
+
+    @document.setter
+    def document(self, value):
+        """
+        Side-effect protection. Raising an exception 'ValueError'.
+        """
+        raise ValueError("Assigning a value to the 'document' is not allowed.")
 
     def field(self, name):
         """
@@ -408,6 +436,13 @@ class Sheet:
         """
         return self._is_null
 
+    @is_null.setter
+    def is_null(self, value):
+        """
+        Side-effect protection. Raising an exception 'ValueError'.
+        """
+        raise ValueError("Assigning a value to the 'is_null' is not allowed.")
+
     def set_cell_value_by_index(self, value, col, row, is_formula=False):
         """
         Set cell value.
@@ -516,6 +551,13 @@ class Sheets:
             result = True
         return result
 
+    @is_null.setter
+    def is_null(self, value):
+        """
+        Side-effect protection. Raising an exception 'ValueError'.
+        """
+        raise ValueError("Assigning a value to the 'is_null' is not allowed.")
+
     def sheet(self, index_or_name):
         """
         Get sheet by index or name.
@@ -541,6 +583,13 @@ class Sheets:
             count = self._oSheets.getCount()
         return count
 
+    @count.setter
+    def count(self, value):
+        """
+        Side-effect protection. Raising an exception 'ValueError'.
+        """
+        raise ValueError("Assigning a value to the 'count' is not allowed.")
+
     @property
     def o_sheets(self):
         """
@@ -552,6 +601,13 @@ class Sheets:
         @return:  Libre/Open office Spreadsheets object
         """
         return self._oSheets
+
+    @o_sheets.setter
+    def o_sheets(self, value):
+        """
+        Side-effect protection. Raising an exception 'ValueError'.
+        """
+        raise ValueError("Assigning a value to the 'o_sheets' is not allowed.")
 
     def insert_spreadsheet(self, name, index):
         """
@@ -611,6 +667,8 @@ uno:socket,host=localhost,port=2002;urp;StarOffice.ComponentContext",
                  attempt_period=0.1):
         """
         Constructor
+        
+        :undocumented: version
 
         @type  autostart: bool
         @param autostart: Auto Starts Libre/Open Office with a listening socket
@@ -763,6 +821,13 @@ uno:socket,host=localhost,port=2002;urp;StarOffice.ComponentContext",
             result = True
         return result
 
+    @is_null.setter
+    def is_null(self, value):
+        """
+        Side-effect protection. Raising an exception 'ValueError'.
+        """
+        raise ValueError("Assigning a value to the 'is_null' is not allowed.")
+
     def _to_properties(self, **args):
         """
         Converts '**args' arguments to the tuple of 'PropertyValue's
@@ -789,6 +854,13 @@ uno:socket,host=localhost,port=2002;urp;StarOffice.ComponentContext",
         @return:  Libre/Open office document object
         """
         return self._oDoc
+
+    @o_doc.setter
+    def o_doc(self, value):
+        """
+        Side-effect protection. Raising an exception 'ValueError'.
+        """
+        raise ValueError("Assigning a value to the 'o_doc' is not allowed.")
 
     def _open_document(self, doc_name=""):
         """
@@ -911,6 +983,13 @@ uno:socket,host=localhost,port=2002;urp;StarOffice.ComponentContext",
             self._sheets = Sheets(self)
         return self._sheets
 
+    @sheets.setter
+    def sheets(self, value):
+        """
+        Side-effect protection. Raising an exception 'ValueError'.
+        """
+        raise ValueError("Assigning a value to the 'sheets' is not allowed.")
+
     @property
     def fields(self):
         """
@@ -923,6 +1002,13 @@ uno:socket,host=localhost,port=2002;urp;StarOffice.ComponentContext",
             self._fields = Fields(self)
         return self._fields
 
+    @fields.setter
+    def fields(self, value):
+        """
+        Side-effect protection. Raising an exception 'ValueError'.
+        """
+        raise ValueError("Assigning a value to the 'fields' is not allowed.")
+
     @property
     def version(self):
         """
@@ -932,3 +1018,11 @@ uno:socket,host=localhost,port=2002;urp;StarOffice.ComponentContext",
         @return:  library version
         """
         return __version__
+
+    @version.setter
+    def version(self, value):
+        """
+        Side-effect protection. Raising an exception 'ValueError'.
+        """
+        raise ValueError("Assigning a value to the 'version' is not allowed.")
+
