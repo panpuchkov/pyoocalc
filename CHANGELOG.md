@@ -3,7 +3,7 @@ All notable changes to this project will be documented in this file.
 
 ## [0.0.4] - 2016-01-11
 ### Changed
-- Some class  methods are changed into a properties via decorator:
+- Some class  methods are changed into a properties via decorator `@property`:
     - Document.is_null() -> Document.is_null
     - Document.version() -> Document.version
     - Fields.is_null() -> Fields.is_null
