@@ -14,11 +14,10 @@ All notable changes to this project will be documented in this file.
 * Sheet.is_null() -> Sheet.is_null
 
 2. In the function ``start_office_instance`` print output changed into 
-exception raise on the errors.
+exception raise on errors.
 
-3. Checking function arguments and raise a ``ValueError`` on errors.
+3. Check function arguments and raise a ``ValueError`` on errors.
 
-``@property``.
 ## [0.0.3] - 2016-01-10
 ### Changed
 Some class  methods are changed to be as properties via decorator
