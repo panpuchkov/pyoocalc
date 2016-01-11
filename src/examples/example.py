@@ -29,7 +29,9 @@ import pyoocalc
 doc = None
 try:
     doc = pyoocalc.Document(autostart=True)
-    print ("version: ", doc.version())
+    print ("PyOOCalc version: ", doc.version)
+except OSError as e:
+    print(e.errno, e.strerror)
 except pyoocalc.NoConnectException as e:
     print ("Error: The OpenOffice.org process is not started or \
 does not listen on the resource (" + e.Message + ")\n\
@@ -49,7 +51,7 @@ if doc:
 
     # Get field "HEADER"
     field = fields.field("HEADER")
-    print ("Document header is: " + str(field.is_null()))
+    print ("Document header is: " + str(field.is_null))
 
     # Set values
     field = fields.field("TABLE_NAME")

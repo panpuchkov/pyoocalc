@@ -43,7 +43,7 @@ from com.sun.star.table.CellContentType import TEXT, EMPTY, VALUE, FORMULA
 
 
 ###############################################################################
-__version__ = "0.0.3"
+__version__ = "0.0.4"
 
 ###############################################################################
 ###############################################################################
@@ -79,6 +79,8 @@ class Field:
         self._oCellAddress = None
 
         if self._fields:
+            if 0 == len(name):
+                raise ValueError("'name' is an empty string")
             if self._fields._oNamedRanges.hasByName(name):
                 self._oRange = self._fields._oNamedRanges.getByName(name)
                 self._oCellAddress = self._oRange.getReferencePosition()
@@ -88,7 +90,10 @@ class Field:
             else:
                 self._oRange = None
                 self._is_null = True
+        else:
+            raise ValueError("'fields' value is None")
 
+    @property
     def is_null(self):
         """
         Checking if the field is null.
@@ -170,37 +175,43 @@ class Field:
         @return:  Operation result
         """
         result = False
-        if self._fields and self._oSheet and num_rows > 0:
+        if num_rows <= 0:
+            raise ValueError("'num_rows' must be a positive number")
+        if columns_to_copy <= 0:
+            raise ValueError("'columns_to_copy' must be a positive number")
+        if 0 == step:
+            raise ValueError("'step' must not be equal to Zero")
+
+        if self._fields and self._oSheet:
             insert_pos_with_step = self._oCellAddress.Row + 1 + step
             self._oSheet.Rows.insertByIndex(
                 insert_pos_with_step, (num_rows * step))
 
             # Copy rows
-            if columns_to_copy > 0 and num_rows > 0:
-                # Initialize variable as CellRangeAddress object
-                oCellRangeAddress_Src = CellRangeAddress()
+            # Initialize variable as CellRangeAddress object
+            oCellRangeAddress_Src = CellRangeAddress()
 
-                # Source address
-                oCellRangeAddress_Src.Sheet = self._oCellAddress.Sheet
-                oCellRangeAddress_Src.StartColumn = 0
-                oCellRangeAddress_Src.EndColumn = columns_to_copy
-                oCellRangeAddress_Src.StartRow = \
-                    self._oCellAddress.Row + 1
-                oCellRangeAddress_Src.EndRow = \
-                    oCellRangeAddress_Src.StartRow + step - 1
+            # Source address
+            oCellRangeAddress_Src.Sheet = self._oCellAddress.Sheet
+            oCellRangeAddress_Src.StartColumn = 0
+            oCellRangeAddress_Src.EndColumn = columns_to_copy
+            oCellRangeAddress_Src.StartRow = \
+                self._oCellAddress.Row + 1
+            oCellRangeAddress_Src.EndRow = \
+                oCellRangeAddress_Src.StartRow + step - 1
 
-                # Destination address
-                oCellAddress_Dst = self._oCellAddress
-                oCellAddress_Dst.Column = 0
-                oCellAddress_Dst.Row = oCellAddress_Dst.Row + 1 + step
+            # Destination address
+            oCellAddress_Dst = self._oCellAddress
+            oCellAddress_Dst.Column = 0
+            oCellAddress_Dst.Row = oCellAddress_Dst.Row + 1 + step
 
-                for i in range(0, num_rows):
-                    self._oSheet.copyRange(oCellAddress_Dst,
-                                           oCellRangeAddress_Src)
-                    oCellAddress_Dst.Row += step
+            for i in range(0, num_rows):
+                self._oSheet.copyRange(oCellAddress_Dst,
+                                       oCellRangeAddress_Src)
+                oCellAddress_Dst.Row += step
 
 #                 Restore cell address variable
-                self._oCellAddress = self._oRange.getReferencePosition()
+            self._oCellAddress = self._oRange.getReferencePosition()
 
             result = True
         return result
@@ -233,7 +244,10 @@ class Fields:
         if self._document:
             self._oNamedRanges = self._document.o_doc.NamedRanges
             self._is_null = False
+        else:
+            raise ValueError("'document' value is None")
 
+    @property
     def is_null(self):
         """
         Checking if the fields (NamedRanges) object is initialized
@@ -243,6 +257,7 @@ class Fields:
         """
         return self._is_null
 
+    @property
     def count(self):
         """
         Get number of fields (named ranges) in the document.
@@ -280,7 +295,7 @@ class Fields:
             self._field = None
         return self._field
 
-    def add(self, name, value, sheet, column, row, type=0):
+    def add(self, name, value, sheet, column, row):
         """
         Not implemented yet. FIXME
         Adds a new field (named range) to the collection.
@@ -300,14 +315,17 @@ class Fields:
         @type  row: int
         @param row: the formula expression.
 
-        @type  type: int
-        @param type: a combination of flags that specify the type of a named \
-                    range, as defined in NamedRangeFlag. This parameter \
-                    will be zero for any common named range.
-
         @rtype:   bool
         @return:  Operation result
         """
+        if 0 == len(name):
+            raise ValueError("'name' is an empty string")
+        if sheet < 0:
+            raise ValueError("'sheet' must be >= 0")
+        if column < 0:
+            raise ValueError("'column' must be >= 0")
+        if row < 0:
+            raise ValueError("'row' must be >= 0")
         cell_address = uno.createUnoStruct("com.sun.star.table.CellAddress")
         cell_address.Sheet = sheet
         cell_address.Column = column
@@ -328,6 +346,8 @@ class Fields:
         @return:  Operation result
         """
         result = False
+        if 0 == len(name):
+            raise ValueError("'name' is an empty string")
         if self._oNamedRanges:
             self._oNamedRanges.removeByName(name)
             result = True
@@ -355,21 +375,30 @@ class Sheet:
         @type  index_or_name: int or string
         @param index_or_name: Sheet index or sheet name
         """
+
         self._sheets = sheets
         self._is_null = True
 
 #         LibreOffice variables.
         self._oSheet = None
 
-        if isinstance(index_or_name, int):
-            # get by index
-            self._oSheet = self._sheets.o_sheets.getByIndex(index_or_name)
-            self._is_null = False
+        if sheets:
+            if isinstance(index_or_name, int):
+                if index_or_name < 0:
+                    raise ValueError("'index_or_name' must be >= 0")
+                # get by index
+                self._oSheet = self._sheets.o_sheets.getByIndex(index_or_name)
+                self._is_null = False
+            else:
+                if 0 == len(index_or_name):
+                    raise ValueError("'index_or_name' is an empty string")
+                # get by name
+                self._oSheet = self._sheets.o_sheets.getByName(index_or_name)
+                self._is_null = False
         else:
-            # get by name
-            self._oSheet = self._sheets.o_sheets.getByName(index_or_name)
-            self._is_null = False
+            raise ValueError("'sheets' value is None")
 
+    @property
     def is_null(self):
         """
         Checking if the sheet is null.
@@ -398,6 +427,10 @@ class Sheet:
         @rtype:   bool
         @return:  Operation result
         """
+        if col < 0:
+            raise ValueError("'col' must be >= 0")
+        if row < 0:
+            raise ValueError("'row' must be >= 0")
         result = False
         oCell = self._oSheet.getCellByPosition(col, row)
         if is_formula:
@@ -425,6 +458,10 @@ class Sheet:
         @rtype:   long, int, float or string
         @return:  Value. Value type depends on document cell value.
         """
+        if col < 0:
+            raise ValueError("'col' must be >= 0")
+        if row < 0:
+            raise ValueError("'row' must be >= 0")
         value = None
         oCell = self._oSheet.getCellByPosition(col, row)
         value_type = oCell.getType()
@@ -463,7 +500,10 @@ class Sheets:
         self._oSheets = None
         if self._document:
             self._oSheets = self._document.o_doc.getSheets()
+        else:
+            raise ValueError("'document' value is None")
 
+    @property
     def is_null(self):
         """
         Checking if the document object is initialized
@@ -488,6 +528,7 @@ class Sheets:
         """
         return Sheet(self, index_or_name)
 
+    @property
     def count(self):
         """
         Get number of sheets in document.
@@ -525,6 +566,10 @@ class Sheets:
         @rtype:   bool
         @return:  Operation result
         """
+        if index < 0:
+            raise ValueError("'index' must be >= 0")
+        if 0 == len(name):
+            raise ValueError("'name' is an empty string")
         result = False
         if self.o_sheets:
             self.o_sheets.insertNewByName(name, index)
@@ -541,6 +586,8 @@ class Sheets:
         @rtype:   bool
         @return:  Operation result
         """
+        if 0 == len(name):
+            raise ValueError("'name' is an empty string")
         result = False
         if self.o_sheets:
             self.o_sheets.removeByName(name)
@@ -629,15 +676,11 @@ uno:socket,host=localhost,port=2002;urp;StarOffice.ComponentContext",
             try:
                 retcode = subprocess.call(office, shell=True)
                 if retcode < 0:
-                    print (sys.stderr,
-                           "Office was terminated by signal",
-                           -retcode)
+                    raise OSError(retcode, "Office was terminated by signal")
                 elif retcode > 0:
-                    print (sys.stderr,
-                           "Office returned",
-                           retcode)
+                    raise OSError(retcode, "Office returned")
             except OSError as e:
-                print (sys.stderr, "Execution failed:", e)
+                raise OSError(e)
 
             # Terminate this process when Office has closed.
             raise SystemExit()
@@ -685,6 +728,7 @@ uno:socket,host=localhost,port=2002;urp;StarOffice.ComponentContext",
         except RuntimeException as e:
             raise (e)
 
+    @property
     def is_null(self):
         """
         Checking if the document object is initialized
@@ -769,6 +813,8 @@ uno:socket,host=localhost,port=2002;urp;StarOffice.ComponentContext",
         if len(doc_name) > 0:
             doc_name = unohelper.systemPathToFileUrl(doc_name)
             result = self._open_document(doc_name)
+        else:
+            raise ValueError("'doc_name' is an empty string")
         return result
 
     def save_document(self, doc_name="", filter_name=""):
@@ -855,6 +901,7 @@ uno:socket,host=localhost,port=2002;urp;StarOffice.ComponentContext",
             self._fields = Fields(self)
         return self._fields
 
+    @property
     def version(self):
         """
         Get library version.
