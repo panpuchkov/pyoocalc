@@ -3,20 +3,21 @@ All notable changes to this project will be documented in this file.
 
 ## [0.0.4] - 2016-01-11
 ### Changed
-*. Some class  methods are changed to be as properties via decorator
-** Document.is_null() -> Document.is_null
-** Document.version() -> Document.version
-** Fields.is_null() -> Fields.is_null
-** Fields.count() -> Fields.count
-** Field.is_null() -> Field.is_null
-** Sheets.is_null() -> Sheets.is_null
-** Sheets.count() -> Sheets.count
-** Sheet.is_null() -> Sheet.is_null
+1. Some class  methods are changed to be as properties via decorator
+* Document.is_null() -> Document.is_null
+* Document.version() -> Document.version
+* Fields.is_null() -> Fields.is_null
+* Fields.count() -> Fields.count
+* Field.is_null() -> Field.is_null
+* Sheets.is_null() -> Sheets.is_null
+* Sheets.count() -> Sheets.count
+* Sheet.is_null() -> Sheet.is_null
 
-*. In the function ``start_office_instance`` print output changed into 
+
+2. In the function ``start_office_instance`` print output changed into 
 exception raise on errors.
 
-*. Check function arguments and raise a ``ValueError`` on errors.
+3. Check function arguments and raise a ``ValueError`` on errors.
 
 ## [0.0.3] - 2016-01-10
 ### Changed
