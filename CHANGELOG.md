@@ -16,6 +16,9 @@ All notable changes to this project will be documented in this file.
 - In the function ``start_office_instance`` print output changed into 
 exception raise on errors.
 - Check function arguments and raise a ``ValueError`` on errors.
+- Add ``__enter__`` and ``__exit__`` methods to the ``Document`` class 
+according to (PEP 0343)[https://www.python.org/dev/peps/pep-0343/] - The “with” statement (The specification, background, 
+and examples for the Python with statement).
 
 Sorry for no back compatibility, I guess that's was the last time.
 
