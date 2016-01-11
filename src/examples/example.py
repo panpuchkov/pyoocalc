@@ -29,6 +29,7 @@ import pyoocalc
 doc = None
 try:
     doc = pyoocalc.Document(autostart=True)
+    doc.version = 1
 except OSError as e:
     print("ERROR:", e.errno, e.strerror)
 except pyoocalc.NoConnectException as e:

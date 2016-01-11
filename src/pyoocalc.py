@@ -44,6 +44,7 @@ from com.sun.star.table.CellContentType import TEXT, EMPTY, VALUE, FORMULA
 
 ###############################################################################
 __version__ = "0.0.4"
+_MSG_EXCEPT_SIDE_EFFECT = "Assigning a value to the '{0}' is not allowed."
 
 ###############################################################################
 ###############################################################################
@@ -108,7 +109,7 @@ class Field:
         """
         Side-effect protection. Raising an exception 'ValueError'.
         """
-        raise ValueError("Assigning a value to the 'is_null' is not allowed.")
+        raise ValueError(_MSG_EXCEPT_SIDE_EFFECT.format("is_null"))
 
     def set_value(self, value, column=0, row=0):
         """
@@ -269,7 +270,7 @@ class Fields:
         """
         Side-effect protection. Raising an exception 'ValueError'.
         """
-        raise ValueError("Assigning a value to the 'is_null' is not allowed.")
+        raise ValueError(_MSG_EXCEPT_SIDE_EFFECT.format("is_null"))
 
     @property
     def count(self):
@@ -289,7 +290,7 @@ class Fields:
         """
         Side-effect protection. Raising an exception 'ValueError'.
         """
-        raise ValueError("Assigning a value to the 'count' is not allowed.")
+        raise ValueError(_MSG_EXCEPT_SIDE_EFFECT.format("count"))
 
     @property
     def document(self):
@@ -306,7 +307,7 @@ class Fields:
         """
         Side-effect protection. Raising an exception 'ValueError'.
         """
-        raise ValueError("Assigning a value to the 'document' is not allowed.")
+        raise ValueError(_MSG_EXCEPT_SIDE_EFFECT.format("document"))
 
     def field(self, name):
         """
@@ -441,7 +442,7 @@ class Sheet:
         """
         Side-effect protection. Raising an exception 'ValueError'.
         """
-        raise ValueError("Assigning a value to the 'is_null' is not allowed.")
+        raise ValueError(_MSG_EXCEPT_SIDE_EFFECT.format("is_null"))
 
     def set_cell_value_by_index(self, value, col, row, is_formula=False):
         """
@@ -556,7 +557,7 @@ class Sheets:
         """
         Side-effect protection. Raising an exception 'ValueError'.
         """
-        raise ValueError("Assigning a value to the 'is_null' is not allowed.")
+        raise ValueError(_MSG_EXCEPT_SIDE_EFFECT.format("is_null"))
 
     def sheet(self, index_or_name):
         """
@@ -588,7 +589,7 @@ class Sheets:
         """
         Side-effect protection. Raising an exception 'ValueError'.
         """
-        raise ValueError("Assigning a value to the 'count' is not allowed.")
+        raise ValueError(_MSG_EXCEPT_SIDE_EFFECT.format("count"))
 
     @property
     def o_sheets(self):
@@ -607,7 +608,7 @@ class Sheets:
         """
         Side-effect protection. Raising an exception 'ValueError'.
         """
-        raise ValueError("Assigning a value to the 'o_sheets' is not allowed.")
+        raise ValueError(_MSG_EXCEPT_SIDE_EFFECT.format("o_sheets"))
 
     def insert_spreadsheet(self, name, index):
         """
@@ -824,7 +825,7 @@ uno:socket,host=localhost,port=2002;urp;StarOffice.ComponentContext",
         """
         Side-effect protection. Raising an exception 'ValueError'.
         """
-        raise ValueError("Assigning a value to the 'is_null' is not allowed.")
+        raise ValueError(_MSG_EXCEPT_SIDE_EFFECT.format("is_null"))
 
     def _to_properties(self, **args):
         """
@@ -858,7 +859,7 @@ uno:socket,host=localhost,port=2002;urp;StarOffice.ComponentContext",
         """
         Side-effect protection. Raising an exception 'ValueError'.
         """
-        raise ValueError("Assigning a value to the 'o_doc' is not allowed.")
+        raise ValueError(_MSG_EXCEPT_SIDE_EFFECT.format("o_doc"))
 
     def _open_document(self, doc_name=""):
         """
@@ -986,7 +987,7 @@ uno:socket,host=localhost,port=2002;urp;StarOffice.ComponentContext",
         """
         Side-effect protection. Raising an exception 'ValueError'.
         """
-        raise ValueError("Assigning a value to the 'sheets' is not allowed.")
+        raise ValueError(_MSG_EXCEPT_SIDE_EFFECT.format("sheets"))
 
     @property
     def fields(self):
@@ -1005,7 +1006,7 @@ uno:socket,host=localhost,port=2002;urp;StarOffice.ComponentContext",
         """
         Side-effect protection. Raising an exception 'ValueError'.
         """
-        raise ValueError("Assigning a value to the 'fields' is not allowed.")
+        raise ValueError(_MSG_EXCEPT_SIDE_EFFECT.format("fields"))
 
     @property
     def version(self):
@@ -1022,4 +1023,4 @@ uno:socket,host=localhost,port=2002;urp;StarOffice.ComponentContext",
         """
         Side-effect protection. Raising an exception 'ValueError'.
         """
-        raise ValueError("Assigning a value to the 'version' is not allowed.")
+        raise ValueError(_MSG_EXCEPT_SIDE_EFFECT.format("version"))
