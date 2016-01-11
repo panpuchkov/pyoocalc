@@ -4,7 +4,6 @@ All notable changes to this project will be documented in this file.
 ## [0.0.4] - 2016-01-11
 ### Changed
 1. Some class  methods are changed to be as properties via decorator
-
 - Document.is_null() -> Document.is_null
 - Document.version() -> Document.version
 - Fields.is_null() -> Fields.is_null
@@ -13,7 +12,6 @@ All notable changes to this project will be documented in this file.
 - Sheets.is_null() -> Sheets.is_null
 - Sheets.count() -> Sheets.count
 - Sheet.is_null() -> Sheet.is_null
-
 
 2. In the function ``start_office_instance`` print output changed into 
 exception raise on errors.
