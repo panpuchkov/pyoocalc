@@ -142,7 +142,7 @@ class Field:
 
         @rtype:   string
         @return: Document cell value in string format. Regardless of document\
-                    cell type.
+                cell type.
         """
         value = ""
         if self._oRange:
@@ -646,6 +646,28 @@ uno:socket,host=localhost,port=2002;urp;StarOffice.ComponentContext",
                 self._autostart_office(office, timeout, attempt_period)
             else:
                 self._init_doc()
+
+    def __enter__(self):
+        """
+        PEP 0343 - The “with” statement
+        The specification, background, and examples for the Python with
+        statement.
+
+        The with statement will bind this method’s return value to the
+        target(s) specified in the as clause of the statement, if any.
+        """
+        return self
+
+    def __exit__(self, exc_type, exc_val, exc_tb):
+        """
+        PEP 0343 - The “with” statement
+        The specification, background, and examples for the Python with
+        statement.
+
+        Exit the runtime context related to this object.
+        """
+        # Nothing to do
+        pass
 
     def _autostart_office(self, office, timeout, attempt_period):
         """

@@ -3,6 +3,8 @@ src.__package__	src-module.html#__package__
 src.pyoocalc	src.pyoocalc-module.html
 src.pyoocalc.Document	src.pyoocalc.Document-class.html
 src.pyoocalc.Document.open_document	src.pyoocalc.Document-class.html#open_document
+src.pyoocalc.Document.__enter__	src.pyoocalc.Document-class.html#__enter__
+src.pyoocalc.Document.__exit__	src.pyoocalc.Document-class.html#__exit__
 src.pyoocalc.Document.sheets	src.pyoocalc.Document-class.html#sheets
 src.pyoocalc.Document.fields	src.pyoocalc.Document-class.html#fields
 src.pyoocalc.Document.is_null	src.pyoocalc.Document-class.html#is_null
@@ -11,11 +13,11 @@ src.pyoocalc.Document.o_doc	src.pyoocalc.Document-class.html#o_doc
 src.pyoocalc.Document._init_doc	src.pyoocalc.Document-class.html#_init_doc
 src.pyoocalc.Document._open_document	src.pyoocalc.Document-class.html#_open_document
 src.pyoocalc.Document.save_document	src.pyoocalc.Document-class.html#save_document
-src.pyoocalc.Document.__init__	src.pyoocalc.Document-class.html#__init__
+src.pyoocalc.Document._to_properties	src.pyoocalc.Document-class.html#_to_properties
 src.pyoocalc.Document.close_document	src.pyoocalc.Document-class.html#close_document
 src.pyoocalc.Document.new_document	src.pyoocalc.Document-class.html#new_document
 src.pyoocalc.Document.version	src.pyoocalc.Document-class.html#version
-src.pyoocalc.Document._to_properties	src.pyoocalc.Document-class.html#_to_properties
+src.pyoocalc.Document.__init__	src.pyoocalc.Document-class.html#__init__
 src.pyoocalc.Field	src.pyoocalc.Field-class.html
 src.pyoocalc.Field.insert_rows	src.pyoocalc.Field-class.html#insert_rows
 src.pyoocalc.Field.is_null	src.pyoocalc.Field-class.html#is_null

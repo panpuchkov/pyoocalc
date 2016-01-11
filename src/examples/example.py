@@ -25,11 +25,20 @@ import sys
 sys.path.append('./../')
 import pyoocalc
 
+with pyoocalc.Document(autostart=True) as doc:
+    print ("PyOOCalc version: ", doc.version)
+    file_name = os.getcwd() + "/example.ods"
+    doc.open_document(file_name)
+
+
+exit()
+
 # open document
 doc = None
 try:
-    doc = pyoocalc.Document(autostart=True)
-    print ("PyOOCalc version: ", doc.version)
+#     doc = pyoocalc.Document(autostart=True)
+    with pyoocalc.Document(autostart=True) as doc:
+        print ("PyOOCalc version: ", doc.version)
 except OSError as e:
     print(e.errno, e.strerror)
 except pyoocalc.NoConnectException as e:
