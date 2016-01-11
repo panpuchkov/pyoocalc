@@ -20,7 +20,7 @@ exception raise on errors.
 according to [PEP 0343](https://www.python.org/dev/peps/pep-0343/) (the “with” 
 statement).
 
-Sorry for no back compatibility, I guess that's was the last time.
+_Sorry for no back compatibility, I guess that's was the last time._
 
 ## [0.0.3] - 2016-01-10
 ### Changed
