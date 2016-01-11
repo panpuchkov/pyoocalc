@@ -17,6 +17,8 @@ All notable changes to this project will be documented in this file.
 exception raise on errors.
 - Check function arguments and raise a ``ValueError`` on errors.
 
+Sorry for no back compatibility, I guess that's was the last time.
+
 ## [0.0.3] - 2016-01-10
 ### Changed
 Some class  methods are changed to be as properties via decorator
