@@ -1,6 +1,17 @@
 # Change Log
 All notable changes to this project will be documented in this file.
 
+
+## [0.0.5] - 2017-04-06
+### Added
+- Feature: force cell_value_by_index() return type
+    OO's getType() method doesn't always return the type you want 
+    (particularly for dates or formulas), but this allows you to force a 
+    return of a cell's string, value, or formula.
+
+_Thanks to: [Small-Star](https://github.com/Small-Star)_
+
+
 ## [0.0.4] - 2016-01-11
 ### Added
 - No more ``Side-effect`` for a ``@property`` methods.

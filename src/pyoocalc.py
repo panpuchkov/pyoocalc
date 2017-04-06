@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 
 """
-PyOOCalc - Python Libre/Open Office Calc interface API (UNO)
+PyOOCalc - Python LibreOffice/OpenOffice Calc interface API (UNO)
 
 Requirements for Ubuntu users:
 
@@ -43,7 +43,7 @@ from com.sun.star.table.CellContentType import TEXT, EMPTY, VALUE, FORMULA
 
 
 ###############################################################################
-__version__ = "0.0.4"
+__version__ = "0.0.5"
 _MSG_EXCEPT_SIDE_EFFECT = "Assigning a value to the '{0}' is not allowed."
 
 ###############################################################################
@@ -52,7 +52,6 @@ _MSG_EXCEPT_SIDE_EFFECT = "Assigning a value to the '{0}' is not allowed."
 
 
 class Field:
-
     """
     Document field.
 
@@ -72,7 +71,7 @@ class Field:
         self._fields = fields
         self._is_null = True
 
-#         LibreOffice variables.
+        # LibreOffice variables.
         self._oSheet = None
         self._oNamedRanges = None
         self._oRange = None
@@ -218,7 +217,7 @@ class Field:
                                        oCellRangeAddress_Src)
                 oCellAddress_Dst.Row += step
 
-#                 Restore cell address variable
+            # Restore cell address variable
             self._oCellAddress = self._oRange.getReferencePosition()
 
             result = True
@@ -230,7 +229,6 @@ class Field:
 
 
 class Fields:
-
     """
     Document fields.
     Search and manage fields (name ranges).
@@ -247,7 +245,7 @@ class Fields:
         self._field = None
         self._is_null = True
 
-#         LibreOffice variables.
+        # LibreOffice variables.
         self._oNamedRanges = None
         if self._document:
             self._oNamedRanges = self._document.o_doc.NamedRanges
@@ -388,7 +386,6 @@ class Fields:
 
 
 class Sheet:
-
     """
     Document sheet.
     Manage sheet and cells.
@@ -408,7 +405,7 @@ class Sheet:
         self._sheets = sheets
         self._is_null = True
 
-#         LibreOffice variables.
+        # LibreOffice variables.
         self._oSheet = None
 
         if sheets:
@@ -492,7 +489,7 @@ class Sheet:
         @param row: Cell row index
 
         @type  val_type: string
-        @param val_type: Datatype of return value
+        @param val_type: Data type of return value
 
         @rtype:   long, int, float or string
         @return:  Value. Value type depends on val_type parameter
@@ -505,7 +502,7 @@ class Sheet:
         oCell = self._oSheet.getCellByPosition(col, row)
 
         if val_type == "AUTO":
-            #Return datatype is set based on getType()
+            # Return data type is set based on getType()
             value_type = oCell.getType()
             if VALUE == value_type:
                 value = oCell.getValue()
@@ -514,15 +511,14 @@ class Sheet:
             if TEXT == value_type:
                 value = oCell.getString()
         elif val_type == "VALUE":
-            #Force return datatype to be cell value
-            value = oCell.getValue()            
+            # Force return data type to be cell value
+            value = oCell.getValue()
         elif val_type == "FORMULA":
-            #Force return datatype to be cell formula
+            # Force return data type to be cell formula
             value = oCell.getFormula()
         elif val_type == "STRING":
-            #Force return datatype to be cell string
+            # Force return data type to be cell string
             value = oCell.getString()
-                
         return value
 
 ###############################################################################
@@ -531,7 +527,6 @@ class Sheet:
 
 
 class Sheets:
-
     """
     Document sheets.
     Search and manage sheets.
@@ -547,7 +542,7 @@ class Sheets:
         self._document = document
         self._sheet = None
 
-#         LibreOffice variables.
+        # LibreOffice variables.
         self._oSheets = None
         if self._document:
             self._oSheets = self._document.o_doc.getSheets()
@@ -578,8 +573,8 @@ class Sheets:
         """
         Get sheet by index or name.
 
-        @type  value: int, string
-        @param value: Sheet index or name
+        @type  index_or_name: int, string
+        @param index_or_name: Sheet index or name
 
         @rtype:   Sheet
         @return:  Sheet object
@@ -672,7 +667,6 @@ class Sheets:
 
 
 class Document:
-
     def __init__(self,
                  autostart=False,
                  office='soffice \
@@ -703,7 +697,7 @@ uno:socket,host=localhost,port=2002;urp;StarOffice.ComponentContext",
         self._fields = None
         self._connection_string = connection_string
 
-#         LibreOffice variables.
+        # LibreOffice variables.
         self._oResolver = None
         self._oContext = None
         self._oDesktop = None
@@ -755,7 +749,7 @@ uno:socket,host=localhost,port=2002;urp;StarOffice.ComponentContext",
         @param office: Libre/Open Office startup string
         """
         #######################################################################
-        def start_office_instance(office):
+        def start_office_instance(_office):
             """
             Starts Libre/Open Office with a listening socket.
 
@@ -768,13 +762,13 @@ uno:socket,host=localhost,port=2002;urp;StarOffice.ComponentContext",
 
             # Start OpenOffice.org and report any errors that occur.
             try:
-                retcode = subprocess.call(office, shell=True)
+                retcode = subprocess.call(_office, shell=True)
                 if retcode < 0:
                     raise OSError(retcode, "Office was terminated by signal")
                 elif retcode > 0:
                     raise OSError(retcode, "Office returned")
-            except OSError as e:
-                raise OSError(e)
+            except OSError as ose:
+                raise OSError(ose)
 
             # Terminate this process when Office has closed.
             raise SystemExit()
@@ -956,11 +950,11 @@ uno:socket,host=localhost,port=2002;urp;StarOffice.ComponentContext",
                                 self._to_properties(FilterName=filter_name))
                     result = True
                 except IllegalArgumentException as e:
-                    raise (e)
+                    raise IllegalArgumentException(e)
                 except ErrorCodeIOException as e:
-                    raise (e)
+                    raise ErrorCodeIOException(e)
                 except IOException as e:
-                    raise (e)
+                    raise IOException(e)
         return result
 
     def close_document(self):
@@ -979,9 +973,9 @@ uno:socket,host=localhost,port=2002;urp;StarOffice.ComponentContext",
                 self._oDoc = None
                 result = True
         except ErrorCodeIOException as e:
-            raise (e)
+            raise ErrorCodeIOException(e)
         except IOException as e:
-            raise (e)
+            raise IOException(e)
         return result
 
     @property
