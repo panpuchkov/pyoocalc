@@ -481,7 +481,7 @@ class Sheet:
             result = True
         return result
 
-    def cell_value_by_index(self, col, row):
+    def cell_value_by_index(self, col, row, val_type="AUTO"):
         """
         Get cell value.
 
@@ -491,8 +491,11 @@ class Sheet:
         @type  row: int
         @param row: Cell row index
 
+        @type  val_type: string
+        @param val_type: Datatype of return value
+
         @rtype:   long, int, float or string
-        @return:  Value. Value type depends on document cell value.
+        @return:  Value. Value type depends on val_type parameter
         """
         if col < 0:
             raise ValueError("'col' must be >= 0")
@@ -500,14 +503,26 @@ class Sheet:
             raise ValueError("'row' must be >= 0")
         value = None
         oCell = self._oSheet.getCellByPosition(col, row)
-        value_type = oCell.getType()
-        if VALUE == value_type:
-            value = oCell.getValue()
-        if FORMULA == value_type:
-            value = oCell.getFormula()
-        if TEXT == value_type:
-            value = oCell.getString()
 
+        if val_type == "AUTO":
+            #Return datatype is set based on getType()
+            value_type = oCell.getType()
+            if VALUE == value_type:
+                value = oCell.getValue()
+            if FORMULA == value_type:
+                value = oCell.getFormula()
+            if TEXT == value_type:
+                value = oCell.getString()
+        elif val_type == "VALUE":
+            #Force return datatype to be cell value
+            value = oCell.getValue()            
+        elif val_type == "FORMULA":
+            #Force return datatype to be cell formula
+            value = oCell.getFormula()
+        elif val_type == "STRING":
+            #Force return datatype to be cell string
+            value = oCell.getString()
+                
         return value
 
 ###############################################################################
