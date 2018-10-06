@@ -30,8 +30,7 @@ import time
 
 # Exceptions
 from com.sun.star.uno import RuntimeException
-from com.sun.star.lang import IllegalArgumentException
-from com.sun.star.lang import DisposedException
+from com.sun.star.lang import IllegalArgumentException, DisposedException
 from com.sun.star.connection import NoConnectException
 from com.sun.star.io import IOException
 
