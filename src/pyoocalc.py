@@ -31,6 +31,7 @@ import time
 # Exceptions
 from com.sun.star.uno import RuntimeException
 from com.sun.star.lang import IllegalArgumentException
+from com.sun.star.lang import DisposedException
 from com.sun.star.connection import NoConnectException
 from com.sun.star.io import IOException
 
@@ -780,6 +781,8 @@ uno:socket,host=localhost,port=2002;urp;StarOffice.ComponentContext",
         except NoConnectException as e:
             waiting = True
             start_office_instance(office)
+        except DisposedException as e:
+            waiting = True
 
         if waiting:
             exception = None
@@ -788,7 +791,7 @@ uno:socket,host=localhost,port=2002;urp;StarOffice.ComponentContext",
                 try:
                     self._init_doc()
                     break
-                except NoConnectException as e:
+                except (NoConnectException, DisposedException) as e:
                     exception = e
                     time.sleep(attempt_period)
             else:
